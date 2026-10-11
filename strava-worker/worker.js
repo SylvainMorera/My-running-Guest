@@ -1,4 +1,4 @@
-// Fonction Cloudflare Workers : relais minimal entre l'outil de suivi et l'API Strava.
+// Fonction Cloudflare Workers : relais minimal entre My Running Lab et l'API Strava.
 // Rôle : garder le secret client Strava hors du navigateur (échange et renouvellement des jetons OAuth)
 // et relayer la lecture de la liste des activités. Elle ne stocke rien.
 //
