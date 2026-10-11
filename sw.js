@@ -2,7 +2,7 @@
 // Stratégie : réponse immédiate depuis le cache, puis mise à jour du cache en arrière-plan
 // (la nouvelle version de l'outil est utilisée au chargement suivant).
 // Aucune donnée personnelle n'est mise en cache ici : les séances restent dans IndexedDB.
-var VERSION = 'my-running-lab-v6';
+var VERSION = 'my-running-lab-v7';
 var FICHIERS = ['./', './index.html', './manifest.json', './icons/icon-192.png', './icons/icon-512.png', './icons/icon-maskable-192.png', './icons/icon-maskable-512.png', './icons/apple-touch-icon.png'];
 
 self.addEventListener('install', function (e) {
