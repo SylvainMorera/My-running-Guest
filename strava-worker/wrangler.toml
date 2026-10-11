@@ -1,0 +1,11 @@
+# Déploiement en ligne de commande (facultatif) : npx wrangler deploy
+# Le secret se définit à part : npx wrangler secret put STRAVA_CLIENT_SECRET
+name = "suivi-trail-strava"
+main = "worker.js"
+compatibility_date = "2025-01-01"
+
+[vars]
+# À remplacer par l'adresse de publication de l'outil (sans chemin), ex. https://moncompte.github.io
+ALLOWED_ORIGIN = "https://REMPLACER.github.io"
+# Identifiant (Client ID) de l'application Strava : public, ce n'est pas le secret
+STRAVA_CLIENT_ID = "REMPLACER"

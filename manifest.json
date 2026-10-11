@@ -1,0 +1,15 @@
+{
+  "name": "Suivi course à pied — ACN Anduze",
+  "short_name": "Suivi trail",
+  "description": "Suivi et reporting des séances de course à pied et de trail. Données stockées sur l'appareil.",
+  "lang": "fr",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#FFFFFF",
+  "theme_color": "#020317",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
