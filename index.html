@@ -29,6 +29,8 @@
   --texte-2: #4A5470;
   --bord: #C8D2DA;
   --fond-2: #F3F6F8;
+  --fond-app: #EEF2F7;      /* fond général : les cartes blanches ressortent */
+  --ombre: 0 1px 2px rgba(16, 28, 72, .06), 0 3px 10px rgba(16, 28, 72, .06);
   /* Accent secondaire unique : distingue « prévu » de « réalisé » (bleu nuit de l'identité) */
   --prevu: #101C48;
   --prevu-clair: #E8EAF1;
@@ -39,7 +41,7 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
 body {
-  margin: 0; background: var(--blanc); color: var(--texte);
+  margin: 0; background: var(--fond-app); color: var(--texte);
   font: 16px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
 }
 h1, h2, h3 { line-height: 1.2; }
@@ -78,7 +80,7 @@ main:focus { outline: none; }
 .nav a[aria-current="page"] { color: var(--azur-fonce); box-shadow: inset 0 3px 0 var(--azur); }
 
 @media (min-width: 900px) {
-  .app { display: grid; grid-template-columns: 220px 1fr; }
+  .app { display: grid; grid-template-columns: 220px minmax(0, 1fr); }
   .nav {
     position: sticky; top: 0; height: 100vh; flex-direction: column; border-top: 0;
     border-right: 1px solid var(--bord); padding: 1rem 0; grid-row: 1 / span 2;
@@ -117,8 +119,8 @@ legend { font-size: .9rem; font-weight: 600; padding: 0; margin-bottom: .25rem; 
 .vue-tete { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; margin-bottom: 1rem; }
 .vue-tete .actions { display: flex; gap: .5rem; flex-wrap: wrap; }
 
-.carte { border: 1px solid var(--bord); border-radius: var(--rayon); padding: 1rem; margin-bottom: 1rem; background: var(--blanc); }
-.carte h3 { margin-top: 0; }
+.carte { border: 1px solid #DCE3EA; border-radius: 12px; padding: 1rem; margin-bottom: 1rem; background: var(--blanc); box-shadow: var(--ombre); }
+.carte h3 { margin-top: 0; color: var(--nuit); font-size: 1.08rem; }
 
 .badge { display: inline-block; font-size: .75rem; font-weight: 700; padding: .1rem .45rem; border-radius: 4px; border: 1px solid currentColor; letter-spacing: .02em; }
 .badge.prevu { color: var(--prevu); background: var(--prevu-clair); }
@@ -170,14 +172,14 @@ table.journal .acts { flex-wrap: nowrap; }
 .cs-notes { color: var(--texte-2); font-size: .9rem; margin: .2rem 0 .4rem; }
 .cs-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
 
-.vide { padding: 2rem 1rem; text-align: center; color: var(--texte-2); border: 1px dashed var(--bord); border-radius: var(--rayon); }
+.vide { padding: 2rem 1rem; text-align: center; color: var(--texte-2); border: 1px dashed var(--bord); border-radius: var(--rayon); background: var(--blanc); }
 
 /* ---------- Bouton flottant ---------- */
 .fab {
   position: fixed; right: 16px; bottom: calc(var(--nav-h) + 16px + env(safe-area-inset-bottom)); z-index: 25;
-  min-height: 56px; padding: 0 1.25rem; border-radius: 28px; border: 0;
+  min-height: 48px; padding: 0 1.1rem; border-radius: 24px; border: 0;
   background: var(--azur-fonce); color: var(--blanc); font: inherit; font-weight: 700; font-size: 1rem;
-  box-shadow: 0 2px 8px rgba(0,0,0,.25); cursor: pointer;
+  box-shadow: 0 2px 8px rgba(16, 28, 72, .3); cursor: pointer; font-size: .95rem;
 }
 @media (min-width: 900px) { .fab { bottom: 24px; right: 24px; } }
 
@@ -249,12 +251,19 @@ table.simple td.num, table.simple th.num { text-align: right; }
 @media (min-width: 900px) { .grille-cartes { grid-template-columns: repeat(3, 1fr); } }
 .grille-cartes .carte { margin-bottom: 0; }
 .grille-cartes { margin-bottom: 1rem; }
-.stats { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-.stat { display: flex; flex-direction: column; }
-.stat-lib { font-size: .85rem; color: var(--texte-2); }
-.stat-val { font-size: 1.35rem; font-weight: 600; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
+.stat { display: flex; flex-direction: column; background: var(--fond-2); border-radius: 10px; padding: .5rem .65rem; }
+.stat-lib { font-size: .8rem; color: var(--texte-2); font-weight: 600; text-transform: uppercase; letter-spacing: .04em; }
+.stat-val { font-size: 1.3rem; font-weight: 700; color: var(--nuit); font-variant-numeric: tabular-nums; }
+.periode-carte { font-size: .85rem; color: var(--texte-2); margin: -.35rem 0 .7rem; }
+.periode-carte + .stats + .aide, .stats + .aide { margin-bottom: 0; }
 .stat-delta { font-size: .85rem; color: var(--texte-2); font-variant-numeric: tabular-nums; }
-.filtre-ligne { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: .5rem 0 1rem; font-weight: 600; }
+.filtre-ligne { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem .75rem; margin: .5rem 0 1rem; font-weight: 600; }
+.seg-boutons { display: inline-flex; background: var(--blanc); border: 1px solid var(--azur-fonce); border-radius: 22px; padding: 2px; }
+.seg-boutons button { all: unset; box-sizing: border-box; min-height: 40px; min-width: 44px; padding: 0 .85rem; border-radius: 20px; cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center; font-weight: 600; font-size: .92rem; color: var(--azur-fonce); }
+.seg-boutons button[aria-pressed="true"] { background: var(--azur-fonce); color: var(--blanc); }
+.seg-boutons button:focus-visible { outline: 3px solid var(--azur-fonce); outline-offset: 2px; }
 .grille-graph { display: grid; gap: 1rem; grid-template-columns: minmax(0, 1fr); margin-bottom: 1rem; }
 @media (min-width: 1100px) { .grille-graph { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .grille-graph .carte { margin-bottom: 0; min-width: 0; }
@@ -291,36 +300,51 @@ table.simple td.num { white-space: nowrap; }
 #infobulle strong { font-variant-numeric: tabular-nums; }
 
 /* ---------- Plan / calendrier ---------- */
+.menu-outils { position: relative; }
+.menu-outils > summary { list-style: none; color: var(--texte); }
+.menu-outils > summary::-webkit-details-marker { display: none; }
+.menu-outils > summary::after { content: "▾"; margin-left: .2rem; }
+.menu-outils[open] > summary::after { content: "▴"; }
+details.menu-outils[open] > .menu-liste { position: absolute; right: 0; top: calc(100% + 4px); z-index: 15; display: flex; flex-direction: column; gap: .35rem;
+  min-width: 15rem; padding: .5rem; background: var(--blanc); border: 1px solid #DCE3EA; border-radius: 12px; box-shadow: 0 6px 20px rgba(16, 28, 72, .15); }
+.menu-liste .btn { justify-content: flex-start; border-color: transparent; }
 .cal-barre { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; margin-bottom: .75rem; }
 .seg-vue { width: auto; }
 .seg-vue label { padding: 0 1rem; }
 .cal-nav { display: flex; gap: .3rem; }
 .cal-titre { font-size: 1.05rem; text-transform: capitalize; }
 .banniere.deplacement { margin: 0 0 .75rem; border-color: var(--prevu); background: var(--prevu-clair); }
-.totaux-sem { display: flex; flex-direction: column; gap: .3rem; font-size: .92rem; margin-bottom: .75rem; }
-.cal-semaine { border: 1px solid var(--bord); border-radius: var(--rayon); }
+.totaux-sem { width: 100%; border-collapse: separate; border-spacing: 0; margin-bottom: .75rem; font-size: .92rem; background: var(--blanc);
+  border: 1px solid #DCE3EA; border-radius: 12px; box-shadow: var(--ombre); font-variant-numeric: tabular-nums; overflow: hidden; }
+.totaux-sem th, .totaux-sem td { padding: .45rem .6rem; text-align: right; white-space: nowrap; }
+.totaux-sem thead th { font-size: .78rem; color: var(--texte-2); text-transform: uppercase; letter-spacing: .04em; border-bottom: 1px solid #DCE3EA; }
+.totaux-sem th[scope="row"], .totaux-sem thead th:first-child { text-align: left; }
+.totaux-sem tbody tr + tr td, .totaux-sem tbody tr + tr th { border-top: 1px solid #E8EDF2; }
+.totaux-sem td { font-weight: 700; color: var(--nuit); }
+.totaux-sem .sans { display: block; font-size: .75rem; font-weight: 400; color: var(--texte-2); }
+.cal-semaine { border: 1px solid #DCE3EA; border-radius: 12px; background: var(--blanc); box-shadow: var(--ombre); overflow: hidden; }
 .cs-entete, .paire { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; }
 .cs-entete { padding: .4rem .75rem; font-weight: 700; font-size: .85rem; color: var(--texte-2); border-bottom: 1px solid var(--bord); grid-template-columns: 1fr 1fr; }
 .cs-entete span:first-child { display: none; }
-.jour { padding: .5rem .75rem; border-bottom: 1px solid var(--bord); }
+.jour { padding: .6rem .75rem; border-bottom: 1px solid #E3E9EF; }
 .jour:last-child { border-bottom: 0; }
 .jour.aujourdhui { background: var(--azur-clair); }
 .jour-tete { display: flex; align-items: center; justify-content: space-between; gap: .5rem; margin-bottom: .3rem; }
 .paire { margin-bottom: .4rem; align-items: start; }
 .col-prevu, .col-real { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
-.puce { border-radius: 6px; padding: .3rem .4rem; min-width: 0; }
-.puce-prevue { border: 1.5px dashed var(--prevu); background: var(--prevu-clair); cursor: grab; }
-.puce-realisee { border: 1.5px solid var(--azur-fonce); background: var(--blanc); }
+.puce { border-radius: 8px; padding: .35rem .5rem; min-width: 0; }
+.puce-prevue { border: 1.5px dashed #6B7591; background: var(--blanc); cursor: grab; }
+.puce-realisee { border: 1px solid #B9D3EA; border-left: 5px solid var(--azur); background: var(--azur-clair); }
 .puce.en-cours { opacity: .5; }
 .puce-corps { all: unset; display: flex; flex-direction: column; gap: 1px; cursor: pointer; width: 100%; min-height: 44px; box-sizing: border-box; }
 .puce-corps:focus-visible { outline: 3px solid var(--azur-fonce); outline-offset: 2px; border-radius: 4px; }
 .puce-type { font-weight: 700; font-size: .9rem; }
 .puce-int { font-size: .85rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .puce-chiffres { font-size: .82rem; color: var(--texte-2); font-variant-numeric: tabular-nums; }
-.puce-actions { display: flex; flex-wrap: wrap; gap: .3rem; margin-top: .3rem; }
+.puce-actions { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .35rem; }
 .cible-depot { outline: 3px dashed var(--prevu); outline-offset: -3px; }
 .vide-jour { color: var(--texte-2); }
-.cal-mois { border: 1px solid var(--bord); border-radius: var(--rayon); overflow: hidden; }
+.cal-mois { border: 1px solid #DCE3EA; border-radius: 12px; overflow: hidden; background: var(--blanc); box-shadow: var(--ombre); }
 .cm-ligne { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)) 5.5rem; border-bottom: 1px solid var(--bord); }
 .cm-ligne:last-child { border-bottom: 0; }
 .cm-entete div { padding: .3rem; font-size: .8rem; font-weight: 700; color: var(--texte-2); text-align: center; }
@@ -342,6 +366,16 @@ table.simple td.num { white-space: nowrap; }
 .cm-puces .puce-chiffres { font-size: .72rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cm-tot { display: flex; flex-direction: column; justify-content: center; gap: 2px; padding: .3rem; font-size: .75rem; color: var(--texte-2); font-variant-numeric: tabular-nums; }
 .jour-detail { margin-top: 1rem; }
+/* Téléphone : une seule colonne, la réalisée sous sa prévue, actions côte à côte */
+@media (max-width: 640px) {
+  .cs-entete { display: none; }
+  .cal-semaine .paire { grid-template-columns: minmax(0, 1fr); gap: .35rem; }
+  .cal-semaine .col-prevu:empty { display: none; }
+  .cal-semaine .col-prevu:not(:empty) + .col-real:not(:empty) { margin-left: 1rem; }
+  .puce-actions .btn { flex: 1 1 0; }
+  .puce-int { white-space: normal; }
+  .totaux-sem th, .totaux-sem td { padding: .4rem .45rem; font-size: .85rem; }
+}
 @media (max-width: 899px) {
   .cm-ligne { grid-template-columns: repeat(7, minmax(0, 1fr)); }
   .cm-tot { display: none; }
@@ -369,12 +403,17 @@ tr.point td { font-weight: 700; }
 @media (max-width: 640px) {
   table.zones thead { display: none; }
   table.zones, table.zones tbody { display: block; }
-  table.zones tr { display: grid; grid-template-columns: 1fr 1fr auto; gap: .35rem .6rem; padding: .6rem 0; border-bottom: 1px solid var(--bord); }
+  table.zones tbody { display: flex; flex-direction: column; gap: .5rem; }
+  table.zones tr { display: grid; grid-template-columns: 3.3rem 3.3rem minmax(0, 1fr) minmax(0, 1fr); gap: .3rem .7rem; padding: .5rem .55rem; align-items: end;
+    background: var(--fond-2); border-radius: 10px; border-left: 4px solid var(--azur); }
   table.zones td, table.zones td.num { border: 0; padding: 0; text-align: left; }
-  table.zones td:first-child { grid-column: 1 / -1; }
-  table.zones td:last-child { grid-column: 3; grid-row: 2; align-self: end; }
-  table.zones td[data-l]::before { content: attr(data-l); display: block; font-size: .8rem; color: var(--texte-2); }
-  table.zones input.court { width: 100%; text-align: left; }
+  table.zones td:first-child { grid-column: 1 / 4; grid-row: 1; }
+  table.zones td:first-child input { font-weight: 700; color: var(--nuit); background: transparent; border-color: transparent; padding-left: .2rem; }
+  table.zones td:first-child input:hover, table.zones td:first-child input:focus { background: var(--blanc); border-color: #8A97A3; }
+  table.zones td:last-child { grid-column: 4; grid-row: 1; justify-self: end; }
+  table.zones td[data-zv], table.zones td[data-za] { font-weight: 700; color: var(--nuit); font-size: .95rem; font-variant-numeric: tabular-nums; white-space: nowrap; padding-bottom: .6rem; }
+  table.zones td[data-l]::before { content: attr(data-l); display: block; font-size: .75rem; font-weight: 600; color: var(--texte-2); }
+  table.zones input.court { width: 100%; text-align: center; padding: .45rem .2rem; }
 }
 #c-seances .seg label { flex: 1 0 auto; padding: 0 .6rem; }
 
@@ -3160,13 +3199,13 @@ var DB = (function () {
   }
   function graduation(max, nb) {
     var pas = Core.niceStep((max || 1) / (nb || 4)), out = [];
-    for (var v = 0; v <= max + 1e-9 || out.length < 2; v += pas) out.push(Math.round(v * 1e6) / 1e6);
+    for (var v = 0; out.length < 2 || out[out.length - 1] < max - 1e-9; v += pas) out.push(Math.round(v * 1e6) / 1e6);
     return out;
   }
 
   // Colonnes groupées : series = [{ nom, couleur, valeurs[], contour? }], etiquettes[], format(v) pour axe/infobulle
   function graphColonnes(conteneur, o) {
-    var W = Math.max(280, conteneur.clientWidth), H = 220, m = { l: 48, r: 8, t: 16, b: 28 };
+    var W = Math.max(280, conteneur.clientWidth), H = 230, m = { l: 48, r: 8, t: 24, b: 28 };
     var pw = W - m.l - m.r, ph = H - m.t - m.b, n = o.etiquettes.length, ns = o.series.length;
     var maxV = 0; o.series.forEach(function (s) { s.valeurs.forEach(function (v) { if (v > maxV) maxV = v; }); });
     var ticks = graduation(maxV, 4), top = ticks[ticks.length - 1] || 1;
@@ -3273,7 +3312,8 @@ var DB = (function () {
     function carte(titre, per, precLib) {
       var b = Core.bilan(S, per.du, per.au), bp = Core.bilan(S, per.precDu, per.precAu), r = b.realise, rp = bp.realise;
       var ligne = function (lib, val, delta) { return '<div class="stat"><span class="stat-lib">' + lib + '</span><span class="stat-val">' + val + '</span><span class="stat-delta">' + delta + '</span></div>'; };
-      return '<section class="carte"><h3>' + titre + '</h3><p class="aide">' + Core.formatDateFR(per.du) + ' → ' + Core.formatDateFR(per.au) + '. Écart vs ' + precLib + ' (' + Core.formatDateFR(per.precDu) + ' → ' + Core.formatDateFR(per.precAu) + ').</p>' +
+      var jm = function (iso) { return iso.slice(8, 10) + '/' + iso.slice(5, 7); };
+      return '<section class="carte"><h3>' + titre + '</h3><p class="periode-carte">' + jm(per.du) + ' → ' + Core.formatDateFR(per.au) + ' · écart vs ' + jm(per.precDu) + ' → ' + Core.formatDateFR(per.precAu) + '<span class="visuel-masque"> (' + precLib + ')</span></p>' +
         '<div class="stats">' +
         ligne('Volume', fmt(r.km, 1) + ' km', signe(r.km - rp.km, 1, ' km')) +
         ligne('D+', fmt(r.dplus, 0) + ' m', signe(r.dplus - rp.dplus, 0, ' m')) +
@@ -3291,9 +3331,9 @@ var DB = (function () {
     }
 
     // Filtre unique des graphiques
-    h += '<div class="filtre-ligne" role="group" aria-label="Période des graphiques"><span>Graphiques sur</span>' + [8, 12, 26, 52].map(function (n) {
-      return '<button type="button" class="btn petit ' + (tdb.semaines === n ? 'primaire' : 'discret') + '" data-action="tdb-semaines" data-n="' + n + '" aria-pressed="' + (tdb.semaines === n) + '">' + n + ' semaines</button>';
-    }).join('') + '</div>';
+    h += '<div class="filtre-ligne"><span id="tdb-per">Graphiques sur</span><div class="seg-boutons" role="group" aria-labelledby="tdb-per">' + [8, 12, 26, 52].map(function (n) {
+      return '<button type="button" data-action="tdb-semaines" data-n="' + n + '" aria-pressed="' + (tdb.semaines === n) + '" aria-label="' + n + ' semaines">' + n + ' sem.</button>';
+    }).join('') + '</div></div>';
     var W = Core.semaines(S, tdb.semaines, auj), du = W[0].du, au = W[W.length - 1].au;
     var reals = S.filter(function (s) { return s.statut === 'realisee' && s.date >= du && s.date <= au; });
     var lignesSem = W.map(function (w) { return [semaineLib(w) + ' (' + plageLib(w.du, w.au) + ')', fmt(w.realise.km, 1), fmt(w.realise.dplus, 0), fmtDuree(w.realise.dureeSec), fmtDuree(w.prevu.dureeSec)]; });
@@ -3420,10 +3460,12 @@ var DB = (function () {
   }
   function totauxSemaine(lun) {
     var b = Core.bilan(DB.data.seances, lun, Core.addDays(lun, 6)), p = b.prevu, r = b.realise, s = b.prevuSans;
-    var val = function (v, sans, n, f, unite) { return n === 0 || sans === n ? '— ' + unite : f(v) + (sans ? ' (' + sans + ' sans)' : ''); };
-    return '<div class="totaux-sem"><div><span class="badge prevu">Prévu</span> ' + p.n + ' séance(s) · ' + val(p.dureeSec, s.dureeSec, p.n, Core.formatDuration, 'durée') + ' · ' +
-      val(p.km, s.distanceKm, p.n, function (v) { return fmt(v, 1) + ' km'; }, 'km') + ' · ' + val(p.dplus, s.dplus, p.n, function (v) { return fmt(v, 0) + ' m D+'; }, 'm D+') + '</div>' +
-      '<div><span class="badge realise">Réalisé</span> ' + r.n + ' séance(s) · ' + Core.formatDuration(r.dureeSec) + ' · ' + fmt(r.km, 1) + ' km · ' + fmt(r.dplus, 0) + ' m D+</div></div>';
+    // « — » : aucune séance prévue n'a la valeur ; « n sans » : séances prévues sans cette valeur
+    var val = function (v, sans, n, f) { return n === 0 || sans === n ? '—' : f(v) + (sans ? '<span class="sans">' + sans + ' sans</span>' : ''); };
+    var km = function (v) { return fmt(v, 1); }, dp = function (v) { return fmt(v, 0); };
+    return '<table class="totaux-sem"><caption class="visuel-masque">Totaux de la semaine</caption><thead><tr><th scope="col"><span class="visuel-masque">Statut</span></th><th scope="col">Séances</th><th scope="col">Durée</th><th scope="col">Km</th><th scope="col">D+ (m)</th></tr></thead><tbody>' +
+      '<tr><th scope="row"><span class="badge prevu">Prévu</span></th><td>' + p.n + '</td><td>' + val(p.dureeSec, s.dureeSec, p.n, Core.formatDuration) + '</td><td>' + val(p.km, s.distanceKm, p.n, km) + '</td><td>' + val(p.dplus, s.dplus, p.n, dp) + '</td></tr>' +
+      '<tr><th scope="row"><span class="badge realise">Réalisé</span></th><td>' + r.n + '</td><td>' + Core.formatDuration(r.dureeSec) + '</td><td>' + km(r.km) + '</td><td>' + dp(r.dplus) + '</td></tr></tbody></table>';
   }
 
   ROUTES.plan = function (vue) {
@@ -3431,9 +3473,10 @@ var DB = (function () {
     if (!cal.ancre) cal.ancre = auj;
     var h = '<div class="vue-tete"><h2>Plan d\'entraînement</h2><div class="actions">' +
       '<button type="button" class="btn prevu" data-action="nouvelle" data-statut="prevue">Séance prévue</button>' +
+      '<details class="menu-outils"><summary class="btn discret">Outils du plan</summary><div class="menu-liste">' +
       '<button type="button" class="btn discret" data-action="cal-recurrence">Séances récurrentes</button>' +
       '<button type="button" class="btn discret" data-action="cal-semaine-type">Semaine type</button>' +
-      '<a class="btn discret" href="#/donnees">Importer / mettre à jour le plan</a></div></div>';
+      '<a class="btn discret" href="#/donnees">Importer / mettre à jour le plan</a></div></details></div></div>';
     var titre, lun = Core.weekStart(cal.ancre);
     if (cal.vue === 'semaine') { var w = Core.isoWeek(lun); titre = 'Semaine ' + w.semaine + ' · ' + Core.formatDateFR(lun) + ' → ' + Core.formatDateFR(Core.addDays(lun, 6)); }
     else titre = MOIS_LONG[Number(cal.ancre.slice(5, 7)) - 1] + ' ' + cal.ancre.slice(0, 4);
