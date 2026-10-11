@@ -22,6 +22,8 @@
   --azur-fonce: #2766A3;    /* bleu foncé : texte, boutons, liens */
   --azur-clair: #EBF3FA;
   --serie-realise: #3884C8; /* graphiques : séances réalisées */
+  --course: #B3261E;        /* courses (compétitions) : au moins 5,4:1 sur tous les fonds de l'outil */
+  --course-clair: #FDECEC;
   --blanc: #FFFFFF;
   --texte: #101C48;
   --texte-2: #4A5470;
@@ -383,6 +385,18 @@ tr.point td { font-weight: 700; }
 .bilan table.simple { font-variant-numeric: tabular-nums; }
 .bilan .notes-bilan { font-size: .82rem; color: var(--texte-2); min-width: 12rem; }
 .bilan-outils .actions { align-items: center; }
+
+/* ---------- Courses (compétitions) en rouge ---------- */
+table.journal tr.est-course td:first-child { box-shadow: inset 4px 0 0 var(--course); }
+table.journal tr.est-course td:nth-child(3) { color: var(--course); font-weight: 700; }
+.cs.est-course { border-left-color: var(--course); }
+.cs.est-course.est-prevue { background: var(--course-clair); }
+.cs.est-course .cs-tete .type { color: var(--course); }
+.puce.puce-course { border-color: var(--course); }
+.puce-prevue.puce-course { background: var(--course-clair); }
+.puce-course .puce-type { color: var(--course); }
+.cm-pastilles i.c { background: var(--course); }
+.bh-barre.bh-course { background: var(--course); }
 
 @media print {
   @page { size: A4; margin: 12mm; }
@@ -1597,6 +1611,8 @@ var DB = (function () {
   function marqueExtrait(s, champ, txt) {
     return s.extrait && s.extrait[champ] ? '<span title="Extrait de la consigne : « ' + esc(s.extrait[champ]) + ' »">≈ ' + txt + '</span>' : txt;
   }
+  // Une séance est une course (compétition) si son type est « Course » ou si elle est liée à une course
+  function estCompetition(s) { return !!s && (s.type === 'course' || !!s.courseId); }
   function vmaCourante() { var e = Core.currentVMA(DB.data.vma); return e ? e.valeur : null; }
   function trouver(store, id) { return id ? DB.data[store].filter(function (x) { return x.id === id; })[0] || null : null; }
 
@@ -1816,7 +1832,7 @@ var DB = (function () {
       '<th scope="col">Course</th><th scope="col">Notes</th><th scope="col">Actions</th></tr></thead><tbody>' +
       liste.map(function (x) {
         var s = x.s, d = x.d, co = trouver('courses', s.courseId);
-        return '<tr class="' + (s.statut === 'prevue' ? 'est-prevue' : 'est-realisee') + '">' +
+        return '<tr class="' + (s.statut === 'prevue' ? 'est-prevue' : 'est-realisee') + (estCompetition(s) ? ' est-course' : '') + '">' +
           '<td>' + dateLongue(s.date) + (s.demo ? ' <span class="badge demo">DÉMO</span>' : '') + '</td><td>' + etat(s) + '</td>' +
           '<td>' + esc(typeLabel(s.type)) + (s.intitule ? '<br><span class="aide">' + esc(s.intitule) + '</span>' : '') + '</td>' +
           '<td class="num">' + marqueExtrait(s, 'dureeSec', s.dureeSec == null ? '—' : Core.formatDuration(s.dureeSec)) + '</td>' +
@@ -1829,7 +1845,7 @@ var DB = (function () {
 
     var cartes = '<div class="cartes-seances">' + liste.map(function (x) {
       var s = x.s, d = x.d, co = trouver('courses', s.courseId);
-      return '<article class="cs ' + (s.statut === 'prevue' ? 'est-prevue' : '') + '">' +
+      return '<article class="cs ' + (s.statut === 'prevue' ? 'est-prevue' : '') + (estCompetition(s) ? ' est-course' : '') + '">' +
         '<div class="cs-tete"><span>' + dateLongue(s.date) + '</span>' + etat(s) + '<span class="type">' + esc(typeLabel(s.type)) + '</span>' +
         (s.demo ? '<span class="badge demo">DÉMO</span>' : '') + '</div>' +
         (s.intitule ? '<div class="cs-notes"><strong>' + esc(s.intitule) + '</strong></div>' : '') +
@@ -2495,13 +2511,16 @@ var DB = (function () {
   function valeurCol(ligne, champ) { var c = imp.mapping[champ]; return c === '' || c == null ? null : (ligne[c] == null ? null : ligne[c]); }
   function valeursDistinctes(champ) {
     if (imp.mapping[champ] === '' || imp.mapping[champ] == null) return [];
-    var m = {};
+    var m = {}, dates = {};
     lignesDonnees().forEach(function (l) {
       if (!ligneAContenu(l.v)) return;
       var v = valeurCol(l.v, champ), k = v == null ? '' : String(v).trim();
       m[k] = (m[k] || 0) + 1;
+      // Dates des premières lignes : aide à reconnaître une vraie séance derrière un type vide ou rare
+      var d = Core.parseDateImport(valeurCol(l.v, 'date'), imp.classeur.date1904);
+      if (d) { (dates[k] = dates[k] || []); if (dates[k].length < 5) dates[k].push(Core.formatDateFR(d)); }
     });
-    return Object.keys(m).sort().map(function (k) { return { v: k, n: m[k] }; });
+    return Object.keys(m).sort().map(function (k) { return { v: k, n: m[k], dates: dates[k] || [] }; });
   }
   function exemples(c) {
     var ex = [];
@@ -2546,7 +2565,7 @@ var DB = (function () {
         types.map(function (t) {
           if (!(t.v in imp.valeursTypes)) imp.valeursTypes[t.v] = t.v === '' ? '' : suggererType(t.v);
           var sel = imp.valeursTypes[t.v];
-          return '<tr><td>' + (t.v === '' ? '<em>(vide)</em>' : esc(t.v)) + '</td><td class="num">' + t.n + '</td><td><select data-imp-type="' + esc(t.v) + '" aria-label="Type pour ' + esc(t.v || 'vide') + '"' + (sel ? '' : ' aria-invalid="true"') + '><option value="">— à choisir —</option><option value="ignorer"' + (sel === 'ignorer' ? ' selected' : '') + '>Ignorer ces lignes</option>' +
+          return '<tr><td>' + (t.v === '' ? '<em>(vide)</em>' : esc(t.v)) + (t.n <= 5 && t.dates.length ? '<br><span class="aide">' + esc(t.dates.join(', ')) + '</span>' : '') + '</td><td class="num">' + t.n + '</td><td><select data-imp-type="' + esc(t.v) + '" aria-label="Type pour ' + esc(t.v || 'vide') + '"' + (sel ? '' : ' aria-invalid="true"') + '><option value="">— à choisir —</option><option value="ignorer"' + (sel === 'ignorer' ? ' selected' : '') + '>Ignorer ces lignes</option>' +
             Core.TYPES.map(function (x) { return '<option value="' + x[0] + '"' + (sel === x[0] ? ' selected' : '') + '>' + esc(x[1]) + '</option>'; }).join('') + '</select></td></tr>';
         }).join('') + '</tbody></table>';
     }
@@ -3194,7 +3213,7 @@ var DB = (function () {
       var cy = m.t + i * lh + lh / 2;
       txt(svg, m.l - 10, cy + 4, typeLabel(l.type), { class: 'etiquette', 'text-anchor': 'end' });
       l.seances.forEach(function (x) {
-        el('circle', { cx: sx(x.allure), cy: cy, r: 4, fill: 'var(--serie-realise)', class: 'point' }, svg);
+        el('circle', { cx: sx(x.allure), cy: cy, r: 4, fill: estCompetition(x.s) ? 'var(--course)' : 'var(--serie-realise)', class: 'point' }, svg);
         el('circle', { cx: sx(x.allure), cy: cy, r: 12, class: 'cible', role: 'img', tabindex: 0, 'data-tip': JSON.stringify([{ v: dateLongue(x.s.date) + ' — ' + typeLabel(x.s.type) }, { v: Core.formatPace(x.allure), l: fmt(x.s.distanceKm, 2) + ' km' }]), 'aria-label': Core.formatDateFR(x.s.date) + ' ' + Core.formatPace(x.allure) }, svg);
       });
       el('line', { x1: sx(l.allureMoy), x2: sx(l.allureMoy), y1: cy - 12, y2: cy + 12, class: 'moyenne' }, svg);
@@ -3275,7 +3294,7 @@ var DB = (function () {
     var rep = Core.repartitionTypes(reals), maxN = rep.reduce(function (m, x) { return Math.max(m, x.n); }, 0);
     var apt = Core.allureParType(reals);
     h += '<div class="grille-graph"><section class="carte"><h3>Répartition des séances réalisées par type</h3>' + (rep.length ? '<div class="barres-h">' + rep.map(function (x) {
-      return '<div class="bh" tabindex="0" data-tip="' + esc(JSON.stringify([{ v: typeLabel(x.type) }, { v: x.n + ' séance(s)', l: fmt(x.km, 1) + ' km, ' + fmtDuree(x.dureeSec) }])) + '"><span class="bh-lib">' + esc(typeLabel(x.type)) + '</span><span class="bh-piste"><span class="bh-barre" style="width:' + (x.n / maxN * 100) + '%"></span></span><span class="bh-val">' + x.n + ' · ' + fmt(x.km, 0) + ' km</span></div>';
+      return '<div class="bh" tabindex="0" data-tip="' + esc(JSON.stringify([{ v: typeLabel(x.type) }, { v: x.n + ' séance(s)', l: fmt(x.km, 1) + ' km, ' + fmtDuree(x.dureeSec) }])) + '"><span class="bh-lib">' + esc(typeLabel(x.type)) + '</span><span class="bh-piste"><span class="bh-barre' + (x.type === 'course' ? ' bh-course' : '') + '" style="width:' + (x.n / maxN * 100) + '%"></span></span><span class="bh-val">' + x.n + ' · ' + fmt(x.km, 0) + ' km</span></div>';
     }).join('') + '</div>' : '<p class="aide">Aucune séance réalisée sur la période.</p>') + '</section>' +
       '<section class="carte"><h3>Allure par type de séance</h3>' + (apt.length ? '<div class="graph" id="g-allure"></div><p class="aide">Point = une séance (allure moyenne de la séance entière). Trait et valeur à droite = moyenne pondérée (durée totale / distance totale).</p>' +
       tableDonnees(['Type', 'Séances', 'Allure moyenne'], apt.map(function (x) { return [typeLabel(x.type), String(x.seances.length), Core.formatPace(x.allureMoy)]; })) : '<p class="aide">Aucune séance avec durée et distance sur la période.</p>') + '</section></div>';
@@ -3355,7 +3374,7 @@ var DB = (function () {
   }
   function puce(s, compacte) {
     var prevue = s.statut === 'prevue';
-    var h = '<div class="puce ' + (prevue ? 'puce-prevue' : 'puce-realisee') + '"' + (prevue ? ' draggable="true" data-glisser="' + esc(s.id) + '"' : '') + '>' +
+    var h = '<div class="puce ' + (prevue ? 'puce-prevue' : 'puce-realisee') + (estCompetition(s) ? ' puce-course' : '') + '"' + (prevue ? ' draggable="true" data-glisser="' + esc(s.id) + '"' : '') + '>' +
       '<button type="button" class="puce-corps" data-action="modifier" data-id="' + esc(s.id) + '" aria-label="' + esc((prevue ? 'Prévue : ' : 'Réalisée : ') + typeLabel(s.type) + ' ' + resumeSeance(s)) + '">' +
       '<span class="puce-type">' + esc(typeLabel(s.type)) + '</span>' + (s.intitule && !compacte ? '<span class="puce-int">' + esc(s.intitule) + '</span>' : '') +
       '<span class="puce-chiffres">' + esc(resumeSeance(s)) + '</span></button>';
@@ -3444,10 +3463,10 @@ var DB = (function () {
       h += '<div class="cm-ligne" role="row">';
       sem.forEach(function (iso) {
         var ss = seancesDuJour(iso).sort(function (a, b) { return a.statut === b.statut ? 0 : a.statut === 'prevue' ? -1 : 1; });
-        var np = ss.filter(function (s) { return s.statut === 'prevue'; }).length, nr = ss.length - np;
+        var np = ss.filter(function (s) { return s.statut === 'prevue'; }).length, nr = ss.length - np, nc = ss.filter(estCompetition).length;
         h += '<div role="gridcell" class="cm-jour' + (iso.slice(0, 7) !== mois ? ' hors' : '') + (iso === auj ? ' aujourdhui' : '') + (cal.jourOuvert === iso ? ' ouvert' : '') + '" data-jour="' + iso + '">' +
-          '<button type="button" class="cm-num" data-action="' + (cal.deplacer ? 'cal-deposer' : 'cal-ouvrir-jour') + '" data-jour="' + iso + '" aria-label="' + Core.formatDateFR(iso) + ' : ' + np + ' prévue(s), ' + nr + ' réalisée(s)' + (cal.deplacer ? ', déplacer ici' : '') + '">' + Number(iso.slice(8, 10)) +
-          '<span class="cm-pastilles" aria-hidden="true">' + (np ? '<i class="p"></i>' : '') + (nr ? '<i class="r"></i>' : '') + '</span></button>' +
+          '<button type="button" class="cm-num" data-action="' + (cal.deplacer ? 'cal-deposer' : 'cal-ouvrir-jour') + '" data-jour="' + iso + '" aria-label="' + Core.formatDateFR(iso) + ' : ' + np + ' prévue(s), ' + nr + ' réalisée(s)' + (nc ? ', dont ' + nc + ' course(s)' : '') + (cal.deplacer ? ', déplacer ici' : '') + '">' + Number(iso.slice(8, 10)) +
+          '<span class="cm-pastilles" aria-hidden="true">' + (np ? '<i class="p"></i>' : '') + (nr ? '<i class="r"></i>' : '') + (nc ? '<i class="c"></i>' : '') + '</span></button>' +
           '<div class="cm-puces">' + ss.map(function (s) { return puce(s, true); }).join('') + '</div></div>';
       });
       var b = Core.bilan(DB.data.seances, sem[0], sem[6]);

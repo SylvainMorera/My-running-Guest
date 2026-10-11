@@ -44,12 +44,15 @@ Les couleurs ont été mesurées sur le visuel d'identité « My Running Lab » 
 | Bleu nuit : texte, titres, fond de l'icône, séances prévues | `--nuit`, `--texte`, `--prevu` | `#101C48` | 16,4:1 |
 | Bleu de l'identité : « Lab », filets, graphiques « réalisé » | `--azur`, `--serie-realise` | `#3884C8` | 3,96:1 (formes et grand texte uniquement) |
 | Bleu foncé : boutons, liens, petits textes bleus | `--azur-fonce` | `#2766A3` | 5,97:1 (au moins 5:1 sur tous les fonds de l'outil) |
+| Rouge : courses (type « Course » ou séance liée à une course) | `--course` | `#B3261E` | 6,54:1 (au moins 5,4:1 sur tous les fonds de l'outil) |
 
 **Icône.** Elle a été redessinée en vectoriel (`identite/icone-my-running-lab.svg`) à partir des mesures du visuel fourni, dont l'icône ne faisait que 138 px. Les formes et les couleurs sont reprises du visuel. Si un fichier source officiel (SVG) existe, il suffit de remplacer ce fichier et de régénérer les icônes.
 - **Version « any »** : coins arrondis transparents.
 - **Version « maskable »** (Android) et **icône iPhone** : fond bleu nuit plein. Le motif reste dans la zone sûre de 80 %.
 
 **Police.** C'est celle du système de l'appareil, faute de fichier de police fourni, et pour que l'outil reste sans dépendance et utilisable hors connexion.
+
+**Courses en rouge.** Elles sont signalées dans le journal (liseré et type), le plan (cartes et pastille dans la vue mois) et le tableau de bord (barre « Course » et points d'allure). Prévu et réalisé gardent leur distinction : contour pointillé ou plein. Rouge, bleu et bleu nuit restent distincts pour les daltoniens : ΔE d'au moins 22,8 selon le validateur.
 
 **Validateur de palette** (graphiques : réalisé `#3884C8`, prévu `#101C48`) :
 - **Ce qui passe** : séparation pour les daltoniens (ΔE 34,7), séparation en vision normale (ΔE 35,6) et contraste ≥ 3:1.
