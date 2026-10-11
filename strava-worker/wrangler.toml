@@ -1,6 +1,6 @@
 # Déploiement en ligne de commande (facultatif) : npx wrangler deploy
 # Le secret se définit à part : npx wrangler secret put STRAVA_CLIENT_SECRET
-name = "suivi-trail-strava"
+name = "my-running-lab-strava"
 main = "worker.js"
 compatibility_date = "2025-01-01"
 

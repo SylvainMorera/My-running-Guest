@@ -1,4 +1,4 @@
-# My Running Guest — suivi course à pied et trail
+# My Running Lab — suivi course à pied et trail
 
 Outil personnel de suivi des séances de course à pied. Il tient dans un seul fichier, `index.html`, et fonctionne sans serveur. Les données sont stockées uniquement dans le navigateur : IndexedDB, ou localStorage si IndexedDB n'est pas disponible.
 
@@ -35,24 +35,26 @@ Outil personnel de suivi des séances de course à pied. Il tient dans un seul f
 - `FORMULES.md` : toutes les formules, avec leur source ou leur statut.
 - `tests/run.mjs` : exécution des tests du cœur de calcul sous Node.
 
-## Charte graphique
+## Identité visuelle
 
-Les couleurs de l'interface viennent du logo de l'ACN Anduze.
-
-**Logo et icônes** : logo My Running Guest fourni par Sylvain (image d'icône arrondie sur fond marine). Le dessin n'est pas modifié. Seuls les coins blancs de l'image sont rendus transparents (logo d'en-tête, icônes « any ») ou remplis du marine du bord du logo, `#04285A` (icônes « maskable » pour Android et icône iPhone). Dans la version « maskable », le logo est réduit à 80 % pour rester entier quand Android découpe l'icône en cercle. Je les ai mesurées sur l'image fournie : ce ne sont pas des codes officiels. Elles se changent toutes en un point, dans les variables CSS de `index.html`.
+Les couleurs ont été mesurées sur le visuel d'identité « My Running Lab » fourni. Elles se changent toutes en un point, dans les variables CSS de `index.html`.
 
 | Rôle | Variable | Valeur | Contraste sur blanc |
 |---|---|---|---|
-| Bleu nuit du logo : texte, titres, série « prévu » | `--nuit`, `--texte`, `--prevu` | `#020317` | 20,4:1 |
-| Bleu ciel du logo : filets et fonds, décoratif uniquement | `--azur` | `#5AB6CB` | 2,3:1 (trop faible pour du texte) |
-| Bleu ciel assombri : boutons, liens, série « réalisé » | `--azur-fonce` | `#176C81` | 6,0:1 |
-| Fond teinté | `--azur-clair` | `#E3F2F6` | — |
+| Bleu nuit : texte, titres, fond de l'icône, séances prévues | `--nuit`, `--texte`, `--prevu` | `#101C48` | 16,4:1 |
+| Bleu de l'identité : « Lab », filets, graphiques « réalisé » | `--azur`, `--serie-realise` | `#3884C8` | 3,96:1 (formes et grand texte uniquement) |
+| Bleu foncé : boutons, liens, petits textes bleus | `--azur-fonce` | `#2766A3` | 5,97:1 (au moins 5:1 sur tous les fonds de l'outil) |
 
-**Validateur de palette** (paire réalisé `#176C81` / prévu `#020317`, sur fond clair) :
+**Icône.** Elle a été redessinée en vectoriel (`identite/icone-my-running-lab.svg`) à partir des mesures du visuel fourni, dont l'icône ne faisait que 138 px. Les formes et les couleurs sont reprises du visuel. Si un fichier source officiel (SVG) existe, il suffit de remplacer ce fichier et de régénérer les icônes.
+- **Version « any »** : coins arrondis transparents.
+- **Version « maskable »** (Android) et **icône iPhone** : fond bleu nuit plein. Le motif reste dans la zone sûre de 80 %.
 
-- Ce qui passe : séparation pour les daltoniens (ΔE 41,6), séparation en vision normale (ΔE 42,8) et contraste ≥ 3:1.
-- Ce qui échoue : deux critères esthétiques, la « bande de luminosité » (le bleu nuit est très sombre) et la « saturation minimale » (les deux bleus du club sont peu saturés).
-- Pourquoi ce choix reste lisible : il garde la fidélité au logo, et prévu et réalisé se distinguent aussi autrement que par la couleur (légende, contour pointillé ou plein, libellés, tableau de données).
+**Police.** C'est celle du système de l'appareil, faute de fichier de police fourni, et pour que l'outil reste sans dépendance et utilisable hors connexion.
+
+**Validateur de palette** (graphiques : réalisé `#3884C8`, prévu `#101C48`) :
+- **Ce qui passe** : séparation pour les daltoniens (ΔE 34,7), séparation en vision normale (ΔE 35,6) et contraste ≥ 3:1.
+- **Ce qui échoue** : deux critères esthétiques, la bande de luminosité et la saturation minimale, parce que le bleu nuit est très sombre et peu saturé.
+- **Ce qui compense** : prévu et réalisé se distinguent aussi par la légende, le contour pointillé ou plein, les libellés et le tableau de données.
 
 ## État d'avancement
 

@@ -33,8 +33,8 @@ Le contrôle d'origine bloque les autres sites web, mais un programme peut en im
 
 1. Connecte-toi à Strava sur ordinateur et ouvre la page des réglages API : https://www.strava.com/settings/api
 2. Remplis les champs. Les intitulés de Strava peuvent évoluer.
-   - **Application Name** : par exemple « Suivi trail ACN ».
-   - **Website** : l'adresse de l'outil, par exemple `https://moncompte.github.io/my-running-guest/`.
+   - **Application Name** : par exemple « My Running Lab ».
+   - **Website** : l'adresse de l'outil, par exemple `https://moncompte.github.io/my-running-lab/`.
    - **Authorization Callback Domain** : **le domaine seul**, sans `https://` ni chemin, par exemple `moncompte.github.io`.
 3. Note le **Client ID** (un nombre) et le **Client Secret**. Le secret ne se saisit **que** dans Cloudflare, jamais dans l'outil.
 
@@ -45,13 +45,13 @@ Une nouvelle application ne peut servir qu'un athlète (« Single Player Mode »
 Les intitulés du tableau de bord Cloudflare peuvent évoluer.
 
 1. Tableau de bord Cloudflare → **Workers & Pages** → **Create** → **Worker**.
-2. Nomme-le, par exemple `suivi-trail-strava`, puis déploie le modèle proposé.
+2. Nomme-le, par exemple `my-running-lab-strava`, puis déploie le modèle proposé.
 3. **Edit code** : remplace tout le contenu par celui de `worker.js`, puis **Deploy**.
 4. **Settings** → **Variables and Secrets**, et ajoute :
    - `STRAVA_CLIENT_ID` (type texte) : ton Client ID.
    - `ALLOWED_ORIGIN` (type texte) : l'adresse de l'outil **sans chemin**, par exemple `https://moncompte.github.io`.
    - `STRAVA_CLIENT_SECRET` (type **Secret**) : ton Client Secret.
-5. Note l'adresse de la fonction, par exemple `https://suivi-trail-strava.<ton-sous-domaine>.workers.dev`.
+5. Note l'adresse de la fonction, par exemple `https://my-running-lab-strava.<ton-sous-domaine>.workers.dev`.
 
 **En ligne de commande, si tu préfères :**
 1. Complète `wrangler.toml`.

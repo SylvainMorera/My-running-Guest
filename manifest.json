@@ -1,13 +1,13 @@
 {
-  "name": "My Running Guest",
-  "short_name": "Running Guest",
-  "description": "Suivi et reporting des séances de course à pied et de trail. Données stockées sur l'appareil.",
+  "name": "My Running Lab",
+  "short_name": "Running Lab",
+  "description": "My Running Lab : suivi et reporting des séances de course à pied et de trail. Données stockées sur l'appareil.",
   "lang": "fr",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#FFFFFF",
-  "theme_color": "#020317",
+  "theme_color": "#101C48",
   "icons": [
     {
       "src": "icons/icon-192.png",
