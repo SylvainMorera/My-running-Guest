@@ -1695,13 +1695,17 @@ var DB = (function () {
   /* =====================================================================
      JOURNAL
      ===================================================================== */
-  var filtre = { q: '', type: '', statut: '', course: '', du: '', au: '', tri: 'date', sens: -1 };
+  var filtre = { q: '', type: '', statut: '', course: '', du: '', au: '', tri: 'date', sens: -1, prevuesRealisees: false };
   var TRIS = [['date', 'Date'], ['type', 'Type'], ['dureeSec', 'Durée'], ['distanceKm', 'Distance'], ['dplus', 'D+'], ['allure', 'Allure'], ['fcMoy', 'FC moy.'], ['rpe', 'RPE'], ['kmEffort', 'km-effort']];
 
   function seancesFiltrees() {
     var q = filtre.q.trim().toLowerCase();
     var vma = vmaCourante();
+    // Une séance prévue déjà réalisée (souvent créée par l'import avec sa réalisée) fait doublon :
+    // sa consigne figure déjà sur la carte de la réalisée. Masquée sauf demande explicite.
+    var faites = filtre.prevuesRealisees ? {} : realisationsParPrevue();
     var liste = DB.data.seances.filter(function (s) {
+      if (s.statut === 'prevue' && faites[s.id]) return false;
       if (filtre.type && s.type !== filtre.type) return false;
       if (filtre.statut && s.statut !== filtre.statut) return false;
       if (filtre.course === '-' && s.courseId) return false;
@@ -1753,7 +1757,7 @@ var DB = (function () {
     }).join('');
   }
 
-  function filtreActif() { return !!(filtre.q || filtre.type || filtre.statut || filtre.course || filtre.du || filtre.au); }
+  function filtreActif() { return !!(filtre.q || filtre.type || filtre.statut || filtre.course || filtre.du || filtre.au || filtre.prevuesRealisees); }
   // Filtres dépliés sur ordinateur, repliés sur téléphone (sauf s'ils sont actifs)
   function filtresOuverts() { return window.matchMedia('(min-width: 900px)').matches || filtreActif(); }
 
@@ -1770,6 +1774,7 @@ var DB = (function () {
       '<label>Course liée<select name="course">' + optionsCourses(filtre.course, 'Toutes').replace('<option value="">Toutes</option>', '<option value="">Toutes</option><option value="-"' + (filtre.course === '-' ? ' selected' : '') + '>Sans course</option>') + '</select></label>' +
       '<label>Du<input type="date" name="du" value="' + esc(filtre.du) + '"></label>' +
       '<label>Au<input type="date" name="au" value="' + esc(filtre.au) + '"></label>' +
+      '<label class="large case"><input type="checkbox" name="prevuesRealisees"' + (filtre.prevuesRealisees ? ' checked' : '') + '> Afficher aussi les séances prévues déjà réalisées</label>' +
       '<div class="boutons"><label class="visuel-masque" for="f-tri">Trier par</label>' +
       '<select id="f-tri" name="tri" style="width:auto">' + TRIS.map(function (t) { return '<option value="' + t[0] + '"' + (t[0] === filtre.tri ? ' selected' : '') + '>Tri : ' + t[1] + '</option>'; }).join('') + '</select>' +
       '<button type="button" class="btn discret" data-action="sens" id="b-sens"></button>' +
@@ -1781,7 +1786,7 @@ var DB = (function () {
     f.addEventListener('submit', function (e) { e.preventDefault(); });
     f.addEventListener('input', function (e) {
       var n = e.target.name;
-      if (n && n in filtre) { filtre[n] = e.target.value; listeJournal(); }
+      if (n && n in filtre) { filtre[n] = e.target.type === 'checkbox' ? e.target.checked : e.target.value; listeJournal(); }
     });
     listeJournal();
   };
@@ -1792,8 +1797,11 @@ var DB = (function () {
     var prevues = liste.length - realisees.length;
     var t = Core.totals(realisees);
     $('#b-sens').textContent = filtre.sens < 0 ? 'Ordre : décroissant' : 'Ordre : croissant';
+    var faites = realisationsParPrevue();
+    var masquees = filtre.prevuesRealisees ? 0 : DB.data.seances.filter(function (s) { return s.statut === 'prevue' && faites[s.id]; }).length;
     $('#j-resume').textContent = liste.length + ' séance(s) affichée(s) dont ' + prevues + ' prévue(s). Réalisées affichées : ' +
-      fmt(t.km, 2) + ' km, ' + fmt(t.dplus, 0) + ' m D+, ' + Core.formatDuration(t.dureeSec) + ', ' + fmt(t.kmEffort, 1) + ' km-effort.';
+      fmt(t.km, 2) + ' km, ' + fmt(t.dplus, 0) + ' m D+, ' + Core.formatDuration(t.dureeSec) + ', ' + fmt(t.kmEffort, 1) + ' km-effort.' +
+      (masquees ? ' ' + masquees + ' séance(s) prévue(s) déjà réalisée(s) masquée(s) (leur consigne est sur la séance réalisée).' : '');
     if (!DB.data.seances.length) {
       $('#j-liste').innerHTML = '<div class="vide"><p>Aucune séance enregistrée.</p><p>Ajoute ta première séance avec « + Séance », importe une sauvegarde depuis l\'onglet Données, ou charge des données de démo.</p></div>';
       return;
@@ -2753,6 +2761,15 @@ var DB = (function () {
       } else {
         rec.id = uid();
         res.nouvelles.push(rec);
+      }
+    });
+    // Séance réalisée déjà importée dont la prévue liée n'existe plus (supprimée à la main) :
+    // ne pas recréer cette prévue, sinon elle réapparaît comme « non faite » à chaque réimport.
+    res.recs.forEach(function (rec) {
+      if (rec.statut !== 'realisee' || !rec.lienPrevue || !existants[rec.importCle + '|realisee']) return;
+      if (res.nouvelles.indexOf(rec.lienPrevue) >= 0) {
+        res.nouvelles.splice(res.nouvelles.indexOf(rec.lienPrevue), 1);
+        rec.lienPrevue = null;
       }
     });
     res.recs.forEach(function (rec) { if (rec.lienPrevue) rec.prevueId = rec.lienPrevue.id; });
@@ -4100,7 +4117,7 @@ var DB = (function () {
         listeJournal(); break;
       }
       case 'sens': filtre.sens = -filtre.sens; listeJournal(); break;
-      case 'raz-filtres': filtre = { q: '', type: '', statut: '', course: '', du: '', au: '', tri: 'date', sens: -1 }; rafraichir(); break;
+      case 'raz-filtres': filtre = { q: '', type: '', statut: '', course: '', du: '', au: '', tri: 'date', sens: -1, prevuesRealisees: false }; rafraichir(); break;
       case 'exporter': exporterJSON(); break;
       case 'exporter-csv': exporterCSV(); break;
       case 'imprimer': window.print(); break;
