@@ -1,4 +1,4 @@
-# Suivi course à pied et trail (ACN Anduze)
+# My Running Guest — suivi course à pied et trail
 
 Outil personnel de suivi des séances de course à pied. Il tient dans un seul fichier, `index.html`, et fonctionne sans serveur. Les données sont stockées uniquement dans le navigateur : IndexedDB, ou localStorage si IndexedDB n'est pas disponible.
 
@@ -37,7 +37,9 @@ Outil personnel de suivi des séances de course à pied. Il tient dans un seul f
 
 ## Charte graphique
 
-Les couleurs viennent du logo de l'ACN Anduze. L'emblème de l'en-tête et les icônes sont découpés dans l'image du logo fournie : le dessin et le bleu nuit sont conservés, seul le fond (blanc et rayures) est rendu transparent. Je les ai mesurées sur l'image fournie : ce ne sont pas des codes officiels. Elles se changent toutes en un point, dans les variables CSS de `index.html`.
+Les couleurs de l'interface viennent du logo de l'ACN Anduze.
+
+**Logo et icônes** : logo My Running Guest fourni par Sylvain (image d'icône arrondie sur fond marine). Le dessin n'est pas modifié. Seuls les coins blancs de l'image sont rendus transparents (logo d'en-tête, icônes « any ») ou remplis du marine du bord du logo, `#04285A` (icônes « maskable » pour Android et icône iPhone). Dans la version « maskable », le logo est réduit à 80 % pour rester entier quand Android découpe l'icône en cercle. Je les ai mesurées sur l'image fournie : ce ne sont pas des codes officiels. Elles se changent toutes en un point, dans les variables CSS de `index.html`.
 
 | Rôle | Variable | Valeur | Contraste sur blanc |
 |---|---|---|---|
