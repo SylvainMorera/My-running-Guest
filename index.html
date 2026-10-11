@@ -392,6 +392,8 @@ details.menu-outils[open] > .menu-liste { position: absolute; right: 0; top: cal
 table.zones input { min-width: 0; }
 table.zones input.court { width: 5rem; text-align: right; }
 table.zones td { vertical-align: middle; }
+table.zones tbody td:first-child { box-shadow: inset 6px 0 0 var(--zc, var(--azur)); padding-left: 14px; }
+table.zones tbody tr { background: var(--fond-2); background: color-mix(in srgb, var(--zc, var(--azur)) 9%, #FFFFFF); }
 .resultat { margin-top: .75rem; }
 dl.res { display: grid; grid-template-columns: auto 1fr; gap: .3rem 1rem; margin: 0; }
 dl.res dt { color: var(--texte-2); }
@@ -405,7 +407,8 @@ tr.point td { font-weight: 700; }
   table.zones, table.zones tbody { display: block; }
   table.zones tbody { display: flex; flex-direction: column; gap: .5rem; }
   table.zones tr { display: grid; grid-template-columns: 3.3rem 3.3rem minmax(0, 1fr) minmax(0, 1fr); gap: .3rem .7rem; padding: .5rem .55rem; align-items: end;
-    background: var(--fond-2); border-radius: 10px; border-left: 4px solid var(--azur); }
+    border-radius: 10px; border-left: 7px solid var(--zc, var(--azur)); }
+  table.zones tbody td:first-child { box-shadow: none; padding-left: 0; }
   table.zones td, table.zones td.num { border: 0; padding: 0; text-align: left; }
   table.zones td:first-child { grid-column: 1 / 4; grid-row: 1; }
   table.zones td:first-child input { font-weight: 700; color: var(--nuit); background: transparent; border-color: transparent; padding-left: .2rem; }
@@ -3720,6 +3723,21 @@ var DB = (function () {
     if ([h, m, s].some(function (x) { return x != null && (isNaN(x) || x < 0); }) || (m != null && m > 59) || (s != null && s > 59)) return NaN;
     return Core.hmsToSec(h, m, s);
   }
+  // Couleur des zones, de la plus facile à la plus dure (repère visuel, le nom de la zone reste la référence)
+  var COULEURS_ZONES = ['#3884C8', '#2E9E4F', '#F2C200', '#F28C1B', '#D62828', '#7B3FB5', '#111111'];
+  function couleursZones() {
+    var trs = $$('#z-corps tr'), lus = trs.map(function (tr, i) {
+      var mn = Core.parseNumberFR($('[data-z=min]', tr).value), mx = Core.parseNumberFR($('[data-z=max]', tr).value);
+      return { tr: tr, i: i, v: Core.isNum(mn) ? mn : Core.isNum(mx) ? mx : null };
+    });
+    // Rang selon le % de VMA (une zone sans valeur garde sa position dans la liste)
+    var classees = lus.slice().sort(function (a, b) { return (a.v == null || b.v == null) ? a.i - b.i : a.v - b.v || a.i - b.i; });
+    var n = classees.length, k = COULEURS_ZONES.length;
+    classees.forEach(function (z, rang) {
+      var idx = n <= 1 ? 0 : n <= k ? (n === k ? rang : Math.round(rang * (k - 1) / (n - 1))) : Math.min(k - 1, Math.floor(rang * k / n));
+      z.tr.style.setProperty('--zc', COULEURS_ZONES[idx]);
+    });
+  }
   function zonesActuelles() { return (DB.data.meta.zones && DB.data.meta.zones.length) ? DB.data.meta.zones : ZONES_DEFAUT; }
 
   ROUTES.calculs = function (vue) {
@@ -3800,6 +3818,7 @@ var DB = (function () {
       $('[data-zv]', tr).textContent = !vma ? 'VMA ?' : a && b ? (a === b ? fmt(a, 1) : fmt(a, 1) + ' – ' + fmt(b, 1)) : '—';
       $('[data-za]', tr).textContent = !vma ? '' : a && b ? (a === b ? Core.formatPace(3600 / a).replace(' /km', '') : Core.formatPace(3600 / a).replace(' /km', '') + ' – ' + Core.formatPace(3600 / b).replace(' /km', '')) : '—';
     });
+    couleursZones();
     // 2. Séances types
     var st = SEANCES_TYPES[calc.type], r2 = $('#r-seance');
     if (!vma && !st.sansDistance) r2.innerHTML = besoinVMA();
