@@ -111,6 +111,14 @@ input, select, textarea {
   min-height: var(--cible); padding: .45rem .6rem; border: 1px solid #8A97A3; border-radius: 6px; width: 100%;
 }
 textarea { min-height: 5rem; resize: vertical; }
+/* Même hauteur pour tous les champs d'une ligne (iOS dessine les listes et les dates plus petites) */
+input:not([type="radio"]):not([type="checkbox"]):not([type="file"]):not([type="range"]), select { height: 48px; }
+select {
+  -webkit-appearance: none; appearance: none; padding-right: 2.1rem; text-overflow: ellipsis;
+  background: var(--blanc) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%234A5470' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right .75rem center;
+}
+input[type="date"] { -webkit-appearance: none; appearance: none; min-width: 0; display: block; text-align: left; }
+input[type="date"]::-webkit-date-and-time-value { text-align: left; }
 input[type="radio"], input[type="checkbox"] { width: 22px; height: 22px; min-height: 0; accent-color: var(--azur-fonce); }
 fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
 legend { font-size: .9rem; font-weight: 600; padding: 0; margin-bottom: .25rem; }
@@ -196,12 +204,16 @@ dialog form { display: flex; flex-direction: column; max-height: inherit; height
 .dlg-tete { display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .75rem 1rem; border-bottom: 1px solid var(--bord); }
 .dlg-tete h2 { font-size: 1.15rem; }
 .dlg-corps { padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: .85rem; flex: 1; }
-.dlg-pied { display: flex; flex-wrap: wrap; gap: .5rem; padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--bord); }
-.dlg-pied .btn.primaire { flex: 1 1 auto; }
+.dlg-pied { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom)); border-top: 1px solid var(--bord); }
+.dlg-pied > :last-child:nth-child(odd) { grid-column: 1 / -1; }
 .btn-icone { min-width: var(--cible); min-height: var(--cible); border: 0; background: none; font-size: 1.6rem; line-height: 1; cursor: pointer; color: var(--texte); border-radius: 6px; }
 
-.grille2 { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-.grille3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; }
+.grille2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; }
+.grille3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; }
+.grille2 > *, .grille3 > * { min-width: 0; }
+.dlg-corps details[open] > summary { margin-bottom: .35rem; }
+/* Libellé sur deux lignes : les champs d'une même ligne restent alignés en bas */
+.grille2 > label, .grille3 > label { justify-content: flex-end; }
 .duree-champs { display: flex; align-items: center; gap: .35rem; }
 .duree-champs input { text-align: center; }
 .duree-champs span { font-weight: 700; }
@@ -213,8 +225,8 @@ dialog form { display: flex; flex-direction: column; max-height: inherit; height
 .seg label.prevu:has(input:checked) { background: var(--prevu); }
 .seg label:has(input:focus-visible) { outline: 3px solid var(--azur-fonce); outline-offset: -3px; }
 
-.ressenti { display: flex; gap: .4rem; flex-wrap: wrap; }
-.ressenti label { flex-direction: row; align-items: center; justify-content: center; min-width: var(--cible); min-height: var(--cible); border: 1px solid var(--bord); border-radius: 6px; cursor: pointer; font-size: 1rem; }
+.ressenti { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)) minmax(0, 2fr); gap: .4rem; }
+.ressenti label { white-space: nowrap; font-size: .95rem; flex-direction: row; align-items: center; justify-content: center; min-width: 0; min-height: var(--cible); border: 1px solid var(--bord); border-radius: 6px; cursor: pointer; }
 .ressenti input { position: absolute; opacity: 0; width: 1px; height: 1px; }
 .ressenti label:has(input:checked) { background: var(--azur-fonce); color: var(--blanc); border-color: var(--azur-fonce); }
 .ressenti label:has(input:focus-visible) { outline: 3px solid var(--azur-fonce); }
@@ -1904,7 +1916,7 @@ var DB = (function () {
         (s.fcMoy != null ? '<span>FC ' + fmt(s.fcMoy, 0) + '</span>' : '') +
         (d.pctVma != null ? '<span>' + fmt(d.pctVma, 0) + ' % VMA</span>' : '') +
         '<span>' + fmt(d.kmEffort, 1) + ' km-effort</span>' + (s.rpe != null ? '<span>RPE ' + fmt(s.rpe, 1) + '/10</span>' : '') +
-        (s.intensite ? '<span>Intensité ' + s.intensite + '/5</span>' : '') + (s.ressenti ? '<span>Ressenti ' + s.ressenti + '/5</span>' : '') +
+        (s.ressenti ? '<span>Ressenti ' + s.ressenti + '/5</span>' : '') +
         (s.profil ? '<span>' + esc(s.profil) + '</span>' : '') + '</div>' +
         (s.consigne ? '<div class="cs-notes">Consigne : ' + esc(s.consigne) + '</div>' : '') +
         (co ? '<div class="cs-notes">Course : ' + esc(co.nom) + '</div>' : '') +
@@ -1963,8 +1975,7 @@ var DB = (function () {
       '<details' + (mode === 'modifier' && (s.ressenti || s.chaussureId || s.notes || s.courseId || s.prevueId || s.rpe != null || s.intitule || s.consigne) ? ' open' : '') + '><summary>Plus de champs (RPE, ressenti, chaussures, consigne, notes…)</summary><div>' +
       '<label>Intitulé<input name="intitule" value="' + esc(s.intitule || '') + '" placeholder="ex. 5x 3\'"></label>' +
       '<label>Consigne<textarea name="consigne">' + esc(s.consigne || '') + '</textarea></label>' +
-      '<div class="grille3"><label>RPE (0 à 10)<input name="rpe" inputmode="decimal" autocomplete="off" value="' + v(s.rpe) + '"></label>' +
-      '<label>Intensité (1 à 5)<select name="intensite"><option value="">—</option>' + [1, 2, 3, 4, 5].map(function (n) { return '<option' + (s.intensite === n ? ' selected' : '') + '>' + n + '</option>'; }).join('') + '</select></label>' +
+      '<div class="grille2"><label>RPE (0 à 10)<input name="rpe" inputmode="decimal" autocomplete="off" value="' + v(s.rpe) + '"></label>' +
       '<label>Conformité<select name="conformite"><option value="">—</option>' + Core.CONFORMITES.map(function (c) { return '<option value="' + c + '"' + (s.conformite === c ? ' selected' : '') + '>' + CONFORMITE_LIB[c] + '</option>'; }).join('') + '</select></label></div>' +
       '<div class="grille2"><label>Profil / terrain<input name="profil" value="' + esc(s.profil || '') + '" placeholder="Voie verte, piste…"></label>' +
       '<label>Capteur FC<input name="capteur" value="' + esc(s.capteur || '') + '" placeholder="Montre, ceinture…"></label></div>' +
@@ -2023,7 +2034,7 @@ var DB = (function () {
         chaussureId: f.elements.chaussure.value || null, courseId: f.elements.course.value || null,
         prevueId: statut === 'realisee' ? (f.elements.prevue.value || null) : null,
         notes: f.elements.notes.value.trim(),
-        rpe: rpe === undefined ? null : rpe, intensite: f.elements.intensite.value ? Number(f.elements.intensite.value) : null,
+        rpe: rpe === undefined ? null : rpe,
         conformite: f.elements.conformite.value || null, profil: f.elements.profil.value.trim(), capteur: f.elements.capteur.value.trim(),
         intitule: f.elements.intitule.value.trim(), consigne: f.elements.consigne.value.trim()
       });
