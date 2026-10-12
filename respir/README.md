@@ -39,7 +39,7 @@ Le rôle choisi sur l'appareil ne fait qu'ouvrir la bonne partie de la saisie : 
 ## Utilisation
 
 - **Ordinateur** : ouvrir `index.html` dans un navigateur récent (Chrome, Edge, Firefox, Safari).
-- **Téléphone, installable** : ouvrir https://sylvainmorera.github.io/My-running-Guest/respir/ puis l.ajouter à l.écran d.accueil (iPhone : Safari → Partager → « Sur l.écran d.accueil » ; Android : Chrome → menu → « Installer l.application »).
+- **Téléphone, installable** : ouvrir https://sylvainmorera.github.io/My-running-Guest/respir/ puis l'ajouter à l'écran d'accueil (iPhone : Safari → Partager → « Sur l'écran d'accueil » ; Android : Chrome → menu → « Installer l'application »).
 - **Envoyer le projet à Manu sans hébergement** : envoyer le seul fichier `index.html` (le logo y est intégré). Il s'ouvre par double-clic ; seule l'installation sur l'écran d'accueil demande l'HTTPS.
 
 ## Tests
