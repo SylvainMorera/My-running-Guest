@@ -171,14 +171,22 @@ table.journal .acts { flex-wrap: nowrap; }
   .table-wrap { display: none; }
   .cartes-seances { display: flex; flex-direction: column; gap: .6rem; }
 }
-.cs { border: 1px solid var(--bord); border-left: 5px solid var(--azur-fonce); border-radius: var(--rayon); padding: .6rem .75rem; }
-.cs.est-prevue { border-left-color: var(--prevu); border-left-style: dashed; background: var(--prevu-clair); }
-.cs-tete { display: flex; flex-wrap: wrap; gap: .4rem .6rem; align-items: center; font-weight: 600; }
-.cs-tete .type { color: var(--azur-fonce); }
-.cs-chiffres { display: flex; flex-wrap: wrap; gap: .2rem 1rem; margin: .35rem 0; font-size: .95rem; }
-.cs-chiffres b { font-size: 1.05rem; }
-.cs-notes { color: var(--texte-2); font-size: .9rem; margin: .2rem 0 .4rem; }
-.cs-actions { display: flex; flex-wrap: wrap; gap: .4rem; }
+.cs { position: relative; border: 1px solid #DCE3EA; border-left: 5px solid var(--azur); border-radius: 12px; padding: .65rem .8rem; background: var(--blanc); box-shadow: var(--ombre); }
+.cs.est-prevue { border-left-color: #6B7591; border-left-style: dashed; }
+.cs-ouvrir { position: absolute; inset: 0; width: 100%; border: 0; background: transparent; border-radius: 12px; cursor: pointer; padding: 0; }
+.cs-ouvrir:hover { background: rgba(56, 132, 200, .05); }
+.cs-ouvrir:focus-visible { outline: 3px solid var(--azur-fonce); outline-offset: 2px; }
+.cs-tete { display: flex; flex-wrap: wrap; gap: .3rem .6rem; align-items: center; font-size: .88rem; color: var(--texte-2); font-weight: 600; }
+.cs-tete .type { color: var(--azur-fonce); font-weight: 700; }
+.cs-tete .badge { margin-left: auto; }
+.cs-titre { font-weight: 700; color: var(--nuit); margin-top: .15rem; }
+.cs-chiffres { display: flex; flex-wrap: wrap; gap: .1rem 1rem; margin: .35rem 0 .15rem; font-size: .9rem; color: var(--texte-2); font-variant-numeric: tabular-nums; }
+.cs-chiffres b { font-size: 1.12rem; color: var(--nuit); }
+.cs-petits { font-size: .85rem; color: var(--texte-2); font-variant-numeric: tabular-nums; }
+.cs-notes { color: var(--texte-2); font-size: .88rem; margin: .3rem 0 0; }
+.cs-coupe { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-style: italic; }
+.cs-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .5rem; }
+@media (max-width: 899px) { .sur-ordi { display: none !important; } }
 
 .vide { padding: 2rem 1rem; text-align: center; color: var(--texte-2); border: 1px dashed var(--bord); border-radius: var(--rayon); background: var(--blanc); }
 
@@ -235,6 +243,7 @@ dialog form { display: flex; flex-direction: column; max-height: inherit; height
 .calcules b { color: var(--azur-fonce); }
 details summary { cursor: pointer; font-weight: 600; color: var(--azur-fonce); min-height: var(--cible); display: flex; align-items: center; }
 details[open] > div { display: flex; flex-direction: column; gap: .85rem; }
+details[open] > div > .btn { align-self: flex-start; }
 .erreurs:empty { display: none; }
 .erreurs { border: 2px solid var(--texte); border-radius: var(--rayon); padding: .5rem .75rem; font-weight: 600; }
 .erreurs ul { margin: .25rem 0 0; padding-left: 1.2rem; }
@@ -439,6 +448,12 @@ tr.point td { font-weight: 700; }
 .bilan table.simple { font-variant-numeric: tabular-nums; }
 .bilan .notes-bilan { font-size: .82rem; color: var(--texte-2); min-width: 12rem; }
 .bilan-outils .actions { align-items: center; }
+/* Bilan à l'écran sur téléphone : les tableaux larges défilent dans leur cadre au lieu d'élargir la page */
+@media screen and (max-width: 760px) {
+  .bilan table.simple { display: block; overflow-x: auto; max-width: 100%; }
+  .bilan table.simple td, .bilan table.simple th { white-space: nowrap; }
+  .bilan .notes-bilan { white-space: normal !important; }
+}
 
 /* ---------- Courses (compétitions) en rouge ---------- */
 table.journal tr.est-course td:first-child { box-shadow: inset 4px 0 0 var(--course); }
@@ -452,10 +467,60 @@ table.journal tr.est-course td:nth-child(3) { color: var(--course); font-weight:
 .cm-pastilles i.c { background: var(--course); }
 .bh-barre.bh-course { background: var(--course); }
 
+/* ---------- Listes simples (chaussures, courses, VMA) et sections repliables ---------- */
+.items { list-style: none; margin: 0 0 .5rem; padding: 0; }
+.item { display: flex; align-items: center; gap: .75rem; padding: .65rem 0; border-bottom: 1px solid #E8EDF2; }
+.item:last-child { border-bottom: 0; }
+.item-texte { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .1rem; }
+.item-texte strong { color: var(--nuit); }
+.item-actions { display: flex; gap: .35rem; flex-shrink: 0; }
+.item-jauge { display: flex; align-items: center; gap: .45rem; margin-top: .25rem; }
+.pastille { display: inline-flex; align-items: center; justify-content: center; min-width: 1.6rem; height: 1.6rem; padding: 0 .35rem; border-radius: 6px;
+  background: var(--nuit); color: var(--blanc); font-weight: 800; font-size: .85rem; flex-shrink: 0; }
+details.pliable > summary { list-style: none; display: flex; align-items: center; justify-content: space-between; gap: .5rem; min-height: 44px; margin: -.25rem 0; }
+details.pliable > summary::-webkit-details-marker { display: none; }
+details.pliable > summary h3 { margin: 0; }
+details.pliable > summary::after { content: "▾"; color: var(--azur-fonce); font-size: 1.1rem; }
+details.pliable[open] > summary { margin-bottom: .6rem; }
+details.pliable[open] > summary::after { content: "▴"; }
+.graph-choix { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: .75rem; }
+.graph-choix .seg-boutons button { padding: 0 .7rem; }
+.vue-tete h2 + .aide { display: block; margin-top: .15rem; }
+
+/* ---------- Ouverture de l'application ---------- */
+#ouverture {
+  position: fixed; inset: 0; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1.1rem;
+  background: radial-gradient(circle at 50% 40%, #1B2B66 0%, var(--nuit) 70%); color: var(--blanc);
+  animation: ouv-sortie .4s ease-in 1.55s forwards;
+}
+#ouverture.fini { display: none; }
+.ouv-logo { animation: ouv-pop .45s cubic-bezier(.2, .9, .3, 1.2) both; filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .35)); }
+.ouv-fond { stroke: rgba(255, 255, 255, .14); stroke-width: 2; }
+.ouv-piste { stroke-dasharray: 1; stroke-dashoffset: 1; animation: ouv-trace .6s ease-out .15s forwards; }
+.ouv-int { opacity: 0; animation: ouv-fondu .3s ease .55s forwards; }
+.ouv-coureur { opacity: 0; animation: ouv-fondu .1s linear .3s forwards; }
+.ouv-fixe { display: none; }
+.ouv-nom { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -.01em; opacity: 0; transform: translateY(8px); animation: ouv-monte .45s ease-out .75s forwards; }
+.ouv-nom span { color: #6FA8DC; }
+@keyframes ouv-pop { from { transform: scale(.6); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes ouv-trace { to { stroke-dashoffset: 0; } }
+@keyframes ouv-fondu { to { opacity: 1; } }
+@keyframes ouv-monte { to { opacity: 1; transform: none; } }
+@keyframes ouv-sortie { to { opacity: 0; visibility: hidden; transform: scale(1.04); } }
+/* Changement d'onglet : le contenu apparaît en fondu */
+#vue.entree > * { animation: vue-entree .28s ease-out both; }
+@keyframes vue-entree { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) {
+  #ouverture { animation: ouv-sortie .3s ease .5s forwards; }
+  #ouverture *, #vue.entree > * { animation: none !important; opacity: 1 !important; transform: none !important; stroke-dashoffset: 0 !important; }
+  .ouv-coureur { display: none; }
+  .ouv-fixe { display: inline; }
+}
+
 @media print {
   @page { size: A4; margin: 12mm; }
   body { font-size: 10pt; }
-  .nav, .fab, #toasts, .banniere, .topbar, .evitement, .no-print, #infobulle { display: none !important; }
+  #ouverture, .nav, .fab, #toasts, .banniere, .topbar, .evitement, .no-print, #infobulle { display: none !important; }
   .app { display: block !important; }
   main { padding: 0 !important; max-width: none; }
   .bilan section:not(.saut), .bilan tr { break-inside: avoid; }
@@ -466,6 +531,19 @@ table.journal tr.est-course td:nth-child(3) { color: var(--course); font-weight:
 </style>
 </head>
 <body>
+<!-- Écran d'ouverture : la piste du logo se dessine, le coureur en fait le tour, puis le nom apparaît.
+     Purement décoratif, disparaît seul (CSS) même si le script ne se charge pas ; un toucher le passe. -->
+<div id="ouverture" aria-hidden="true">
+  <svg class="ouv-logo" viewBox="0 0 139 139" width="132" height="132">
+    <rect class="ouv-fond" width="139" height="139" rx="28" fill="#101C48"/>
+    <path class="ouv-piste" d="M106 67.75 L106 65.5 A25 25 0 0 0 81 40.5 L57 40.5 A25 25 0 0 0 32 65.5 L32 70 A25 25 0 0 0 57 95 L81 95 A25 25 0 0 0 106 70 Z" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="6"/>
+    <rect class="ouv-int" x="50.5" y="57.5" width="37" height="21.5" rx="10" fill="none" stroke="#3884C8" stroke-width="3.5"/>
+    <g class="ouv-coureur"><circle r="11" fill="#FFFFFF"/><circle r="8" fill="#3884C8"/>
+      <animateMotion dur="1s" begin="0.3s" fill="freeze" calcMode="spline" keyTimes="0;1" keySplines="0.45 0 0.25 1" path="M106 67.75 L106 65.5 A25 25 0 0 0 81 40.5 L57 40.5 A25 25 0 0 0 32 65.5 L32 70 A25 25 0 0 0 57 95 L81 95 A25 25 0 0 0 106 70 Z"/></g>
+    <g class="ouv-fixe"><circle cx="106" cy="67.75" r="11" fill="#FFFFFF"/><circle cx="106" cy="67.75" r="8" fill="#3884C8"/></g>
+  </svg>
+  <p class="ouv-nom">My Running <span>Lab</span></p>
+</div>
 <a class="evitement" href="#vue" data-evitement>Aller au contenu</a>
 <div class="app">
   <nav class="nav" aria-label="Navigation principale">
@@ -1699,20 +1777,23 @@ var DB = (function () {
   function router() {
     var r = (location.hash.replace(/^#\/?/, '') || 'tableau').split('?')[0];
     if (!ROUTES[r]) r = 'tableau';
+    var change = r !== routeCourante;
     routeCourante = r;
     $$('.nav a').forEach(function (a) {
       if (a.getAttribute('data-route') === r) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current');
     });
-    ROUTES[r]($('#vue'));
+    var vue = $('#vue');
+    ROUTES[r](vue);
+    if (change) { vue.classList.remove('entree'); void vue.offsetWidth; vue.classList.add('entree'); }
     regionsDefilantes();
     bannieres();
   }
   function rafraichir() { router(); }
   // Zones à défilement horizontal : focusables et nommées (navigation au clavier, lecteurs d'écran)
   function regionsDefilantes() {
-    $$('#vue .table-wrap').forEach(function (w) {
+    $$('#vue .table-wrap, #vue .bilan table.simple').forEach(function (w) {
       var sec = w.closest('section'), titre = sec && sec.querySelector('h2, h3');
-      w.setAttribute('tabindex', '0'); w.setAttribute('role', 'region');
+      w.setAttribute('tabindex', '0'); if (w.tagName !== 'TABLE') w.setAttribute('role', 'region');
       w.setAttribute('aria-label', titre ? titre.textContent : 'Tableau');
     });
   }
@@ -1818,8 +1899,8 @@ var DB = (function () {
   ROUTES.journal = function (el) {
     el.innerHTML =
       '<div class="vue-tete"><h2>Journal des séances</h2><div class="actions">' +
-      '<button type="button" class="btn primaire" data-action="nouvelle" data-statut="realisee">Nouvelle séance réalisée</button>' +
-      '<button type="button" class="btn prevu" data-action="nouvelle" data-statut="prevue">Nouvelle séance prévue</button></div></div>' +
+      '<button type="button" class="btn primaire sur-ordi" data-action="nouvelle" data-statut="realisee">Nouvelle séance réalisée</button>' +
+      '<button type="button" class="btn prevu" data-action="nouvelle" data-statut="prevue">+ Séance prévue</button></div></div>' +
       '<details class="bloc-filtres" id="bloc-filtres"' + (filtresOuverts() ? ' open' : '') + '><summary>Filtres et tri' + (filtreActif() ? ' (actifs)' : '') + '</summary>' +
       '<form class="filtres" id="filtres" role="search" aria-label="Filtrer les séances">' +
       '<label class="large">Recherche<input type="search" name="q" value="' + esc(filtre.q) + '" placeholder="notes, type, chaussures, course…"></label>' +
@@ -1853,9 +1934,10 @@ var DB = (function () {
     $('#b-sens').textContent = filtre.sens < 0 ? 'Ordre : décroissant' : 'Ordre : croissant';
     var faites = realisationsParPrevue();
     var masquees = filtre.prevuesRealisees ? 0 : DB.data.seances.filter(function (s) { return s.statut === 'prevue' && faites[s.id]; }).length;
-    $('#j-resume').textContent = liste.length + ' séance(s) affichée(s) dont ' + prevues + ' prévue(s). Réalisées affichées : ' +
-      fmt(t.km, 2) + ' km, ' + fmt(t.dplus, 0) + ' m D+, ' + Core.formatDuration(t.dureeSec) + ', ' + fmt(t.kmEffort, 1) + ' km-effort.' +
-      (masquees ? ' ' + masquees + ' séance(s) prévue(s) déjà réalisée(s) masquée(s) (leur consigne est sur la séance réalisée).' : '');
+    var pl = function (n, mot) { return n + ' ' + mot + (n > 1 ? 's' : ''); };
+    $('#j-resume').innerHTML = '<strong>' + pl(realisees.length, 'réalisée') + '</strong> · ' + fmt(t.km, 1) + ' km · ' + fmt(t.dplus, 0) + ' m D+ · ' + Core.formatDuration(t.dureeSec) +
+      '<br><span class="aide">' + prevues + ' séance' + (prevues > 1 ? 's prévues' : ' prévue') +
+      (masquees ? ' · ' + masquees + ' déjà réalisée' + (masquees > 1 ? 's' : '') + ', masquée' + (masquees > 1 ? 's' : '') : '') + '</span>';
     if (!DB.data.seances.length) {
       $('#j-liste').innerHTML = '<div class="vide"><p>Aucune séance enregistrée.</p><p>Ajoute ta première séance avec « + Séance », importe une sauvegarde depuis l\'onglet Données, ou charge des données de démo.</p></div>';
       return;
@@ -1907,21 +1989,33 @@ var DB = (function () {
 
     var cartes = '<div class="cartes-seances">' + liste.map(function (x) {
       var s = x.s, d = x.d, co = trouver('courses', s.courseId);
-      return '<article class="cs ' + (s.statut === 'prevue' ? 'est-prevue' : '') + (estCompetition(s) ? ' est-course' : '') + '">' +
-        '<div class="cs-tete"><span>' + dateLongue(s.date) + '</span>' + etat(s) + '<span class="type">' + esc(typeLabel(s.type)) + '</span>' +
-        (s.demo ? '<span class="badge demo">DÉMO</span>' : '') + '</div>' +
-        (s.intitule ? '<div class="cs-notes"><strong>' + esc(s.intitule) + '</strong></div>' : '') +
-        '<div class="cs-chiffres"><span><b>' + marqueExtrait(s, 'distanceKm', fmt(s.distanceKm, 2)) + '</b> km</span><span><b>' + marqueExtrait(s, 'dureeSec', s.dureeSec == null ? '—' : Core.formatDuration(s.dureeSec)) + '</b></span>' +
-        '<span><b>' + (s.dplus == null ? '—' : fmt(s.dplus, 0)) + '</b> m D+</span><span>' + Core.formatPace(d.allure) + '</span>' +
-        (s.fcMoy != null ? '<span>FC ' + fmt(s.fcMoy, 0) + '</span>' : '') +
-        (d.pctVma != null ? '<span>' + fmt(d.pctVma, 0) + ' % VMA</span>' : '') +
-        '<span>' + fmt(d.kmEffort, 1) + ' km-effort</span>' + (s.rpe != null ? '<span>RPE ' + fmt(s.rpe, 1) + '/10</span>' : '') +
-        (s.ressenti ? '<span>Ressenti ' + s.ressenti + '/5</span>' : '') +
-        (s.profil ? '<span>' + esc(s.profil) + '</span>' : '') + '</div>' +
-        (s.consigne ? '<div class="cs-notes">Consigne : ' + esc(s.consigne) + '</div>' : '') +
+      // Carte épurée : toute la carte ouvre la fiche (modifier, dupliquer, supprimer s'y trouvent) ; seules les valeurs renseignées sont affichées
+      var prevue = s.statut === 'prevue', aFaire = prevue && !reals[s.id];
+      var gros = [], petits = [];
+      if (s.distanceKm != null) gros.push('<span><b>' + marqueExtrait(s, 'distanceKm', fmt(s.distanceKm, 2)) + '</b> km</span>');
+      if (s.dureeSec != null) gros.push('<span><b>' + marqueExtrait(s, 'dureeSec', Core.formatDuration(s.dureeSec)) + '</b></span>');
+      if (s.dplus) gros.push('<span><b>' + fmt(s.dplus, 0) + '</b> m D+</span>');
+      if (d.allure != null) gros.push('<span><b>' + Core.formatPace(d.allure).replace(' /km', '') + '</b> /km</span>');
+      if (s.fcMoy != null) petits.push('FC ' + fmt(s.fcMoy, 0));
+      if (d.pctVma != null) petits.push(fmt(d.pctVma, 0) + ' % VMA');
+      if (d.kmEffort) petits.push(fmt(d.kmEffort, 1) + ' km-effort');
+      if (s.rpe != null) petits.push('RPE ' + fmt(s.rpe, 1) + '/10');
+      if (s.ressenti) petits.push('Ressenti ' + s.ressenti + '/5');
+      if (s.conformite) petits.push(CONFORMITE_LIB[s.conformite]);
+      if (s.profil) petits.push(esc(s.profil));
+      var r0 = prevue && reals[s.id];
+      return '<article class="cs ' + (prevue ? 'est-prevue' : '') + (estCompetition(s) ? ' est-course' : '') + '">' +
+        '<button type="button" class="cs-ouvrir" data-action="modifier" data-id="' + esc(s.id) + '" aria-label="Ouvrir la séance du ' + esc(Core.formatDateFR(s.date) + ', ' + typeLabel(s.type) + (prevue ? ', prévue' : ', réalisée')) + '"></button>' +
+        '<div class="cs-tete"><span class="cs-date">' + dateLongue(s.date) + '</span><span class="type">' + esc(typeLabel(s.type)) + '</span>' +
+        (prevue ? '<span class="badge prevu">Prévue</span>' : '') + (s.demo ? '<span class="badge demo">DÉMO</span>' : '') + '</div>' +
+        (s.intitule ? '<div class="cs-titre">' + esc(s.intitule) + '</div>' : '') +
+        (gros.length ? '<div class="cs-chiffres">' + gros.join('') + '</div>' : '') +
+        (petits.length ? '<div class="cs-petits">' + petits.join(' · ') + '</div>' : '') +
+        (s.consigne && prevue ? '<div class="cs-notes">' + esc(s.consigne) + '</div>' : '') +
         (co ? '<div class="cs-notes">Course : ' + esc(co.nom) + '</div>' : '') +
-        (s.notes ? '<div class="cs-notes">' + esc(s.notes) + '</div>' : '') +
-        '<div class="cs-actions">' + actions(s) + '</div></article>';
+        (s.notes ? '<div class="cs-notes cs-coupe">' + esc(s.notes) + '</div>' : '') +
+        (r0 ? '<div class="cs-notes">Réalisée le ' + r0.map(function (x) { return Core.formatDateFR(x.date); }).join(', ') + '</div>' : '') +
+        (aFaire ? '<div class="cs-actions"><button type="button" class="btn petit prevu" data-action="realiser" data-id="' + esc(s.id) + '">Réaliser</button></div>' : '') + '</article>';
     }).join('') + '</div>';
     $('#j-liste').innerHTML = tableau + cartes;
   }
@@ -2241,13 +2335,13 @@ var DB = (function () {
       '<p>Un ou plusieurs fichiers, lus sur cet appareil (rien n\'est envoyé). Le format FIT est le plus complet (durée, distance, D+, FC mesurés par la montre).</p>' +
       '<label class="btn" style="flex-direction:row;display:inline-flex">Choisir des fichiers FIT, GPX ou TCX<input type="file" id="f-activites" multiple accept=".fit,.gpx,.tcx" class="visuel-masque"></label>' +
       '<div id="act-zone"></div></section>' +
-      '<section class="carte"><h3>Données de démonstration</h3>' +
-      '<p>Charge quelques séances, une course et une paire de chaussures fictives, toutes étiquetées « DÉMO », pour essayer l\'outil. Aucune VMA de démo n\'est ajoutée.</p>' +
+      // Outils rarement utilisés : regroupés et repliés
+      '<details class="carte pliable"' + (demo ? ' open' : '') + '><summary><h3>Outils avancés</h3></summary><div>' +
+      '<p class="aide">Données de démonstration : quelques séances, une course et une paire fictives, étiquetées « DÉMO » (aucune VMA de démo).</p>' +
       (demo ? '<button type="button" class="btn" data-action="suppr-demo">Supprimer les données de démo</button>' : '<button type="button" class="btn" data-action="charger-demo">Charger des données de démo</button>') +
-      '</section>' +
-      '<section class="carte"><h3>Vérifications</h3><p><a class="btn discret" href="#/tests">Lancer les autotests des calculs</a></p></section>' +
-      '<section class="carte"><h3>Effacer toutes les données de cet appareil</h3><p class="aide">Irréversible. Exporte une sauvegarde avant.</p>' +
-      '<button type="button" class="btn discret" data-action="tout-effacer">Tout effacer…</button></section>';
+      '<a class="btn discret" href="#/tests">Lancer les autotests des calculs</a>' +
+      '<p class="aide">Effacer toutes les données de cet appareil : irréversible, exporte une sauvegarde avant.</p>' +
+      '<button type="button" class="btn discret" data-action="tout-effacer">Tout effacer…</button></div></details>';
 
     brancherImport(); brancherActivites(); brancherStrava();
     rendreImport(); rendreActivites();
@@ -2334,10 +2428,11 @@ var DB = (function () {
       '<section class="carte"><h3>VMA</h3>' +
       '<p>VMA courante : <strong>' + (vmaE ? fmt(vmaE.valeur, 2) + ' km/h' : 'non renseignée') + '</strong>' + (vmaE ? ' (mesure du ' + Core.formatDateFR(vmaE.date) + ')' : '') + '.</p>' +
       '<p class="aide">La VMA courante est la mesure la plus récente de l\'historique.</p>' +
-      (vmas.length ? '<table class="simple"><thead><tr><th>Date</th><th class="num">VMA (km/h)</th><th>Méthode</th><th></th></tr></thead><tbody>' + vmas.map(function (x) {
-        return '<tr><td>' + Core.formatDateFR(x.date) + (x.demo ? ' <span class="badge demo">DÉMO</span>' : '') + '</td><td class="num">' + fmt(x.valeur, 2) + '</td><td>' + esc(x.methode || '') + '</td>' +
-          '<td><button type="button" class="btn petit discret" data-action="suppr-vma" data-id="' + esc(x.id) + '">Supprimer</button></td></tr>';
-      }).join('') + '</tbody></table>' : '') +
+      (vmas.length ? '<ul class="items">' + vmas.map(function (x) {
+        return '<li class="item"><div class="item-texte"><strong>' + fmt(x.valeur, 2) + ' km/h</strong><span class="aide">' + Core.formatDateFR(x.date) + (x.methode ? ' · ' + esc(x.methode) : '') + '</span></div>' +
+          (x.demo ? '<span class="badge demo">DÉMO</span>' : '') +
+          '<div class="item-actions"><button type="button" class="btn petit discret" data-action="suppr-vma" data-id="' + esc(x.id) + '" aria-label="Supprimer la mesure du ' + Core.formatDateFR(x.date) + '">Supprimer</button></div></li>';
+      }).join('') + '</ul>' : '') +
       '<form id="f-vma" class="form-ligne" style="margin-top:.75rem" novalidate>' +
       '<label>Date du test<input type="date" name="date" required></label>' +
       '<label>VMA (km/h)<input name="valeur" inputmode="decimal" required></label>' +
@@ -2352,21 +2447,26 @@ var DB = (function () {
       '<button type="submit" class="btn primaire">Enregistrer</button></form><div class="erreurs" id="e-param" role="alert"></div></section>' +
       // Chaussures
       '<section class="carte"><h3>Chaussures</h3>' +
-      (chs.length ? '<div class="table-wrap" style="display:block"><table class="simple"><thead><tr><th>Nom</th><th class="num">Km cumulés</th><th class="num">Km max indicatif</th><th>État</th><th></th></tr></thead><tbody>' + chs.map(function (c) {
-        return '<tr><td>' + esc(c.nom) + (c.demo ? ' <span class="badge demo">DÉMO</span>' : '') + '</td><td class="num">' + fmt(kmChaussure(c), 1) + '</td><td class="num">' + (c.kmMax ? fmt(c.kmMax, 0) : '—') + '</td>' +
-          '<td>' + (c.retiree ? 'Retirée' : 'En service') + '</td><td><div class="acts"><button type="button" class="btn petit" data-action="modif-chaussure" data-id="' + esc(c.id) + '">Modifier</button>' +
-          '<button type="button" class="btn petit discret" data-action="suppr-chaussure" data-id="' + esc(c.id) + '">Supprimer</button></div></td></tr>';
-      }).join('') + '</tbody></table></div><p class="aide">Km cumulés = km de départ + distance des séances réalisées avec cette paire.</p>' : '<p>Aucune paire enregistrée.</p>') +
+      (chs.length ? '<ul class="items">' + chs.map(function (c) {
+        return '<li class="item"><div class="item-texte"><strong>' + esc(c.nom) + (c.demo ? ' <span class="badge demo">DÉMO</span>' : '') + '</strong>' +
+          '<span class="aide">' + fmt(kmChaussure(c), 0) + ' km' + (c.kmMax ? ' sur ' + fmt(c.kmMax, 0) + ' km indicatifs' : '') + ' · ' + (c.retiree ? 'retirée' : 'en service') + '</span></div>' +
+          '<div class="item-actions"><button type="button" class="btn petit" data-action="modif-chaussure" data-id="' + esc(c.id) + '" aria-label="Modifier ' + esc(c.nom) + '">Modifier</button>' +
+          '<button type="button" class="btn petit discret" data-action="suppr-chaussure" data-id="' + esc(c.id) + '" aria-label="Supprimer ' + esc(c.nom) + '">×</button></div></li>';
+      }).join('') + '</ul><p class="aide">Km = km de départ + distance des séances réalisées avec cette paire.</p>' : '<p>Aucune paire enregistrée.</p>') +
       '<button type="button" class="btn" data-action="nouvelle-chaussure">Ajouter une paire</button></section>' +
       // Courses
       '<section class="carte"><h3>Courses (objectifs A / B / C)</h3><p class="aide">A : objectif principal. B : préparation importante. C : course de préparation.</p>' +
-      (cos.length ? '<div class="table-wrap" style="display:block"><table class="simple"><thead><tr><th>Date</th><th>Course</th><th>Obj.</th><th class="num">Km</th><th class="num">D+</th><th>Lieu</th><th>Résultat</th><th></th></tr></thead><tbody>' + cos.map(function (c) {
-        return '<tr><td>' + Core.formatDateFR(c.date) + '</td><td>' + esc(c.nom) + (c.demo ? ' <span class="badge demo">DÉMO</span>' : '') + '</td><td><strong>' + c.priorite + '</strong></td>' +
-          '<td class="num">' + fmt(c.distanceKm, 1) + '</td><td class="num">' + (c.dplus == null ? '—' : fmt(c.dplus, 0)) + '</td><td>' + esc(c.lieu || '') + '</td>' +
-          '<td>' + (c.tempsSec != null ? Core.formatDuration(c.tempsSec) : '') + (c.classement ? ' — ' + esc(c.classement) : '') + '</td>' +
-          '<td><div class="acts"><button type="button" class="btn petit" data-action="modif-course" data-id="' + esc(c.id) + '">Modifier</button>' +
-          '<button type="button" class="btn petit discret" data-action="suppr-course" data-id="' + esc(c.id) + '">Supprimer</button></div></td></tr>';
-      }).join('') + '</tbody></table></div>' : '<p>Aucune course enregistrée.</p>') +
+      (cos.length ? '<ul class="items">' + cos.map(function (c) {
+        var infos = [Core.formatDateFR(c.date)];
+        if (c.distanceKm != null) infos.push(fmt(c.distanceKm, 1) + ' km');
+        if (c.dplus != null) infos.push(fmt(c.dplus, 0) + ' m D+');
+        if (c.lieu) infos.push(esc(c.lieu));
+        var res = (c.tempsSec != null ? Core.formatDuration(c.tempsSec) : '') + (c.classement ? (c.tempsSec != null ? ' — ' : '') + esc(c.classement) : '');
+        return '<li class="item"><span class="pastille" title="Objectif ' + c.priorite + '">' + c.priorite + '</span><div class="item-texte"><strong>' + esc(c.nom) + (c.demo ? ' <span class="badge demo">DÉMO</span>' : '') + '</strong>' +
+          '<span class="aide">' + infos.join(' · ') + '</span>' + (res ? '<span class="aide">Résultat : ' + res + '</span>' : '') + '</div>' +
+          '<div class="item-actions"><button type="button" class="btn petit" data-action="modif-course" data-id="' + esc(c.id) + '" aria-label="Modifier ' + esc(c.nom) + '">Modifier</button>' +
+          '<button type="button" class="btn petit discret" data-action="suppr-course" data-id="' + esc(c.id) + '" aria-label="Supprimer ' + esc(c.nom) + '">×</button></div></li>';
+      }).join('') + '</ul>' : '<p>Aucune course enregistrée.</p>') +
       '<button type="button" class="btn" data-action="nouvelle-course">Ajouter une course</button></section>';
 
     $('#f-vma').addEventListener('submit', function (e) {
@@ -3156,7 +3256,7 @@ var DB = (function () {
   /* =====================================================================
      TABLEAU DE BORD : faits chiffrés uniquement, aucun conseil
      ===================================================================== */
-  var tdb = { semaines: 12 };
+  var tdb = { semaines: 12, periode: 'semaine', graph: 'km' };
   var NS = 'http://www.w3.org/2000/svg';
   function fmtDuree(sec) { return sec == null || !isFinite(sec) ? '—' : Core.formatDuration(sec); }
   function fmtHeures(sec) { return fmt(sec / 3600, 1) + ' h'; }
@@ -3313,7 +3413,7 @@ var DB = (function () {
       vue.innerHTML = '<div class="vue-tete"><h2>Tableau de bord</h2></div><div class="vide"><p>Aucune donnée pour l\'instant.</p><p>Saisis une séance avec « + Séance » ou importe ton plan depuis l\'onglet Données.</p></div>';
       return;
     }
-    var h = '<div class="vue-tete"><h2>Tableau de bord</h2><div class="actions"><span class="aide">Au ' + dateLongue(auj) + ' (heure de Paris)</span><a class="btn discret" href="#/bilan">Bilan mensuel (PDF)</a></div></div>';
+    var h = '<div class="vue-tete"><div><h2>Tableau de bord</h2><span class="aide">' + dateLongue(auj) + '</span></div><div class="actions"><a class="btn petit discret" href="#/bilan">Bilan PDF</a></div></div>';
 
     // Compte à rebours vers la prochaine course A
     var pa = Core.prochaineCourseA(DB.data.courses, auj);
@@ -3337,29 +3437,37 @@ var DB = (function () {
         '</section>';
     }
     var cm = Core.bilan(S, P.mois.du, P.mois.au).realise;
-    h += '<div class="grille-cartes">' + carte('Cette semaine', P.semaine, 'la semaine précédente au même jour') + carte('Ce mois', P.mois, 'le mois précédent au même jour') + carte('Cette année', P.annee, 'l\'année précédente au même jour') + '</div>';
+    var PERS = { semaine: ['Semaine', 'Cette semaine', P.semaine, 'la semaine précédente au même jour'], mois: ['Mois', 'Ce mois', P.mois, 'le mois précédent au même jour'], annee: ['Année', 'Cette année', P.annee, 'l\'année précédente au même jour'] };
+    var pc = PERS[tdb.periode] || PERS.semaine;
+    h += '<div class="filtre-ligne"><div class="seg-boutons" role="group" aria-label="Période des chiffres">' + Object.keys(PERS).map(function (k) {
+      return '<button type="button" data-action="tdb-periode" data-p="' + k + '" aria-pressed="' + (pc === PERS[k]) + '">' + PERS[k][0] + '</button>';
+    }).join('') + '</div></div>' + carte(pc[1], pc[2], pc[3]);
     if (param.kmMois || param.dplusMois) {
       h += '<section class="carte"><h3>Objectifs du mois</h3>' +
         (param.kmMois ? '<p>Volume : ' + fmt(cm.km, 1) + ' / ' + fmt(param.kmMois, 0) + ' km (' + fmt(cm.km / param.kmMois * 100, 0) + ' %)</p>' : '') +
         (param.dplusMois ? '<p>D+ : ' + fmt(cm.dplus, 0) + ' / ' + fmt(param.dplusMois, 0) + ' m (' + fmt(cm.dplus / param.dplusMois * 100, 0) + ' %)</p>' : '') + '</section>';
     }
 
-    // Filtre unique des graphiques
-    h += '<div class="filtre-ligne"><span id="tdb-per">Graphiques sur</span><div class="seg-boutons" role="group" aria-labelledby="tdb-per">' + [8, 12, 26, 52].map(function (n) {
-      return '<button type="button" data-action="tdb-semaines" data-n="' + n + '" aria-pressed="' + (tdb.semaines === n) + '" aria-label="' + n + ' semaines">' + n + ' sem.</button>';
-    }).join('') + '</div></div>';
+    // Évolution : un graphique à la fois (km, D+, durée, FC), sur la période choisie
     var W = Core.semaines(S, tdb.semaines, auj), du = W[0].du, au = W[W.length - 1].au;
     var reals = S.filter(function (s) { return s.statut === 'realisee' && s.date >= du && s.date <= au; });
     var lignesSem = W.map(function (w) { return [semaineLib(w) + ' (' + plageLib(w.du, w.au) + ')', fmt(w.realise.km, 1), fmt(w.realise.dplus, 0), fmtDuree(w.realise.dureeSec), fmtDuree(w.prevu.dureeSec)]; });
-    h += '<div class="grille-graph">' +
-      '<section class="carte"><h3>Volume par semaine (km réalisés)</h3><div class="graph" id="g-km"></div>' + tableDonnees(['Semaine', 'Km', 'D+ (m)', 'Durée réalisée', 'Durée prévue'], lignesSem) + '</section>' +
-      '<section class="carte"><h3>D+ par semaine (m réalisés)</h3><div class="graph" id="g-dplus"></div></section>' +
-      '<section class="carte"><h3>Durée par semaine : prévue et réalisée</h3><div class="legende"><span><i style="background:var(--prevu)"></i>Prévue</span><span><i style="background:var(--serie-realise)"></i>Réalisée</span></div><div class="graph" id="g-duree"></div>' +
-      '<p class="aide">Prévue = somme des durées des séances prévues qui en ont une ; les séances prévues sans durée ne comptent pas.</p></section>';
     var fc = reals.filter(function (s) { return Core.isNum(s.fcMoy); }).sort(function (a, b) { return a.date < b.date ? -1 : 1; });
-    h += '<section class="carte"><h3>FC moyenne par séance (bpm)</h3>' + (fc.length ? '<div class="graph" id="g-fc"></div>' +
-      tableDonnees(['Date', 'Type', 'FC moy.', 'Allure'], fc.map(function (s) { return [Core.formatDateFR(s.date), typeLabel(s.type), String(s.fcMoy), Core.formatPace(Core.paceSecPerKm(s.dureeSec, s.distanceKm))]; }))
-      : '<p class="aide">Aucune séance avec FC sur la période.</p>') + '</section></div>';
+    var GRAPHS = { km: ['Km', 'Volume par semaine (km réalisés)'], dplus: ['D+', 'D+ par semaine (m réalisés)'], duree: ['Durée', 'Durée par semaine : prévue et réalisée'], fc: ['FC', 'FC moyenne par séance (bpm)'] };
+    if (!GRAPHS[tdb.graph]) tdb.graph = 'km';
+    h += '<section class="carte"><h3>' + GRAPHS[tdb.graph][1] + '</h3>' +
+      '<div class="graph-choix"><div class="seg-boutons" role="group" aria-label="Graphique affiché">' + Object.keys(GRAPHS).map(function (k) {
+        return '<button type="button" data-action="tdb-graph" data-g="' + k + '" aria-pressed="' + (tdb.graph === k) + '">' + GRAPHS[k][0] + '</button>';
+      }).join('') + '</div><div class="seg-boutons" role="group" aria-label="Nombre de semaines">' + [8, 12, 26, 52].map(function (n) {
+        return '<button type="button" data-action="tdb-semaines" data-n="' + n + '" aria-pressed="' + (tdb.semaines === n) + '" aria-label="' + n + ' semaines">' + n + ' sem.</button>';
+      }).join('') + '</div></div>';
+    if (tdb.graph === 'duree') h += '<div class="legende"><span><i style="background:var(--prevu)"></i>Prévue</span><span><i style="background:var(--serie-realise)"></i>Réalisée</span></div>';
+    if (tdb.graph === 'fc' && !fc.length) h += '<p class="aide">Aucune séance avec FC sur la période.</p>';
+    else h += '<div class="graph" id="g-' + tdb.graph + '"></div>';
+    if (tdb.graph === 'fc' && fc.length) h += tableDonnees(['Date', 'Type', 'FC moy.', 'Allure'], fc.map(function (s) { return [Core.formatDateFR(s.date), typeLabel(s.type), String(s.fcMoy), Core.formatPace(Core.paceSecPerKm(s.dureeSec, s.distanceKm))]; }));
+    else if (tdb.graph !== 'fc') h += tableDonnees(['Semaine', 'Km', 'D+ (m)', 'Durée réalisée', 'Durée prévue'], lignesSem);
+    if (tdb.graph === 'duree') h += '<p class="aide">Les séances prévues sans durée ne comptent pas dans la durée prévue.</p>';
+    h += '</section>';
 
     // Répartition par type et allure par type
     var rep = Core.repartitionTypes(reals), maxN = rep.reduce(function (m, x) { return Math.max(m, x.n); }, 0);
@@ -3374,7 +3482,7 @@ var DB = (function () {
     function ecart(r, p, sans, f) { return p.n === 0 || sans === p.n ? '—' : sans ? 'n.c.' : f(r - p.v); }
     // Valeur prévue : « — » si aucune séance prévue n'a la valeur ; sinon somme + nombre de séances sans la valeur
     function prevuVal(somme, sans, n, f) { return n === 0 || sans === n ? '—' : f(somme) + (sans ? ' <span class="sans">(' + sans + ' sans)</span>' : ''); }
-    h += '<section class="carte"><h3>Prévu et réalisé par semaine</h3><p class="aide">Écart = réalisé − prévu, calculé seulement si toutes les séances prévues de la semaine ont la valeur ; sinon « n.c. » (non calculé).</p>' +
+    h += '<details class="carte pliable"><summary><h3>Prévu et réalisé par semaine</h3></summary><div><p class="aide">Écart = réalisé − prévu, calculé seulement si toutes les séances prévues de la semaine ont la valeur ; sinon « n.c. » (non calculé).</p>' +
       '<div class="table-wrap" style="display:block"><table class="simple pvr"><thead><tr><th>Semaine</th><th class="num">Séances prév. / réal.</th><th class="num">Durée prévue</th><th class="num">Durée réalisée</th><th class="num">Écart</th><th class="num">Km prévus</th><th class="num">Km réalisés</th><th class="num">Écart</th><th class="num">D+ prévu</th><th class="num">D+ réalisé</th><th class="num">Écart</th></tr></thead><tbody>' +
       W.slice().reverse().map(function (w) {
         var p = w.prevu, r = w.realise, s = w.prevuSans;
@@ -3382,7 +3490,7 @@ var DB = (function () {
           '<td class="num">' + prevuVal(p.dureeSec, s.dureeSec, p.n, fmtDuree) + '</td><td class="num">' + fmtDuree(r.dureeSec) + '</td><td class="num">' + ecart(r.dureeSec, { n: p.n, v: p.dureeSec }, s.dureeSec, function (x) { return (x >= 0 ? '+' : '−') + fmtDuree(Math.abs(x)); }) + '</td>' +
           '<td class="num">' + prevuVal(p.km, s.distanceKm, p.n, function (v) { return fmt(v, 1); }) + '</td><td class="num">' + fmt(r.km, 1) + '</td><td class="num">' + ecart(r.km, { n: p.n, v: p.km }, s.distanceKm, function (x) { return signe(x, 1); }) + '</td>' +
           '<td class="num">' + prevuVal(p.dplus, s.dplus, p.n, function (v) { return fmt(v, 0); }) + '</td><td class="num">' + fmt(r.dplus, 0) + '</td><td class="num">' + ecart(r.dplus, { n: p.n, v: p.dplus }, s.dplus, function (x) { return signe(x, 0); }) + '</td></tr>';
-      }).join('') + '</tbody></table></div><p class="aide">« (n sans) » : nombre de séances prévues de la semaine qui n\'ont pas cette valeur. « — » : aucune séance prévue n\'a la valeur.</p></section>';
+      }).join('') + '</tbody></table></div><p class="aide">« (n sans) » : nombre de séances prévues de la semaine qui n\'ont pas cette valeur. « — » : aucune séance prévue n\'a la valeur.</p></div></details>';
 
     // Courses à venir, records, chaussures
     var cav = Core.coursesAVenir(DB.data.courses, auj);
@@ -3392,32 +3500,33 @@ var DB = (function () {
 
     var toutesR = S.filter(function (s) { return s.statut === 'realisee'; }), rec = Core.records(toutesR);
     var recLigne = function (lib, r, f) { return '<tr><th scope="row">' + lib + '</th><td class="num">' + (r ? f(r.v) : '—') + '</td><td>' + (r ? dateLongue(r.s.date) + ' — ' + esc(typeLabel(r.s.type)) : '') + '</td></tr>'; };
-    h += '<section class="carte"><h3>Records (toutes les séances réalisées)</h3><table class="simple"><tbody>' +
+    h += '<details class="carte pliable"><summary><h3>Records (toutes les séances réalisées)</h3></summary><div><table class="simple"><tbody>' +
       recLigne('Plus longue distance', rec.distance, function (v) { return fmt(v, 2) + ' km'; }) +
       recLigne('Plus longue durée', rec.duree, fmtDuree) +
       recLigne('Plus gros D+', rec.dplus, function (v) { return fmt(v, 0) + ' m'; }) +
       recLigne('Plus gros km-effort', rec.kmEffort, function (v) { return fmt(v, 1); }) +
       rec.allures.map(function (a) { return recLigne('Meilleure allure moyenne, séance ≥ ' + a.libelle, a.meilleur, Core.formatPace); }).join('') +
-      '</tbody></table><p class="aide">Les allures sont des moyennes de séances entières (échauffement et récupérations compris), pas des meilleurs segments : les données ne contiennent que des totaux par séance.</p></section></div>';
+      '</tbody></table><p class="aide">Les allures sont des moyennes de séances entières (échauffement et récupérations compris), pas des meilleurs segments : les données ne contiennent que des totaux par séance.</p></div></details></div>';
 
     var chs = DB.data.chaussures.filter(function (c) { return !c.retiree; });
-    h += '<section class="carte"><h3>Chaussures en service</h3>' + (chs.length ? '<div class="table-wrap" style="display:block"><table class="simple"><thead><tr><th>Paire</th><th class="num">Km cumulés</th><th>Part du km max indicatif</th><th class="num">Séances</th><th>Dernière sortie</th></tr></thead><tbody>' + chs.map(function (c) {
+    h += '<section class="carte"><h3>Chaussures en service</h3>' + (chs.length ? '<ul class="items">' + chs.map(function (c) {
       var ss = toutesR.filter(function (s) { return s.chaussureId === c.id; }), km = kmChaussure(c);
       var der = ss.reduce(function (m, s) { return !m || s.date > m ? s.date : m; }, null);
       var pc = c.kmMax ? km / c.kmMax * 100 : null;
-      return '<tr><td>' + esc(c.nom) + '</td><td class="num">' + fmt(km, 1) + '</td><td>' + (pc == null ? '<span class="aide">km max non renseigné</span>' : '<span class="jauge" aria-hidden="true"><span style="width:' + Math.min(100, pc) + '%"></span></span> ' + fmt(pc, 0) + ' % de ' + fmt(c.kmMax, 0) + ' km') + '</td><td class="num">' + ss.length + '</td><td>' + (der ? Core.formatDateFR(der) : '—') + '</td></tr>';
-    }).join('') + '</tbody></table></div><p class="aide">Km cumulés = km de départ + séances réalisées avec la paire.</p>' : '<p class="aide">Aucune paire en service. <a href="#/reglages">Ajouter une paire</a></p>') + '</section>';
+      return '<li class="item"><div class="item-texte"><strong>' + esc(c.nom) + '</strong><span class="aide">' + fmt(km, 0) + ' km · ' + ss.length + ' séance' + (ss.length > 1 ? 's' : '') + (der ? ' · dernière le ' + Core.formatDateFR(der) : '') + '</span>' +
+        (pc == null ? '' : '<span class="item-jauge"><span class="jauge" aria-hidden="true"><span style="width:' + Math.min(100, pc) + '%"></span></span> <span class="aide">' + fmt(pc, 0) + ' % de ' + fmt(c.kmMax, 0) + ' km (indicatif)</span></span>') + '</div></li>';
+    }).join('') + '</ul><p class="aide">Km = km de départ + séances réalisées avec la paire.</p>' : '<p class="aide">Aucune paire en service. <a href="#/reglages">Ajouter une paire</a></p>') + '</section>';
 
     vue.innerHTML = h;
 
     // Tracés (largeur réelle du conteneur, rejoués au redimensionnement)
     var etiq = W.map(semaineLib), det = W.map(function (w) { return semaineLib(w) + ' · ' + plageLib(w.du, w.au); });
-    dessins.push(function () { graphColonnes($('#g-km'), { titre: 'Km réalisés par semaine', etiquettes: etiq, details: det, series: [{ nom: 'réalisés', couleur: 'var(--serie-realise)', valeurs: W.map(function (w) { return w.realise.km; }) }], formatAxe: function (v) { return fmt(v, 0); }, formatVal: function (v) { return fmt(v, 1) + ' km'; } }); });
-    dessins.push(function () { graphColonnes($('#g-dplus'), { titre: 'D+ réalisé par semaine', etiquettes: etiq, details: det, series: [{ nom: 'réalisé', couleur: 'var(--serie-realise)', valeurs: W.map(function (w) { return w.realise.dplus; }) }], formatAxe: function (v) { return fmt(v, 0); }, formatVal: function (v) { return fmt(v, 0) + ' m'; } }); });
-    dessins.push(function () { graphColonnes($('#g-duree'), { titre: 'Durée prévue et réalisée par semaine', etiquettes: etiq, details: det,
+    if ($('#g-km')) dessins.push(function () { graphColonnes($('#g-km'), { titre: 'Km réalisés par semaine', etiquettes: etiq, details: det, series: [{ nom: 'réalisés', couleur: 'var(--serie-realise)', valeurs: W.map(function (w) { return w.realise.km; }) }], formatAxe: function (v) { return fmt(v, 0); }, formatVal: function (v) { return fmt(v, 1) + ' km'; } }); });
+    if ($('#g-dplus')) dessins.push(function () { graphColonnes($('#g-dplus'), { titre: 'D+ réalisé par semaine', etiquettes: etiq, details: det, series: [{ nom: 'réalisé', couleur: 'var(--serie-realise)', valeurs: W.map(function (w) { return w.realise.dplus; }) }], formatAxe: function (v) { return fmt(v, 0); }, formatVal: function (v) { return fmt(v, 0) + ' m'; } }); });
+    if ($('#g-duree')) dessins.push(function () { graphColonnes($('#g-duree'), { titre: 'Durée prévue et réalisée par semaine', etiquettes: etiq, details: det,
       series: [{ nom: 'prévue', couleur: 'var(--prevu)', valeurs: W.map(function (w) { return w.prevu.dureeSec / 3600; }) }, { nom: 'réalisée', couleur: 'var(--serie-realise)', valeurs: W.map(function (w) { return w.realise.dureeSec / 3600; }) }],
       formatAxe: function (v) { return fmt(v, 1) + ' h'; }, formatVal: function (v, s, i) { return fmtDuree(v * 3600) + (s.nom === 'prévue' && W[i].prevuSans.dureeSec ? ' (+' + W[i].prevuSans.dureeSec + ' sans durée)' : ''); } }); });
-    if (fc.length) dessins.push(function () {
+    if (fc.length && $('#g-fc')) dessins.push(function () {
       var mois = [], d = Core.debutMois(du);
       while (d <= au) { if (d >= du) mois.push({ iso: d, lib: ['janv.', 'févr.', 'mars', 'avr.', 'mai', 'juin', 'juil.', 'août', 'sept.', 'oct.', 'nov.', 'déc.'][Number(d.slice(5, 7)) - 1] }); d = Core.addDays(Core.finMois(d), 1); }
       graphPoints($('#g-fc'), { titre: 'FC moyenne par séance', du: du, au: au, reperes: mois, points: fc.map(function (s) {
@@ -4240,6 +4349,8 @@ var DB = (function () {
         break;
       }
       case 'tdb-semaines': tdb.semaines = Number(b.getAttribute('data-n')); rafraichir(); break;
+      case 'tdb-periode': tdb.periode = b.getAttribute('data-p'); rafraichir(); break;
+      case 'tdb-graph': tdb.graph = b.getAttribute('data-g'); rafraichir(); break;
       case 'charger-demo': {
         var d = demoDonnees();
         DB.putMany('chaussures', d.chaussures).then(function () { return DB.putMany('courses', d.courses); })
@@ -4285,6 +4396,17 @@ var DB = (function () {
     return retourStrava().then(router);
   });
 })();
+</script>
+<script>
+  // Écran d'ouverture : retiré à la fin de son animation, ou au premier toucher
+  (function () {
+    var o = document.getElementById('ouverture');
+    if (!o) return;
+    function fin() { o.classList.add('fini'); }
+    o.addEventListener('animationend', function (e) { if (e.target === o) fin(); });
+    o.addEventListener('click', fin);
+    setTimeout(fin, 3000);
+  })();
 </script>
 </body>
 </html>
