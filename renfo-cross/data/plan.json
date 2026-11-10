@@ -1,0 +1,4828 @@
+{
+ "format": 1,
+ "genereLe": "2026-11-10T13:46:28.183Z",
+ "sources": [
+  "Plan.csv",
+  "Règles.csv",
+  "S1.csv",
+  "S2.csv",
+  "S3.csv",
+  "S4.csv"
+ ],
+ "debut": "2026-11-09",
+ "seancesParSemaine": 3,
+ "seancesType": [
+  {
+   "n": 1,
+   "nom": "Jambes",
+   "jour": "lundi",
+   "jourIndex": 1
+  },
+  {
+   "n": 2,
+   "nom": "Tronc et prévention",
+   "jour": "mardi",
+   "jourIndex": 2
+  },
+  {
+   "n": 3,
+   "nom": "Haut du corps",
+   "jour": "jeudi",
+   "jourIndex": 4
+  }
+ ],
+ "seancesPrevues": 48,
+ "exercicesCles": [
+  {
+   "cle": "squat-arriere",
+   "nom": "Squat arrière"
+  },
+  {
+   "cle": "souleve-de-terre",
+   "nom": "Soulevé de terre"
+  },
+  {
+   "cle": "developpe-couche",
+   "nom": "Développé couché"
+  },
+  {
+   "cle": "tractions-strictes",
+   "nom": "Tractions strictes"
+  },
+  {
+   "cle": "fente-bulgare",
+   "nom": "Fente bulgare"
+  }
+ ],
+ "regles": {
+  "sections": [
+   {
+    "titre": "Notation",
+    "entrees": [
+     {
+      "cle": "Tempo (ex. 3-0-1)",
+      "texte": "Descente en 3 s, pause en bas 0 s, montée en 1 s (explosive). Tempo 3-1-1 des mollets : descente 3 s, pause 1 s, montée 1 s."
+     },
+     {
+      "cle": "R",
+      "texte": "Récupération entre les séries."
+     },
+     {
+      "cle": "RPE",
+      "texte": "Effort perçu sur 10 à la dernière série : 7 = 3 répétitions en réserve, 8 = 2, 9 = 1, 10 = échec."
+     },
+     {
+      "cle": "Max − 2 reps (tractions)",
+      "texte": "Nombre de répétitions égal à ton max de tractions strictes moins 2."
+     }
+    ]
+   },
+   {
+    "titre": "Décision pour la semaine suivante",
+    "entrees": [
+     {
+      "cle": "Monter",
+      "texte": "Toutes les séries réussies à RPE 7 ou moins et fractionné du mercredi resté de qualité : +2,5 kg en bas du corps, +1 à 2 kg en haut."
+     },
+     {
+      "cle": "Maintenir",
+      "texte": "RPE 8, ou fractionné du mercredi un peu dégradé : même charge."
+     },
+     {
+      "cle": "Réduire",
+      "texte": "RPE 9 ou plus, douleur, mauvais sommeil ou fractionné raté : charges réduites de 5 à 10 %."
+     }
+    ]
+   },
+   {
+    "titre": "Placement dans la semaine",
+    "entrees": [
+     {
+      "cle": "Lundi midi",
+      "texte": "Jambes. Seule séance lourde, à 48 h du fractionné du mercredi."
+     },
+     {
+      "cle": "Mardi midi",
+      "texte": "Tronc et prévention. Séance peu fatigante pour les jambes."
+     },
+     {
+      "cle": "Jeudi midi",
+      "texte": "Haut du corps. Sans effet sur le fractionné du vendredi."
+     },
+     {
+      "cle": "Mercredi et vendredi",
+      "texte": "Séances de qualité en course : pas de musculation."
+     }
+    ]
+   },
+   {
+    "titre": "Hypothèses",
+    "entrees": [
+     {
+      "cle": "Charges",
+      "texte": "Estimées à partir de 60 kg au squat et au soulevé de terre (meilleure série d'environ 5 répétitions) et de 50 kg au développé couché (max). Formule d'Epley : 1RM = charge × (1 + répétitions / 30). La semaine 1 valide ou corrige ces charges."
+     },
+     {
+      "cle": "Haltères",
+      "texte": "Fente, rowing, développé militaire, marche du fermier : repères de départ. La dernière répétition reste à 2 ou 3 répétitions de l'échec."
+     },
+     {
+      "cle": "Blocs 2 à 4",
+      "texte": "Les onglets détaillés sont ajoutés au démarrage de chaque bloc, à partir des résultats du bloc précédent."
+     },
+     {
+      "cle": "Plan de course",
+      "texte": "Géré par Manu. Ce plan s'y adapte et ne le modifie pas."
+     },
+     {
+      "cle": "Références",
+      "texte": "Rønnestad BR, Mujika I. Scand J Med Sci Sports, 2014. Blagrove RC et al. Sports Medicine, 2018."
+     }
+    ]
+   }
+  ],
+  "decision": {
+   "monter": {
+    "texte": "Toutes les séries réussies à RPE 7 ou moins et fractionné du mercredi resté de qualité : +2,5 kg en bas du corps, +1 à 2 kg en haut.",
+    "rpeMax": 7,
+    "fractionne": "qualite"
+   },
+   "maintenir": {
+    "texte": "RPE 8, ou fractionné du mercredi un peu dégradé : même charge.",
+    "rpe": 8,
+    "fractionne": "degrade"
+   },
+   "reduire": {
+    "texte": "RPE 9 ou plus, douleur, mauvais sommeil ou fractionné raté : charges réduites de 5 à 10 %.",
+    "rpeMin": 9,
+    "fractionne": "rate",
+    "douleur": true,
+    "sommeil": true
+   }
+  },
+  "rpe": "Effort perçu sur 10 à la dernière série : 7 = 3 répétitions en réserve, 8 = 2, 9 = 1, 10 = échec."
+ },
+ "semaines": [
+  {
+   "n": 1,
+   "id": "S1",
+   "debut": "2026-11-09",
+   "fin": "2026-11-15",
+   "duTexte": "lun. 9 nov.",
+   "auTexte": "dim. 15 nov.",
+   "bloc": {
+    "n": 1,
+    "nom": "Force et robustesse"
+   },
+   "type": "Calibrage",
+   "typeCle": "calibrage",
+   "objectif": "Calibrage : trouver les 5 reps à RPE 7-8 par paliers et noter les vraies charges.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": "Semaine 1 · du 9/11 au 15/11/2026 · Bloc 1 : Force et robustesse · Calibrage",
+   "consigne": "Calibrage : trouver les 5 reps à RPE 7-8 par paliers et noter les vraies charges dans la colonne E.",
+   "seances": [
+    {
+     "n": 1,
+     "nom": "Jambes",
+     "jour": "lundi",
+     "jourIndex": 1,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 10,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur-ou-velo-facile",
+         "nom": "Rameur ou vélo facile",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Rythme facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "mobilite-chevilles-et-hanches",
+         "nom": "Mobilité chevilles et hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "2 min",
+         "remarques": "Cercles de chevilles, fentes dynamiques, ouverture de hanche",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "2 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pont-fessier",
+         "nom": "Pont fessier",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 12",
+         "remarques": "Pause 1 s en haut",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "squat-gobelet",
+         "nom": "Squat gobelet",
+         "cle": null,
+         "chargePrevue": "Léger",
+         "prescription": "1 × 8",
+         "remarques": "Descente contrôlée",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 37,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "squat-arriere",
+         "nom": "Squat arrière",
+         "cle": "squat-arriere",
+         "chargePrevue": "52,5 kg",
+         "prescription": "4 × 5 · RPE 7-8 · Tempo 3-0-1 · R 2'30",
+         "remarques": "Montée de charge : 20 kg × 8, 30 × 5, 40 × 3, 47,5 × 2, puis séries utiles. Barre sur les trapèzes, genoux dans l'axe des orteils, cuisses au moins parallèles au sol.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7-8",
+          "tempo": "3-0-1",
+          "recupSec": 150,
+          "recupTexte": "2'30",
+          "autres": []
+         },
+         "charge": {
+          "kg": 52.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "souleve-de-terre",
+         "nom": "Soulevé de terre",
+         "cle": "souleve-de-terre",
+         "chargePrevue": "52,5 kg",
+         "prescription": "3 × 4 · RPE 7 · R 3'",
+         "remarques": "Échauffement : 40 kg × 5, 47,5 kg × 2. Barre au-dessus du milieu du pied, dos plat, pousser le sol. Éviter : dos arrondi, barre éloignée des jambes.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 4,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7",
+          "tempo": "",
+          "recupSec": 180,
+          "recupTexte": "3'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 52.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "fente-bulgare",
+         "nom": "Fente bulgare",
+         "cle": "fente-bulgare",
+         "chargePrevue": "2 × 10 kg",
+         "prescription": "3 × 6/jambe · Tempo 2-0-1 · R 90\"",
+         "remarques": "Tibia vertical en bas, pousser avec le talon avant. Repère de départ : la dernière rep reste à 2-3 reps de l'échec.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "2-0-1",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 10,
+          "mult": 2,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab",
+       "minutes": 8,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "elevation-de-mollets-debout-genou-tendu",
+         "nom": "Élévation de mollets debout, genou tendu",
+         "cle": null,
+         "chargePrevue": "Poids du corps, puis 2 × 10 kg",
+         "prescription": "3 tours · 8 reps · Tempo 3-1-1 · R 30\"",
+         "remarques": "Circuit avec le Nordic curl. Éviter : rebonds sans contrôle.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "3-1-1",
+          "recupSec": 30,
+          "recupTexte": "30\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "nordic-curl-assiste",
+         "nom": "Nordic curl assisté",
+         "cle": null,
+         "chargePrevue": "Élastique ou main au sol",
+         "prescription": "3 tours · 4 reps · descente en 4 s",
+         "remarques": "Remonter avec les mains. Éviter : hanches qui plient.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 4,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "descente en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-ischios-mollets-flechisseurs-de-hanche",
+         "nom": "Étirements ischios, mollets, fléchisseurs de hanche",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "30\" par groupe",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "30\" par groupe"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-lente",
+         "nom": "Respiration lente",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "1 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nom": "Tronc et prévention",
+     "jour": "mardi",
+     "jourIndex": 2,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "chat-vache",
+         "nom": "Chat-vache",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 10",
+         "remarques": "Mouvement lent",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-90-90",
+         "nom": "Respiration 90/90",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 respirations",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 respirations"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug-leger",
+         "nom": "Dead bug léger",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 6/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC tronc",
+       "minutes": 28,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "planche-frontale",
+         "nom": "Planche frontale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 30\" · R 45\"",
+         "remarques": "Bassin légèrement rétroversé, fessiers serrés. Éviter : creux lombaire.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pallof-press-elastique",
+         "nom": "Pallof press (élastique)",
+         "cle": null,
+         "chargePrevue": "Élastique moyen",
+         "prescription": "3 × 10/côté · R 45\"",
+         "remarques": "Rester de face, sans tourner le buste.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "planche-laterale",
+         "nom": "Planche latérale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 30\"/côté",
+         "remarques": "Corps aligné. Éviter : bassin qui tombe.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug",
+         "nom": "Dead bug",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 8/côté · extension en 4 s",
+         "remarques": "Lombaires collées au sol.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "extension en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab hanches et chevilles",
+       "minutes": 14,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "marche-laterale-elastique-2",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "3 × 12 pas/côté",
+         "remarques": "Moyen fessier",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "chevilles-eversion-et-inversion",
+         "nom": "Chevilles : éversion et inversion",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 15",
+         "remarques": "Mouvement lent",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-sur-les-talons",
+         "nom": "Marche sur les talons",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 20 m",
+         "remarques": "Tibial antérieur",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 20,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "equilibre-unipodal-sur-coussin-instable",
+         "nom": "Équilibre unipodal sur coussin instable",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 30\"/jambe",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC pliométrie légère",
+       "minutes": 5,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "pogos",
+         "nom": "Pogos",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 15 appuis",
+         "remarques": "Talons légers, contact court, jambes presque tendues. Éviter : sauts trop hauts.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "appuis",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "respiration-et-mobilite-des-hanches",
+         "nom": "Respiration et mobilité des hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "5 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "5 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nom": "Haut du corps",
+     "jour": "jeudi",
+     "jourIndex": 4,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur",
+         "nom": "Rameur",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rotations-d-epaules-a-l-elastique",
+         "nom": "Rotations d'épaules à l'élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 10",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pompes-scapulaires",
+         "nom": "Pompes scapulaires",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 8",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche-a-vide",
+         "nom": "Développé couché à vide",
+         "cle": null,
+         "chargePrevue": "Barre seule",
+         "prescription": "1 série",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 41,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "tractions-strictes",
+         "nom": "Tractions strictes",
+         "cle": "tractions-strictes",
+         "chargePrevue": "Poids du corps",
+         "prescription": "4 séries · max − 3 reps · R 2'",
+         "remarques": "Teste ton max de tractions strictes avant les séries (1 série, échauffé). Départ bras tendus, menton au-dessus de la barre.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "max − 3 reps",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche",
+         "nom": "Développé couché",
+         "cle": "developpe-couche",
+         "chargePrevue": "40 kg",
+         "prescription": "4 × 5 · RPE 7-8 · Tempo 2-0-1 · R 2'",
+         "remarques": "Échauffement : barre × 10, 30 kg × 3, 35 kg × 2. Omoplates serrées, pieds au sol. Éviter : fesses qui décollent, rebond sur la poitrine.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7-8",
+          "tempo": "2-0-1",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 40,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rowing-haltere-unilateral",
+         "nom": "Rowing haltère unilatéral",
+         "cle": null,
+         "chargePrevue": "14 à 18 kg",
+         "prescription": "3 × 8/côté · R 60\"",
+         "remarques": "Repère de départ. Dos plat, coude vers la hanche.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 60,
+          "recupTexte": "60\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": 14,
+          "max": 18
+         }
+        },
+        {
+         "id": "developpe-militaire-halteres-debout",
+         "nom": "Développé militaire haltères debout",
+         "cle": null,
+         "chargePrevue": "10 à 12 kg par main",
+         "prescription": "3 × 6 · R 90\"",
+         "remarques": "Repère de départ. Tronc gainé, ne pas cambrer.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 10,
+          "max": 12
+         }
+        },
+        {
+         "id": "marche-du-fermier",
+         "nom": "Marche du fermier",
+         "cle": null,
+         "chargePrevue": "16 à 20 kg par main",
+         "prescription": "3 × 30 m",
+         "remarques": "Repère de départ. Épaules basses, buste droit.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 30,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 16,
+          "max": 20
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 6,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-pectoraux-dorsaux-epaules",
+         "nom": "Étirements pectoraux, dorsaux, épaules",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 min",
+         "remarques": "Respiration lente",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "id": "S2",
+   "debut": "2026-11-16",
+   "fin": "2026-11-22",
+   "duTexte": "lun. 16 nov.",
+   "auTexte": "dim. 22 nov.",
+   "bloc": {
+    "n": 1,
+    "nom": "Force et robustesse"
+   },
+   "type": "Progression",
+   "typeCle": "progression",
+   "objectif": "Progression : monter la charge si toutes les séries étaient à RPE 7 ou moins et le fractionné de qualité.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": "Semaine 2 · du 16/11 au 22/11/2026 · Bloc 1 : Force et robustesse · Progression",
+   "consigne": "Progression : monter la charge si toutes les séries étaient à RPE 7 ou moins et le fractionné de qualité.",
+   "seances": [
+    {
+     "n": 1,
+     "nom": "Jambes",
+     "jour": "lundi",
+     "jourIndex": 1,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 10,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur-ou-velo-facile",
+         "nom": "Rameur ou vélo facile",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Rythme facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "mobilite-chevilles-et-hanches",
+         "nom": "Mobilité chevilles et hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "2 min",
+         "remarques": "Cercles de chevilles, fentes dynamiques, ouverture de hanche",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "2 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pont-fessier",
+         "nom": "Pont fessier",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 12",
+         "remarques": "Pause 1 s en haut",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "squat-gobelet",
+         "nom": "Squat gobelet",
+         "cle": null,
+         "chargePrevue": "Léger",
+         "prescription": "1 × 8",
+         "remarques": "Descente contrôlée",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 37,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "squat-arriere",
+         "nom": "Squat arrière",
+         "cle": "squat-arriere",
+         "chargePrevue": "55 kg",
+         "prescription": "4 × 5 · RPE 7-8 · Tempo 3-0-1 · R 2'30",
+         "remarques": "Même échauffement spécifique, adapté à la charge du jour. Éviter : genoux qui rentrent, talons qui décollent, bassin qui s'enroule en bas.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7-8",
+          "tempo": "3-0-1",
+          "recupSec": 150,
+          "recupTexte": "2'30",
+          "autres": []
+         },
+         "charge": {
+          "kg": 55,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "souleve-de-terre",
+         "nom": "Soulevé de terre",
+         "cle": "souleve-de-terre",
+         "chargePrevue": "55 kg",
+         "prescription": "3 × 4 · RPE 7 · R 3'",
+         "remarques": "Barre au-dessus du milieu du pied, dos plat, pousser le sol. Éviter : dos arrondi, barre éloignée des jambes.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 4,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7",
+          "tempo": "",
+          "recupSec": 180,
+          "recupTexte": "3'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 55,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "fente-bulgare",
+         "nom": "Fente bulgare",
+         "cle": "fente-bulgare",
+         "chargePrevue": "2 × 10 kg",
+         "prescription": "3 × 6/jambe · Tempo 2-0-1 · R 90\"",
+         "remarques": "Tibia vertical en bas, pousser avec le talon avant. Repère de départ : la dernière rep reste à 2-3 reps de l'échec.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "2-0-1",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 10,
+          "mult": 2,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab",
+       "minutes": 8,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "elevation-de-mollets-debout-genou-tendu",
+         "nom": "Élévation de mollets debout, genou tendu",
+         "cle": null,
+         "chargePrevue": "Poids du corps, puis 2 × 10 kg",
+         "prescription": "3 tours · 8 reps · Tempo 3-1-1 · R 30\"",
+         "remarques": "Circuit avec le Nordic curl. Éviter : rebonds sans contrôle.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "3-1-1",
+          "recupSec": 30,
+          "recupTexte": "30\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "nordic-curl-assiste",
+         "nom": "Nordic curl assisté",
+         "cle": null,
+         "chargePrevue": "Élastique ou main au sol",
+         "prescription": "3 tours · 4 reps · descente en 4 s",
+         "remarques": "Remonter avec les mains. Éviter : hanches qui plient.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 4,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "descente en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-ischios-mollets-flechisseurs-de-hanche",
+         "nom": "Étirements ischios, mollets, fléchisseurs de hanche",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "30\" par groupe",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "30\" par groupe"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-lente",
+         "nom": "Respiration lente",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "1 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nom": "Tronc et prévention",
+     "jour": "mardi",
+     "jourIndex": 2,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "chat-vache",
+         "nom": "Chat-vache",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 10",
+         "remarques": "Mouvement lent",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-90-90",
+         "nom": "Respiration 90/90",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 respirations",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 respirations"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug-leger",
+         "nom": "Dead bug léger",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 6/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC tronc",
+       "minutes": 28,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "planche-frontale",
+         "nom": "Planche frontale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 35\" · R 45\"",
+         "remarques": "Bassin légèrement rétroversé, fessiers serrés. Éviter : creux lombaire.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 35,
+          "unite": "s",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pallof-press-elastique",
+         "nom": "Pallof press (élastique)",
+         "cle": null,
+         "chargePrevue": "Élastique moyen",
+         "prescription": "3 × 10/côté · R 45\"",
+         "remarques": "Rester de face, sans tourner le buste.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "planche-laterale",
+         "nom": "Planche latérale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 35\"/côté",
+         "remarques": "Corps aligné. Éviter : bassin qui tombe.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 35,
+          "unite": "s",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug",
+         "nom": "Dead bug",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 8/côté · extension en 4 s",
+         "remarques": "Lombaires collées au sol.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "extension en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab hanches et chevilles",
+       "minutes": 14,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "marche-laterale-elastique-2",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "3 × 12 pas/côté",
+         "remarques": "Moyen fessier",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "chevilles-eversion-et-inversion",
+         "nom": "Chevilles : éversion et inversion",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 15",
+         "remarques": "Mouvement lent",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-sur-les-talons",
+         "nom": "Marche sur les talons",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 20 m",
+         "remarques": "Tibial antérieur",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 20,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "equilibre-unipodal-sur-coussin-instable",
+         "nom": "Équilibre unipodal sur coussin instable",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 30\"/jambe",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC pliométrie légère",
+       "minutes": 5,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "pogos",
+         "nom": "Pogos",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 15 appuis",
+         "remarques": "Talons légers, contact court, jambes presque tendues. Éviter : sauts trop hauts.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "appuis",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "respiration-et-mobilite-des-hanches",
+         "nom": "Respiration et mobilité des hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "5 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "5 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nom": "Haut du corps",
+     "jour": "jeudi",
+     "jourIndex": 4,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur",
+         "nom": "Rameur",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rotations-d-epaules-a-l-elastique",
+         "nom": "Rotations d'épaules à l'élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 10",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pompes-scapulaires",
+         "nom": "Pompes scapulaires",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 8",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche-a-vide",
+         "nom": "Développé couché à vide",
+         "cle": null,
+         "chargePrevue": "Barre seule",
+         "prescription": "1 série",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 41,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "tractions-strictes",
+         "nom": "Tractions strictes",
+         "cle": "tractions-strictes",
+         "chargePrevue": "Poids du corps",
+         "prescription": "4 séries · max − 2 reps · R 2'",
+         "remarques": "Éviter : balancer le corps, descente non contrôlée.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "max − 2 reps",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche",
+         "nom": "Développé couché",
+         "cle": "developpe-couche",
+         "chargePrevue": "40 kg (42,5 kg si RPE ≤ 7)",
+         "prescription": "4 × 5 · RPE 7-8 · Tempo 2-0-1 · R 2'",
+         "remarques": "Omoplates serrées, pieds au sol. Éviter : fesses qui décollent, rebond sur la poitrine.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7-8",
+          "tempo": "2-0-1",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 40,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rowing-haltere-unilateral",
+         "nom": "Rowing haltère unilatéral",
+         "cle": null,
+         "chargePrevue": "14 à 18 kg",
+         "prescription": "3 × 8/côté · R 60\"",
+         "remarques": "Repère de départ. Dos plat, coude vers la hanche.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 60,
+          "recupTexte": "60\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": 14,
+          "max": 18
+         }
+        },
+        {
+         "id": "developpe-militaire-halteres-debout",
+         "nom": "Développé militaire haltères debout",
+         "cle": null,
+         "chargePrevue": "10 à 12 kg par main",
+         "prescription": "3 × 6 · R 90\"",
+         "remarques": "Repère de départ. Tronc gainé, ne pas cambrer.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 10,
+          "max": 12
+         }
+        },
+        {
+         "id": "marche-du-fermier",
+         "nom": "Marche du fermier",
+         "cle": null,
+         "chargePrevue": "16 à 20 kg par main",
+         "prescription": "3 × 30 m",
+         "remarques": "Repère de départ. Épaules basses, buste droit.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 30,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 16,
+          "max": 20
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 6,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-pectoraux-dorsaux-epaules",
+         "nom": "Étirements pectoraux, dorsaux, épaules",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 min",
+         "remarques": "Respiration lente",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "id": "S3",
+   "debut": "2026-11-23",
+   "fin": "2026-11-29",
+   "duTexte": "lun. 23 nov.",
+   "auTexte": "dim. 29 nov.",
+   "bloc": {
+    "n": 1,
+    "nom": "Force et robustesse"
+   },
+   "type": "Progression",
+   "typeCle": "progression",
+   "objectif": "Progression : monter la charge si toutes les séries étaient à RPE 7 ou moins et le fractionné de qualité.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": "Semaine 3 · du 23/11 au 29/11/2026 · Bloc 1 : Force et robustesse · Progression",
+   "consigne": "Progression : monter la charge si toutes les séries étaient à RPE 7 ou moins et le fractionné de qualité.",
+   "seances": [
+    {
+     "n": 1,
+     "nom": "Jambes",
+     "jour": "lundi",
+     "jourIndex": 1,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 10,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur-ou-velo-facile",
+         "nom": "Rameur ou vélo facile",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Rythme facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "mobilite-chevilles-et-hanches",
+         "nom": "Mobilité chevilles et hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "2 min",
+         "remarques": "Cercles de chevilles, fentes dynamiques, ouverture de hanche",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "2 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pont-fessier",
+         "nom": "Pont fessier",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 12",
+         "remarques": "Pause 1 s en haut",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "squat-gobelet",
+         "nom": "Squat gobelet",
+         "cle": null,
+         "chargePrevue": "Léger",
+         "prescription": "1 × 8",
+         "remarques": "Descente contrôlée",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 37,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "squat-arriere",
+         "nom": "Squat arrière",
+         "cle": "squat-arriere",
+         "chargePrevue": "57,5 kg",
+         "prescription": "4 × 5 · RPE 7-8 · Tempo 3-0-1 · R 2'30",
+         "remarques": "Même échauffement spécifique, adapté à la charge du jour. Éviter : genoux qui rentrent, talons qui décollent, bassin qui s'enroule en bas.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7-8",
+          "tempo": "3-0-1",
+          "recupSec": 150,
+          "recupTexte": "2'30",
+          "autres": []
+         },
+         "charge": {
+          "kg": 57.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "souleve-de-terre",
+         "nom": "Soulevé de terre",
+         "cle": "souleve-de-terre",
+         "chargePrevue": "57,5 kg",
+         "prescription": "3 × 4 · RPE 7 · R 3'",
+         "remarques": "Barre au-dessus du milieu du pied, dos plat, pousser le sol. Éviter : dos arrondi, barre éloignée des jambes.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 4,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7",
+          "tempo": "",
+          "recupSec": 180,
+          "recupTexte": "3'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 57.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "fente-bulgare",
+         "nom": "Fente bulgare",
+         "cle": "fente-bulgare",
+         "chargePrevue": "2 × 12 kg",
+         "prescription": "3 × 6/jambe · Tempo 2-0-1 · R 90\"",
+         "remarques": "Tibia vertical en bas, pousser avec le talon avant. Repère de départ : la dernière rep reste à 2-3 reps de l'échec.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "2-0-1",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 12,
+          "mult": 2,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab",
+       "minutes": 8,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "elevation-de-mollets-debout-genou-tendu",
+         "nom": "Élévation de mollets debout, genou tendu",
+         "cle": null,
+         "chargePrevue": "Poids du corps, puis 2 × 10 kg",
+         "prescription": "3 tours · 8 reps · Tempo 3-1-1 · R 30\"",
+         "remarques": "Circuit avec le Nordic curl. Éviter : rebonds sans contrôle.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "3-1-1",
+          "recupSec": 30,
+          "recupTexte": "30\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "nordic-curl-assiste",
+         "nom": "Nordic curl assisté",
+         "cle": null,
+         "chargePrevue": "Élastique ou main au sol",
+         "prescription": "3 tours · 4 reps · descente en 4 s",
+         "remarques": "Remonter avec les mains. Éviter : hanches qui plient.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 4,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "descente en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-ischios-mollets-flechisseurs-de-hanche",
+         "nom": "Étirements ischios, mollets, fléchisseurs de hanche",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "30\" par groupe",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "30\" par groupe"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-lente",
+         "nom": "Respiration lente",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "1 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nom": "Tronc et prévention",
+     "jour": "mardi",
+     "jourIndex": 2,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "chat-vache",
+         "nom": "Chat-vache",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 10",
+         "remarques": "Mouvement lent",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-90-90",
+         "nom": "Respiration 90/90",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 respirations",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 respirations"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug-leger",
+         "nom": "Dead bug léger",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 6/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC tronc",
+       "minutes": 28,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "planche-frontale",
+         "nom": "Planche frontale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 40\" · R 45\"",
+         "remarques": "Bassin légèrement rétroversé, fessiers serrés. Éviter : creux lombaire.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 40,
+          "unite": "s",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pallof-press-elastique",
+         "nom": "Pallof press (élastique)",
+         "cle": null,
+         "chargePrevue": "Élastique moyen",
+         "prescription": "3 × 12/côté · R 45\"",
+         "remarques": "Rester de face, sans tourner le buste.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "planche-laterale",
+         "nom": "Planche latérale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 40\"/côté",
+         "remarques": "Corps aligné. Éviter : bassin qui tombe.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 40,
+          "unite": "s",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug",
+         "nom": "Dead bug",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 8/côté · extension en 4 s, pause 2 s",
+         "remarques": "Lombaires collées au sol.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "extension en 4 s, pause 2 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab hanches et chevilles",
+       "minutes": 14,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "marche-laterale-elastique-2",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "3 × 12 pas/côté",
+         "remarques": "Moyen fessier",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "chevilles-eversion-et-inversion",
+         "nom": "Chevilles : éversion et inversion",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 15",
+         "remarques": "Mouvement lent",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-sur-les-talons",
+         "nom": "Marche sur les talons",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 20 m",
+         "remarques": "Tibial antérieur",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 20,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "equilibre-unipodal-sur-coussin-instable",
+         "nom": "Équilibre unipodal sur coussin instable",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 30\"/jambe",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC pliométrie légère",
+       "minutes": 5,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "pogos",
+         "nom": "Pogos",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "3 × 20 appuis",
+         "remarques": "Talons légers, contact court, jambes presque tendues. Éviter : sauts trop hauts.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 20,
+          "unite": "",
+          "repsTexte": "appuis",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "respiration-et-mobilite-des-hanches",
+         "nom": "Respiration et mobilité des hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "5 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "5 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nom": "Haut du corps",
+     "jour": "jeudi",
+     "jourIndex": 4,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur",
+         "nom": "Rameur",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rotations-d-epaules-a-l-elastique",
+         "nom": "Rotations d'épaules à l'élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 10",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pompes-scapulaires",
+         "nom": "Pompes scapulaires",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 8",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche-a-vide",
+         "nom": "Développé couché à vide",
+         "cle": null,
+         "chargePrevue": "Barre seule",
+         "prescription": "1 série",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 41,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "tractions-strictes",
+         "nom": "Tractions strictes",
+         "cle": "tractions-strictes",
+         "chargePrevue": "Poids du corps",
+         "prescription": "4 séries · max − 2 reps · R 2'",
+         "remarques": "Éviter : balancer le corps, descente non contrôlée.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "max − 2 reps",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche",
+         "nom": "Développé couché",
+         "cle": "developpe-couche",
+         "chargePrevue": "42,5 kg",
+         "prescription": "4 × 5 · RPE 7-8 · Tempo 2-0-1 · R 2'",
+         "remarques": "Omoplates serrées, pieds au sol. Éviter : fesses qui décollent, rebond sur la poitrine.",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "7-8",
+          "tempo": "2-0-1",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 42.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rowing-haltere-unilateral",
+         "nom": "Rowing haltère unilatéral",
+         "cle": null,
+         "chargePrevue": "14 à 18 kg",
+         "prescription": "3 × 8/côté · R 60\"",
+         "remarques": "Repère de départ. Dos plat, coude vers la hanche.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 60,
+          "recupTexte": "60\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": 14,
+          "max": 18
+         }
+        },
+        {
+         "id": "developpe-militaire-halteres-debout",
+         "nom": "Développé militaire haltères debout",
+         "cle": null,
+         "chargePrevue": "10 à 12 kg par main",
+         "prescription": "3 × 6 · R 90\"",
+         "remarques": "Repère de départ. Tronc gainé, ne pas cambrer.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 10,
+          "max": 12
+         }
+        },
+        {
+         "id": "marche-du-fermier",
+         "nom": "Marche du fermier",
+         "cle": null,
+         "chargePrevue": "16 à 20 kg par main",
+         "prescription": "3 × 30 m",
+         "remarques": "Repère de départ. Épaules basses, buste droit.",
+         "saisie": "series",
+         "p": {
+          "series": 3,
+          "reps": 30,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 16,
+          "max": 20
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 6,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-pectoraux-dorsaux-epaules",
+         "nom": "Étirements pectoraux, dorsaux, épaules",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 min",
+         "remarques": "Respiration lente",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "id": "S4",
+   "debut": "2026-11-30",
+   "fin": "2026-12-06",
+   "duTexte": "lun. 30 nov.",
+   "auTexte": "dim. 6 déc.",
+   "bloc": {
+    "n": 1,
+    "nom": "Force et robustesse"
+   },
+   "type": "Allégée",
+   "typeCle": "allegee",
+   "objectif": "Semaine allégée : séries divisées par deux, charges autour de 85 %. Récupération.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": "Semaine 4 · du 30/11 au 6/12/2026 · Bloc 1 : Force et robustesse · Allégée",
+   "consigne": "Semaine allégée : séries divisées par deux, charges autour de 85 %. Récupération.",
+   "seances": [
+    {
+     "n": 1,
+     "nom": "Jambes",
+     "jour": "lundi",
+     "jourIndex": 1,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 10,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur-ou-velo-facile",
+         "nom": "Rameur ou vélo facile",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Rythme facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "mobilite-chevilles-et-hanches",
+         "nom": "Mobilité chevilles et hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "2 min",
+         "remarques": "Cercles de chevilles, fentes dynamiques, ouverture de hanche",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "2 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pont-fessier",
+         "nom": "Pont fessier",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 12",
+         "remarques": "Pause 1 s en haut",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "squat-gobelet",
+         "nom": "Squat gobelet",
+         "cle": null,
+         "chargePrevue": "Léger",
+         "prescription": "1 × 8",
+         "remarques": "Descente contrôlée",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 37,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "squat-arriere",
+         "nom": "Squat arrière",
+         "cle": "squat-arriere",
+         "chargePrevue": "50 kg",
+         "prescription": "2 × 5 · RPE 6-7 · Tempo 3-0-1 · R 2'30",
+         "remarques": "Même échauffement spécifique, adapté à la charge du jour. Éviter : genoux qui rentrent, talons qui décollent, bassin qui s'enroule en bas.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "6-7",
+          "tempo": "3-0-1",
+          "recupSec": 150,
+          "recupTexte": "2'30",
+          "autres": []
+         },
+         "charge": {
+          "kg": 50,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "souleve-de-terre",
+         "nom": "Soulevé de terre",
+         "cle": "souleve-de-terre",
+         "chargePrevue": "47,5 kg",
+         "prescription": "2 × 4 · RPE 6-7 · R 3'",
+         "remarques": "Barre au-dessus du milieu du pied, dos plat, pousser le sol. Éviter : dos arrondi, barre éloignée des jambes.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 4,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "6-7",
+          "tempo": "",
+          "recupSec": 180,
+          "recupTexte": "3'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 47.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "fente-bulgare",
+         "nom": "Fente bulgare",
+         "cle": "fente-bulgare",
+         "chargePrevue": "2 × 8 kg",
+         "prescription": "2 × 6/jambe · Tempo 2-0-1 · R 90\"",
+         "remarques": "Tibia vertical en bas, pousser avec le talon avant. Repère de départ : la dernière rep reste à 2-3 reps de l'échec.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "2-0-1",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 8,
+          "mult": 2,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab",
+       "minutes": 8,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "elevation-de-mollets-debout-genou-tendu",
+         "nom": "Élévation de mollets debout, genou tendu",
+         "cle": null,
+         "chargePrevue": "Poids du corps, puis 2 × 10 kg",
+         "prescription": "2 tours · 8 reps · Tempo 3-1-1 · R 30\"",
+         "remarques": "Circuit avec le Nordic curl. Éviter : rebonds sans contrôle.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "3-1-1",
+          "recupSec": 30,
+          "recupTexte": "30\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "nordic-curl-assiste",
+         "nom": "Nordic curl assisté",
+         "cle": null,
+         "chargePrevue": "Élastique ou main au sol",
+         "prescription": "2 tours · 4 reps · descente en 4 s",
+         "remarques": "Remonter avec les mains. Éviter : hanches qui plient.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 4,
+          "unite": "tours",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "descente en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-ischios-mollets-flechisseurs-de-hanche",
+         "nom": "Étirements ischios, mollets, fléchisseurs de hanche",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "30\" par groupe",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "30\" par groupe"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-lente",
+         "nom": "Respiration lente",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "1 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 2,
+     "nom": "Tronc et prévention",
+     "jour": "mardi",
+     "jourIndex": 2,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "chat-vache",
+         "nom": "Chat-vache",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 10",
+         "remarques": "Mouvement lent",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "respiration-90-90",
+         "nom": "Respiration 90/90",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 respirations",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 respirations"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug-leger",
+         "nom": "Dead bug léger",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "1 × 6/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-laterale-elastique",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "1 × 10 pas/côté",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC tronc",
+       "minutes": 28,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "planche-frontale",
+         "nom": "Planche frontale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 30\" · R 45\"",
+         "remarques": "Bassin légèrement rétroversé, fessiers serrés. Éviter : creux lombaire.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pallof-press-elastique",
+         "nom": "Pallof press (élastique)",
+         "cle": null,
+         "chargePrevue": "Élastique moyen",
+         "prescription": "2 × 10/côté · R 45\"",
+         "remarques": "Rester de face, sans tourner le buste.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 45,
+          "recupTexte": "45\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "planche-laterale",
+         "nom": "Planche latérale",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 30\"/côté",
+         "remarques": "Corps aligné. Éviter : bassin qui tombe.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "dead-bug",
+         "nom": "Dead bug",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 8/côté · extension en 4 s",
+         "remarques": "Lombaires collées au sol.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "extension en 4 s"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC prehab hanches et chevilles",
+       "minutes": 14,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "marche-laterale-elastique-2",
+         "nom": "Marche latérale élastique",
+         "cle": null,
+         "chargePrevue": "Élastique autour des genoux",
+         "prescription": "2 × 12 pas/côté",
+         "remarques": "Moyen fessier",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 12,
+          "unite": "",
+          "repsTexte": "pas/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "chevilles-eversion-et-inversion",
+         "nom": "Chevilles : éversion et inversion",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "1 × 15",
+         "remarques": "Mouvement lent",
+         "saisie": "series",
+         "p": {
+          "series": 1,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "marche-sur-les-talons",
+         "nom": "Marche sur les talons",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "1 × 20 m",
+         "remarques": "Tibial antérieur",
+         "saisie": "series",
+         "p": {
+          "series": 1,
+          "reps": 20,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "equilibre-unipodal-sur-coussin-instable",
+         "nom": "Équilibre unipodal sur coussin instable",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "1 × 30\"/jambe",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 1,
+          "reps": 30,
+          "unite": "s",
+          "repsTexte": "/jambe",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC pliométrie légère",
+       "minutes": 5,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "pogos",
+         "nom": "Pogos",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 15 appuis",
+         "remarques": "Talons légers, contact court, jambes presque tendues. Éviter : sauts trop hauts.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 15,
+          "unite": "",
+          "repsTexte": "appuis",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 5,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "respiration-et-mobilite-des-hanches",
+         "nom": "Respiration et mobilité des hanches",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "5 min",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "5 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "nom": "Haut du corps",
+     "jour": "jeudi",
+     "jourIndex": 4,
+     "moment": "midi",
+     "duree": "60 min",
+     "sections": [
+      {
+       "nom": "Warm up / préparation",
+       "minutes": 8,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "rameur",
+         "nom": "Rameur",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "3 min",
+         "remarques": "Facile",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rotations-d-epaules-a-l-elastique",
+         "nom": "Rotations d'épaules à l'élastique",
+         "cle": null,
+         "chargePrevue": "Élastique",
+         "prescription": "2 × 10",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 10,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "pompes-scapulaires",
+         "nom": "Pompes scapulaires",
+         "cle": null,
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 × 8",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche-a-vide",
+         "nom": "Développé couché à vide",
+         "cle": null,
+         "chargePrevue": "Barre seule",
+         "prescription": "1 série",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": 1,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      },
+      {
+       "nom": "BLOC force",
+       "minutes": 41,
+       "type": "travail",
+       "exercices": [
+        {
+         "id": "tractions-strictes",
+         "nom": "Tractions strictes",
+         "cle": "tractions-strictes",
+         "chargePrevue": "Poids du corps",
+         "prescription": "2 séries · max − 3 reps · R 2'",
+         "remarques": "Éviter : balancer le corps, descente non contrôlée.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "max − 3 reps",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "developpe-couche",
+         "nom": "Développé couché",
+         "cle": "developpe-couche",
+         "chargePrevue": "37,5 kg",
+         "prescription": "2 × 5 · RPE 6-7 · Tempo 2-0-1 · R 2'",
+         "remarques": "Omoplates serrées, pieds au sol. Éviter : fesses qui décollent, rebond sur la poitrine.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 5,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "6-7",
+          "tempo": "2-0-1",
+          "recupSec": 120,
+          "recupTexte": "2'",
+          "autres": []
+         },
+         "charge": {
+          "kg": 37.5,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "rowing-haltere-unilateral",
+         "nom": "Rowing haltère unilatéral",
+         "cle": null,
+         "chargePrevue": "14 à 18 kg",
+         "prescription": "2 × 8/côté · R 60\"",
+         "remarques": "Repère de départ. Dos plat, coude vers la hanche.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 8,
+          "unite": "",
+          "repsTexte": "/côté",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 60,
+          "recupTexte": "60\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": 14,
+          "max": 18
+         }
+        },
+        {
+         "id": "developpe-militaire-halteres-debout",
+         "nom": "Développé militaire haltères debout",
+         "cle": null,
+         "chargePrevue": "10 à 12 kg par main",
+         "prescription": "2 × 6 · R 90\"",
+         "remarques": "Repère de départ. Tronc gainé, ne pas cambrer.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 10,
+          "max": 12
+         }
+        },
+        {
+         "id": "marche-du-fermier",
+         "nom": "Marche du fermier",
+         "cle": null,
+         "chargePrevue": "16 à 20 kg par main",
+         "prescription": "2 × 30 m",
+         "remarques": "Repère de départ. Épaules basses, buste droit.",
+         "saisie": "series",
+         "p": {
+          "series": 2,
+          "reps": 30,
+          "unite": "m",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": []
+         },
+         "charge": {
+          "kg": null,
+          "mult": 2,
+          "min": 16,
+          "max": 20
+         }
+        }
+       ]
+      },
+      {
+       "nom": "Retour au calme",
+       "minutes": 6,
+       "type": "liste",
+       "exercices": [
+        {
+         "id": "etirements-pectoraux-dorsaux-epaules",
+         "nom": "Étirements pectoraux, dorsaux, épaules",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "6 min",
+         "remarques": "Respiration lente",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "6 min"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        }
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "id": "S5",
+   "debut": "2026-12-07",
+   "fin": "2026-12-13",
+   "duTexte": "lun. 7 déc.",
+   "auTexte": "dim. 13 déc.",
+   "bloc": {
+    "n": 2,
+    "nom": "Force-vitesse et pliométrie"
+   },
+   "type": "Progression",
+   "typeCle": "progression",
+   "objectif": "Charges et exercices fixés à partir des résultats du bloc 1.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 6,
+   "id": "S6",
+   "debut": "2026-12-14",
+   "fin": "2026-12-20",
+   "duTexte": "lun. 14 déc.",
+   "auTexte": "dim. 20 déc.",
+   "bloc": {
+    "n": 2,
+    "nom": "Force-vitesse et pliométrie"
+   },
+   "type": "Progression",
+   "typeCle": "progression",
+   "objectif": "Charges et exercices fixés à partir des résultats du bloc 1.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 7,
+   "id": "S7",
+   "debut": "2026-12-21",
+   "fin": "2026-12-27",
+   "duTexte": "lun. 21 déc.",
+   "auTexte": "dim. 27 déc.",
+   "bloc": {
+    "n": 2,
+    "nom": "Force-vitesse et pliométrie"
+   },
+   "type": "Progression",
+   "typeCle": "progression",
+   "objectif": "Charges et exercices fixés à partir des résultats du bloc 1.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 8,
+   "id": "S8",
+   "debut": "2026-12-28",
+   "fin": "2027-01-03",
+   "duTexte": "lun. 28 déc.",
+   "auTexte": "dim. 3 janv.",
+   "bloc": {
+    "n": 2,
+    "nom": "Force-vitesse et pliométrie"
+   },
+   "type": "Allégée",
+   "typeCle": "allegee",
+   "objectif": "Semaine allégée (Noël) : séries divisées par deux.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 9,
+   "id": "S9",
+   "debut": "2027-01-04",
+   "fin": "2027-01-10",
+   "duTexte": "lun. 4 janv.",
+   "auTexte": "dim. 10 janv.",
+   "bloc": {
+    "n": 3,
+    "nom": "Maintien en compétition"
+   },
+   "type": "Compétition",
+   "typeCle": "competition",
+   "objectif": "Jambes : 1 séance le lundi à 50 % du volume, charges inchangées. Pas de travail lourd ni de pliométrie dans les 72 h avant la course. Tronc et haut du corps courts, à 48 h minimum de la course.",
+   "course": {
+    "texte": "Dim. 10/01 : championnats du Gard (Uzès)",
+    "date": "2027-01-10",
+    "nom": "Championnats du Gard",
+    "lieu": "Uzès",
+    "principal": false
+   },
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 10,
+   "id": "S10",
+   "debut": "2027-01-11",
+   "fin": "2027-01-17",
+   "duTexte": "lun. 11 janv.",
+   "auTexte": "dim. 17 janv.",
+   "bloc": {
+    "n": 3,
+    "nom": "Maintien en compétition"
+   },
+   "type": "Post-course",
+   "typeCle": "post-course",
+   "objectif": "Post-course : pas de jambes lourdes pendant 48 h. Commencer par le tronc. Jambes à 70 % du volume, jour à caler avec le plan de Manu.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 11,
+   "id": "S11",
+   "debut": "2027-01-18",
+   "fin": "2027-01-24",
+   "duTexte": "lun. 18 janv.",
+   "auTexte": "dim. 24 janv.",
+   "bloc": {
+    "n": 3,
+    "nom": "Maintien en compétition"
+   },
+   "type": "Compétition",
+   "typeCle": "competition",
+   "objectif": "Jambes : 1 séance le lundi à 50 % du volume, charges inchangées. Pas de travail lourd ni de pliométrie dans les 72 h avant la course. Tronc et haut du corps courts, à 48 h minimum de la course.",
+   "course": {
+    "texte": "Dim. 24/01 : quart de finale (Alès)",
+    "date": "2027-01-24",
+    "nom": "Quart de finale",
+    "lieu": "Alès",
+    "principal": false
+   },
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 12,
+   "id": "S12",
+   "debut": "2027-01-25",
+   "fin": "2027-01-31",
+   "duTexte": "lun. 25 janv.",
+   "auTexte": "dim. 31 janv.",
+   "bloc": {
+    "n": 3,
+    "nom": "Maintien en compétition"
+   },
+   "type": "Post-course",
+   "typeCle": "post-course",
+   "objectif": "Post-course : pas de jambes lourdes pendant 48 h. Commencer par le tronc. Jambes à 70 % du volume, jour à caler avec le plan de Manu.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 13,
+   "id": "S13",
+   "debut": "2027-02-01",
+   "fin": "2027-02-07",
+   "duTexte": "lun. 1 févr.",
+   "auTexte": "dim. 7 févr.",
+   "bloc": {
+    "n": 4,
+    "nom": "Affûtage vers les France"
+   },
+   "type": "Compétition",
+   "typeCle": "competition",
+   "objectif": "Jambes : 1 séance le lundi à 50 % du volume, charges inchangées. Pas de travail lourd ni de pliométrie dans les 72 h avant la course. Tronc et haut du corps courts, à 48 h minimum de la course.",
+   "course": {
+    "texte": "Dim. 07/02 : demi-finale (Rodez)",
+    "date": "2027-02-07",
+    "nom": "Demi-finale",
+    "lieu": "Rodez",
+    "principal": false
+   },
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 14,
+   "id": "S14",
+   "debut": "2027-02-08",
+   "fin": "2027-02-14",
+   "duTexte": "lun. 8 févr.",
+   "auTexte": "dim. 14 févr.",
+   "bloc": {
+    "n": 4,
+    "nom": "Affûtage vers les France"
+   },
+   "type": "Post-course",
+   "typeCle": "post-course",
+   "objectif": "Post-course : pas de jambes lourdes pendant 48 h. Commencer par le tronc. Jambes à 70 % du volume, jour à caler avec le plan de Manu.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 15,
+   "id": "S15",
+   "debut": "2027-02-15",
+   "fin": "2027-02-21",
+   "duTexte": "lun. 15 févr.",
+   "auTexte": "dim. 21 févr.",
+   "bloc": {
+    "n": 4,
+    "nom": "Affûtage vers les France"
+   },
+   "type": "Volume réduit",
+   "typeCle": "volume-reduit",
+   "objectif": "Volume réduit de moitié, intensité maintenue. Dernière vraie semaine avant l'affûtage.",
+   "course": null,
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  },
+  {
+   "n": 16,
+   "id": "S16",
+   "debut": "2027-02-22",
+   "fin": "2027-02-28",
+   "duTexte": "lun. 22 févr.",
+   "auTexte": "dim. 28 févr.",
+   "bloc": {
+    "n": 4,
+    "nom": "Affûtage vers les France"
+   },
+   "type": "Affûtage",
+   "typeCle": "affutage",
+   "objectif": "Affûtage : 1 séance de jambes très courte le lundi (2 séries de squat). Tronc et haut du corps légers. Rien le week-end de la course.",
+   "course": {
+    "texte": "Dim. 28/02 : championnats de France (Sarrebourg)",
+    "date": "2027-02-28",
+    "nom": "Championnats de France",
+    "lieu": "Sarrebourg",
+    "principal": true
+   },
+   "poidsSheet": "",
+   "fractionneSheet": "",
+   "retourSheet": "",
+   "titre": null,
+   "consigne": null,
+   "seances": null
+  }
+ ],
+ "avertissements": []
+}
