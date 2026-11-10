@@ -159,6 +159,78 @@ nav.onglets a[aria-current="page"]::before{content:"";position:absolute;width:32
 .chiffre{background:var(--surface2);border:1px solid var(--ligne);border-radius:10px;padding:10px;text-align:center}
 .chiffre b{display:block;font-size:22px;font-variant-numeric:tabular-nums}
 .chiffre span{font-size:13px;color:var(--texte2)}
+/* ===== Étape 2 : programme, semaine, progression, suggestions ===== */
+/* Couleurs des graphiques, validées (séparation daltonisme, contraste ≥ 3:1) sur la surface claire et sombre. */
+:root{--s1:#2a78d6;--s2:#eb6834}
+@media (prefers-color-scheme: dark){:root{--s1:#3987e5;--s2:#d95926}}
+.courses{list-style:none;margin:0;padding:0}
+.courses li{display:grid;grid-template-columns:52px 1fr auto;gap:8px;align-items:center;min-height:44px;border-top:1px solid var(--ligne);padding:6px 0}
+.courses li:first-child{border-top:0}
+.courses .c-date{font-weight:700;font-variant-numeric:tabular-nums}
+.courses .c-j{font-size:14px;color:var(--texte2);font-variant-numeric:tabular-nums;white-space:nowrap}
+.courses li.principal .c-date{color:var(--accent)}
+.courses .etiq{margin:0 0 0 4px;font-size:12px;padding:1px 8px}
+.legende{margin:0 4px 10px}
+.bloc h2{margin-bottom:0}
+a.sem{display:grid;grid-template-columns:40px 1fr auto;gap:8px;align-items:center;min-height:56px;padding:8px 10px;margin-top:6px;
+  border:1px solid var(--ligne);border-radius:10px;background:var(--surface2);color:var(--texte);text-decoration:none}
+a.sem.cour{border:2px solid var(--accent);padding:7px 9px}
+a.sem .sn{font-weight:800;font-size:17px}
+a.sem .sm{font-size:15px;min-width:0}
+a.sem .sm small{display:block;font-size:13px;color:var(--texte2)}
+a.sem .sm small.crs{color:var(--texte);font-weight:600}
+a.sem .etiq{margin:0 0 0 4px;font-size:12px;padding:1px 8px}
+.pts{display:flex;gap:4px}
+.pts .g{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-size:14px;font-weight:700;border:1.5px solid var(--bord-champ);color:var(--texte2)}
+.pts .g.faite{background:var(--ok);border-color:var(--ok);color:#fff}
+@media (prefers-color-scheme: dark){.pts .g.faite{color:#081029}}
+.pts .g.encours{border-color:var(--accent);color:var(--accent)}
+.pts .g.manquee{border-color:var(--erreur);color:var(--erreur)}
+label.f,p.f{display:block;font-size:14px;color:var(--texte2);margin:12px 0 4px;font-weight:600}
+.champ-f{width:100%;min-height:44px;border-radius:10px;border:1px solid var(--bord-champ);background:var(--surface);padding:8px 10px;font-size:17px}
+input.champ-f{max-width:140px;font-weight:700}
+textarea.champ-f{resize:vertical;margin-bottom:10px}
+.choix3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.choix3 button{min-height:48px;border-radius:10px;border:1px solid var(--bord-champ);background:var(--surface2);font-size:15px;font-weight:600;cursor:pointer;padding:4px}
+.choix3 button[aria-pressed="true"]{background:var(--btn);color:var(--btn-texte);border-color:var(--btn)}
+.suggs{list-style:none;margin:0;padding:0}
+.sugg{border-top:1px solid var(--ligne);padding:8px 0;display:grid;grid-template-columns:112px 1fr;column-gap:10px;align-items:center}
+.sugg-t{min-width:0}
+.sugg-t .sec{display:block}
+.sugg:first-child{border-top:0}
+.sugg-d{font-weight:700;font-size:14px;border-radius:8px;padding:6px 8px;border:1.5px solid var(--bord-champ);max-width:130px;text-align:center}
+.sugg.monter .sugg-d{border-color:var(--ok);color:var(--ok);background:var(--ok-fond)}
+.sugg.maintenir .sugg-d{border-color:var(--accent);color:var(--accent)}
+.sugg.reduire .sugg-d{border-color:var(--alerte);color:var(--alerte);background:var(--alerte-fond)}
+.sugg.attente .sugg-d,.sugg.aucune .sugg-d{color:var(--texte2)}
+.sugg .sec{font-size:14px}
+.sugg small{color:var(--texte2)}
+.chiffres.deux{grid-template-columns:repeat(2,1fr)}
+.leg{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:14px;color:var(--texte2);margin:2px 0 4px}
+.leg span{display:inline-flex;align-items:center;gap:6px}
+svg.graphe{display:block;width:100%;height:auto;overflow:visible}
+.graphe .grille{stroke:var(--ligne);stroke-width:1}
+.graphe .ax{fill:var(--texte2);font-size:12px}
+.graphe .lab{fill:var(--texte);font-size:12px;font-weight:700}
+.graphe .curseur{stroke:var(--texte2);stroke-width:1;stroke-dasharray:3 3}
+.graphe .zone{fill:transparent;cursor:pointer}
+.trace{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.trace.s1{stroke:var(--s1)} .trace.s2{stroke:var(--s2)}
+.trace.pointille{stroke-dasharray:5 4}
+.mq{stroke:var(--surface);stroke-width:2}
+.mq.s1{fill:var(--s1)} .mq.s2{fill:var(--s2)}
+.pointe{font-size:14px;color:var(--texte2);margin:4px 0 0;min-height:20px}
+.vide-g{color:var(--texte2);font-size:15px;margin:4px 0}
+.tab{border-collapse:collapse;width:100%;font-size:14px;font-variant-numeric:tabular-nums}
+.tab th,.tab td{border-top:1px solid var(--ligne);padding:4px 6px;text-align:right}
+.tab th[scope="row"],.tab thead th:first-child{text-align:left}
+.fracts{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:6px}
+.fracts li{display:flex;gap:8px;align-items:center;border:1px solid var(--ligne);border-radius:8px;padding:6px 8px;font-size:14px;color:var(--texte2)}
+.fracts li b{color:var(--texte)}
+.fracts li.qualite span{color:var(--ok);font-weight:600}
+.fracts li.degrade span{color:var(--alerte);font-weight:600}
+.fracts li.rate span{color:var(--erreur);font-weight:600}
+
 @media (min-width:700px){ main{padding-top:20px} }
 </style>
 </head>
@@ -272,8 +344,9 @@ function route() {
   var onglet = 'aujourdhui';
   if (h[0] === 'seance' && h[1] && h[2]) { vueSeance(h[1], +h[2]); onglet = ''; }
   else if (h[0] === 'resume' && h[1] && h[2]) { vueResume(h[1], +h[2]); onglet = ''; }
-  else if (h[0] === 'programme') { onglet = 'programme'; vueAVenir('Programme', 'Le calendrier des 16 semaines arrive à l\'étape 2.'); }
-  else if (h[0] === 'progression') { onglet = 'progression'; vueAVenir('Progression', 'Les courbes de charge et d\'e1RM arrivent à l\'étape 2.'); }
+  else if (h[0] === 'programme') { onglet = 'programme'; vueProgramme(); }
+  else if (h[0] === 'semaine' && h[1]) { onglet = 'programme'; vueSemaine(h[1]); }
+  else if (h[0] === 'progression') { onglet = 'progression'; vueProgression(); }
   else if (h[0] === 'donnees') { onglet = 'donnees'; vueAVenir('Données', 'Export CSV / JSON, import et réinitialisation arrivent à l\'étape 3. Tes saisies sont déjà enregistrées sur cet appareil, à chaque modification.'); }
   else vueAujourdhui();
   var lien = document.querySelector('nav.onglets a[data-onglet="' + onglet + '"]');
@@ -352,6 +425,7 @@ function vueAujourdhui() {
       (p ? '<p style="margin:0">Prochaine séance de renfo : <b>' + esc(fmtJour(p.date)) + '</b>, ' + esc(PLAN.seancesType[p.n - 1].nom) + ' (' + esc(p.sem.id) + ')' +
         (p.sem.seances ? '' : ' : pas encore détaillée dans le plan') + '.</p>' : '<p style="margin:0">Plus aucune séance prévue au programme.</p>') + '</div>';
   }
+  h += htmlRappelBilan(sem, auj);
   // Toutes les séances de la semaine (ouverture manuelle)
   h += '<div class="carte"><h2>Séances de la semaine ' + esc(sem.id) + '</h2><div class="liste-seances">';
   for (var n = 1; n <= PLAN.seancesType.length; n++) h += lienSeance(sem, n);
@@ -451,6 +525,7 @@ function vueSeance(semId, n) {
     sec.exercices.forEach(function (e) { h += htmlExercice(e); });
     h += '</details>';
   });
+  h += '<div class="carte" style="padding:0">' + htmlCasesSemaine(sem.id) + '</div>';
   h += '<div class="pied-seance"><button type="button" class="btn large" data-a="terminer">Terminer la séance</button>' +
     '<p class="etat-ecran" id="etat-ecran"></p></div>';
   var v = document.getElementById('vue');
@@ -489,6 +564,7 @@ function propagerCharge(ligne, e) {
 }
 function surAction(ev) {
   var cible = ev.target.closest('[data-a]');
+  if (cible && actionHorsSeance(cible)) return;
   if (!cible || !COURANT) { if (cible && cible.getAttribute('data-a') === 'rouvrir') rouvrir(); return; }
   var a = cible.getAttribute('data-a');
   if (a === 'terminer') { terminer(); return; }
@@ -525,6 +601,7 @@ function surAction(ev) {
 }
 function surSaisie(ev) {
   var cible = ev.target, a = cible.getAttribute('data-a');
+  if (a && saisieSemaine(cible)) return;
   if (!COURANT || !a) return;
   var exEl = cible.closest('[data-ex]'); if (!exEl) return;
   var e = exParId(exEl.getAttribute('data-ex')); if (!e) return;
@@ -584,13 +661,364 @@ function vueResume(semId, n) {
     '<p class="petit">' + r.faites + ' séries faites sur ' + r.prevues + ' prévues. RPE moyen sur ' + r.nbRpe + ' exercice(s) noté(s). ' +
     'Volume : somme charge × répétitions des séries cochées (× 2 quand le plan indique deux haltères ; séries en secondes ou en mètres exclues). ' +
     'Durée : de la première saisie au bouton « Terminer ».</p>' +
-    '<p class="petit">Les suggestions Monter / Maintenir / Réduire arrivent à l\'étape 2.</p>' +
     '<div class="liste-seances"><a class="btn large" href="#/">Retour à aujourd\'hui</a>' +
-    '<button type="button" class="btn second large" data-a="rouvrir">Rouvrir la séance</button></div></div>';
+    '<button type="button" class="btn second large" data-a="rouvrir">Rouvrir la séance</button></div></div>' +
+    htmlSuggestions(sem, [n], 'Suggestions pour la semaine suivante');
 }
 function route0() { location.hash = '#/'; }
 
-/* ---------- Écrans à venir (étapes 2 et 3) ---------- */
+/* ---------- Bilan de la semaine (onglet Plan : poids, qualité du fractionné, retour coureur) ----------
+   Douleur et mauvais sommeil sont aussi notés par semaine : la règle « Réduire » de l'onglet Règles
+   les cite comme motifs de baisse des charges pour la semaine suivante. */
+var FRACT = [
+  { v: 'qualite', lib: 'De qualité', sym: '✓' },
+  { v: 'degrade', lib: 'Un peu dégradé', sym: '~' },
+  { v: 'rate', lib: 'Raté', sym: '✗' }
+];
+function bilan(semId) { return D.semaines[semId] || {}; }
+function bilanEcrit(semId) { return D.semaines[semId] || (D.semaines[semId] = { poids: null, fractionne: null, douleur: false, sommeil: false, retour: '' }); }
+function htmlCasesSemaine(semId) {
+  var b = bilan(semId);
+  return '<label class="case" style="border-top:0"><input type="checkbox" data-a="douleur" data-sem="' + semId + '"' + (b.douleur ? ' checked' : '') + '>' +
+    '<span><b>Douleur cette semaine</b><span class="sec">Motif « Réduire » de l\'onglet Règles</span></span></label>' +
+    '<label class="case"><input type="checkbox" data-a="sommeil" data-sem="' + semId + '"' + (b.sommeil ? ' checked' : '') + '>' +
+    '<span><b>Mauvais sommeil cette semaine</b><span class="sec">Motif « Réduire » de l\'onglet Règles</span></span></label>';
+}
+function htmlFractionne(semId) {
+  var b = bilan(semId), h = '<div class="choix3" role="group" aria-label="Qualité du fractionné de mercredi">';
+  FRACT.forEach(function (f) {
+    h += '<button type="button" data-a="fract" data-sem="' + semId + '" data-v="' + f.v + '" aria-pressed="' + (b.fractionne === f.v ? 'true' : 'false') + '">' +
+      '<span aria-hidden="true">' + f.sym + '</span> ' + f.lib + '</button>';
+  });
+  return h + '</div>';
+}
+// Actions qui ne dépendent pas de la séance ouverte. Renvoie true si l'action est traitée.
+function actionHorsSeance(cible) {
+  var a = cible.getAttribute('data-a'), semId = cible.getAttribute('data-sem');
+  if (a === 'col') { montrerPoint(cible.getAttribute('data-g'), +cible.getAttribute('data-n')); return true; }
+  if (!semId) return false;
+  if (a === 'fract') {
+    var b = bilanEcrit(semId), v = cible.getAttribute('data-v');
+    b.fractionne = b.fractionne === v ? null : v; // second tap : efface
+    cible.parentNode.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x.getAttribute('data-v') === b.fractionne ? 'true' : 'false'); });
+  } else if (a === 'douleur' || a === 'sommeil') {
+    bilanEcrit(semId)[a] = cible.checked;
+    // Les deux cases peuvent être affichées deux fois (séance + bilan) : on les synchronise.
+    document.querySelectorAll('[data-a="' + a + '"][data-sem="' + semId + '"]').forEach(function (x) { x.checked = cible.checked; });
+  } else return false;
+  sauver(); rafraichirSuggestions();
+  return true;
+}
+function saisieSemaine(cible) {
+  var a = cible.getAttribute('data-a'), semId = cible.getAttribute('data-sem');
+  if (!semId || (a !== 'poids' && a !== 'retour')) return false;
+  bilanEcrit(semId)[a] = a === 'poids' ? nombre(cible.value) : cible.value;
+  sauver();
+  return true;
+}
+function htmlRappelBilan(sem, auj) {
+  // À partir du mercredi (jour du fractionné), rappel discret si le bilan de la semaine est incomplet.
+  var j = auj.getDay(); if (j !== 0 && j < 3) return '';
+  var b = bilan(sem.id), manque = [];
+  if (!b.fractionne) manque.push('qualité du fractionné');
+  if (b.poids == null) manque.push('poids');
+  if (!manque.length) return '';
+  return '<div class="carte"><h2>Bilan de la semaine ' + esc(sem.id) + '</h2><p class="sec" style="margin:0 0 10px">À saisir : ' + esc(manque.join(', ')) + '.</p>' +
+    '<a class="btn second large" href="#/semaine/' + sem.id + '">Saisir le bilan</a></div>';
+}
+
+/* ---------- Règles de décision (lues dans plan.json, issues de l'onglet Règles) ----------
+   Ordre d'application : Réduire (un seul motif suffit), puis Maintenir, puis Monter.
+   Le RPE est celui de la dernière série (définition de l'onglet Règles).
+   « Toutes les séries réussies » = toutes les séries prévues cochées, avec au moins les répétitions prévues. */
+function suggestion(sem, e, x) {
+  var R = PLAN.regles.decision, b = bilan(sem.id);
+  if (!x || x.rpe == null) return { cle: 'aucune', lib: 'Pas de suggestion', sym: '–', pourquoi: 'RPE de la dernière série non saisi.' };
+  var reduire = [];
+  if (x.rpe >= R.reduire.rpeMin) reduire.push('RPE ' + x.rpe);
+  if (R.reduire.douleur && b.douleur) reduire.push('douleur');
+  if (R.reduire.sommeil && b.sommeil) reduire.push('mauvais sommeil');
+  if (R.reduire.fractionne && b.fractionne === 'rate') reduire.push('fractionné raté');
+  if (reduire.length) return { cle: 'reduire', lib: 'Réduire', sym: '▼', pourquoi: reduire.join(', ') + '.' };
+  if (x.rpe === R.maintenir.rpe) return { cle: 'maintenir', lib: 'Maintenir', sym: '=', pourquoi: 'RPE ' + x.rpe + '.' };
+  if (R.maintenir.fractionne && b.fractionne === 'degrade') return { cle: 'maintenir', lib: 'Maintenir', sym: '=', pourquoi: 'fractionné un peu dégradé.' };
+  if (x.rpe <= R.monter.rpeMax) {
+    var reussies = true;
+    for (var i = 0; i < e.p.series; i++) {
+      var se = x.series[i];
+      if (!se || !se.ok || (e.p.reps != null && (se.reps == null || se.reps < e.p.reps))) reussies = false;
+    }
+    if (!reussies) return { cle: 'aucune', lib: 'Pas de suggestion', sym: '–', pourquoi: 'RPE ' + x.rpe + ', mais toutes les séries ne sont pas réussies : aucune règle de l\'onglet Règles ne couvre ce cas.' };
+    if (b.fractionne === 'qualite') return { cle: 'monter', lib: 'Monter', sym: '▲', pourquoi: 'toutes les séries réussies, RPE ' + x.rpe + ', fractionné de qualité.' };
+    return { cle: 'attente', lib: 'Monter si le fractionné est de qualité', sym: '?', pourquoi: 'toutes les séries réussies, RPE ' + x.rpe + ' ; qualité du fractionné de mercredi non saisie.' };
+  }
+  return { cle: 'aucune', lib: 'Pas de suggestion', sym: '–', pourquoi: 'aucune règle ne couvre ce cas.' };
+}
+// Exercices concernés : ceux qui se saisissent par série et ont une charge (ou font partie des exercices clés, ex. tractions).
+function exercicesDecision(detail) {
+  var r = [];
+  detail.sections.forEach(function (sec) { sec.exercices.forEach(function (e) { if (e.saisie === 'series' && (aChargeSaisissable(e) || e.cle)) r.push(e); }); });
+  return r;
+}
+function htmlSuggestions(sem, ns, titre, seulementSaisis) {
+  var R = PLAN.regles.decision, lignes = '';
+  ns.forEach(function (n) {
+    var detail = seanceDuPlan(sem, n); if (!detail) return;
+    var s = saisieSeance(sem.id, n);
+    exercicesDecision(detail).forEach(function (e) {
+      var x = s && s.ex[e.id];
+      if (seulementSaisis && !x) return;
+      var sg = suggestion(sem, e, x);
+      lignes += '<li class="sugg ' + sg.cle + '"><span class="sugg-d"><span aria-hidden="true">' + sg.sym + '</span> ' + esc(sg.lib) + '</span>' +
+        '<span class="sugg-t"><b>' + esc(e.nom) + '</b>' + (ns.length > 1 ? ' <small>(' + esc(PLAN.seancesType[n - 1].nom) + ')</small>' : '') +
+        '<span class="sec">' + esc(sg.pourquoi) + '</span></span></li>';
+    });
+  });
+  return '<div class="carte" data-sugg="' + sem.id + '" data-sugg-n="' + ns.join(',') + '" data-sugg-t="' + esc(titre) + '"' + (seulementSaisis ? ' data-sugg-s="1"' : '') + '>' +
+    '<h2>' + esc(titre) + '</h2>' +
+    (lignes ? '<ul class="suggs">' + lignes + '</ul>' : '<p class="sec">Aucun exercice saisi pour l\'instant.</p>') +
+    '<p class="petit">Suggestion seulement : c\'est toi qui décides.</p>' +
+    '<details class="rem"><summary>Règles de l\'onglet Règles</summary>' +
+    '<p><b>▲ Monter</b> : ' + esc(R.monter.texte) + '</p><p><b>= Maintenir</b> : ' + esc(R.maintenir.texte) + '</p><p><b>▼ Réduire</b> : ' + esc(R.reduire.texte) + '</p></details></div>';
+}
+function rafraichirSuggestions() {
+  document.querySelectorAll('[data-sugg]').forEach(function (el) {
+    var sem = semaineParId(el.getAttribute('data-sugg')); if (!sem) return;
+    var ns = el.getAttribute('data-sugg-n').split(',').map(Number);
+    var ouvert = el.querySelector('details.rem') && el.querySelector('details.rem').open;
+    el.outerHTML = htmlSuggestions(sem, ns, el.getAttribute('data-sugg-t'), !!el.getAttribute('data-sugg-s'));
+    if (ouvert) { var d = document.querySelector('[data-sugg="' + sem.id + '"] details.rem'); if (d) d.open = true; }
+  });
+}
+
+/* ---------- Écran PROGRAMME ---------- */
+var GLYPHE = { faite: '✓', encours: '◐', manquee: '✗', '': '○' };
+function fmtPeriode(sem) {
+  var o = { day: 'numeric', month: 'short' };
+  return dateISO(sem.debut).toLocaleDateString('fr-FR', o) + ' – ' + dateISO(sem.fin).toLocaleDateString('fr-FR', o);
+}
+function joursAvant(dateStr) { return Math.round((dateISO(dateStr) - aujourdhui()) / 864e5); }
+function vueProgramme() {
+  COURANT = null;
+  var auj = aujourdhui(), cour = semaineDe(auj), h = bandeaux();
+  entete('Programme', PLAN.semaines.length + ' semaines · ' + fmtPeriode({ debut: PLAN.semaines[0].debut, fin: PLAN.semaines[PLAN.semaines.length - 1].fin }));
+  // Courses cibles (colonne « Échéance » de l'onglet Plan)
+  h += '<div class="carte"><h2>Courses</h2><ul class="courses">';
+  PLAN.semaines.filter(function (s) { return s.course; }).forEach(function (s) {
+    var c = s.course, j = c.date ? joursAvant(c.date) : null;
+    h += '<li' + (c.principal ? ' class="principal"' : '') + '><span class="c-date">' + (c.date ? esc(dateISO(c.date).toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit' })) : '') + '</span>' +
+      '<span><b>' + esc(c.lieu || c.nom) + '</b> · ' + esc(c.nom) + (c.principal ? ' <span class="etiq fort">Objectif principal</span>' : '') + '</span>' +
+      '<span class="c-j">' + (j == null ? '' : (j > 0 ? 'J−' + j : (j === 0 ? 'Aujourd\'hui' : 'Passée'))) + '</span></li>';
+  });
+  h += '</ul></div>';
+  h += '<p class="legende petit" aria-hidden="true">✓ faite · ◐ en cours · ✗ manquée · ○ à faire</p>';
+  // Semaines groupées par bloc
+  var blocs = [];
+  PLAN.semaines.forEach(function (s) {
+    var b = blocs[blocs.length - 1];
+    if (!b || b.n !== s.bloc.n) blocs.push(b = { n: s.bloc.n, nom: s.bloc.nom, sems: [] });
+    b.sems.push(s);
+  });
+  blocs.forEach(function (b) {
+    h += '<section class="carte bloc"><h2>Bloc ' + esc(b.n) + ' : ' + esc(b.nom) + '</h2><p class="petit" style="margin:0 0 6px">' + b.sems[0].id + ' à ' + b.sems[b.sems.length - 1].id + '</p>';
+    b.sems.forEach(function (s) {
+      var pts = '', lab = [];
+      for (var n = 1; n <= PLAN.seancesType.length; n++) {
+        var st = statutSeance(s, n);
+        pts += '<span class="g ' + st.cle + '">' + GLYPHE[st.cle] + '</span>';
+        lab.push(PLAN.seancesType[n - 1].nom + ' : ' + st.txt);
+      }
+      var estCour = cour && cour.id === s.id;
+      h += '<a class="sem' + (estCour ? ' cour' : '') + '" href="#/semaine/' + s.id + '"' + (estCour ? ' aria-current="date"' : '') + '>' +
+        '<span class="sn">' + s.id + '</span><span class="sm"><b>' + esc(fmtPeriode(s)) + '</b> · ' + esc(s.type) +
+        (estCour ? ' <span class="etiq fort">Cette semaine</span>' : '') +
+        (s.course ? '<small class="crs">Course : ' + esc(s.course.lieu || s.course.nom) + (s.course.date ? ' (' + esc(dateISO(s.course.date).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })) + ')' : '') + '</small>' : '') +
+        (s.seances ? '' : '<small>Séances pas encore détaillées</small>') + '</span>' +
+        '<span class="pts" role="img" aria-label="' + esc(lab.join(' ; ')) + '">' + pts + '</span></a>';
+    });
+    h += '</section>';
+  });
+  document.getElementById('vue').innerHTML = h;
+}
+
+/* ---------- Écran SEMAINE (depuis le Programme) ---------- */
+function vueSemaine(id) {
+  COURANT = null;
+  var sem = semaineParId(id);
+  if (!sem) { entete('Semaine introuvable', '', '#/programme'); document.getElementById('vue').innerHTML = '<div class="carte">Cette semaine n\'existe pas dans le plan.</div>'; return; }
+  var b = bilan(sem.id), h = bandeaux();
+  entete(sem.id + ' · ' + sem.type, fmtPeriode(sem) + ' · Bloc ' + sem.bloc.n, '#/programme');
+  h += '<div class="carte"><p class="sec" style="margin:0">' + esc(sem.consigne || sem.objectif) + '</p>' +
+    (sem.consigne && sem.objectif && sem.consigne.indexOf(sem.objectif.replace(/\.$/, '')) < 0 ? '<p class="petit" style="margin:6px 0 0">Onglet Plan : ' + esc(sem.objectif) + '</p>' : '') +
+    (sem.course ? '<p style="margin:8px 0 0"><b>Course : ' + esc(sem.course.texte) + '</b></p>' : '') + '</div>';
+  h += '<div class="carte"><h2>Séances</h2><div class="liste-seances">';
+  for (var n = 1; n <= PLAN.seancesType.length; n++) h += lienSeance(sem, n);
+  h += '</div>' + (sem.seances ? '' : '<p class="petit">Séances pas encore détaillées dans le plan.</p>') + '</div>';
+  h += '<div class="carte" style="padding-bottom:4px"><h2>Bilan de la semaine</h2>' +
+    '<label class="f" for="poids">Poids de corps (kg)</label><input class="champ-f" id="poids" type="text" inputmode="decimal" autocomplete="off" data-a="poids" data-sem="' + sem.id + '" value="' + esc(fmtNb(b.poids)) + '" placeholder="kg">' +
+    '<p class="f">Qualité du fractionné de mercredi</p>' + htmlFractionne(sem.id) +
+    '<div style="margin:12px -14px 0">' + htmlCasesSemaine(sem.id) + '</div>' +
+    '<label class="f" for="retour">Retour coureur</label><textarea class="champ-f" id="retour" rows="3" data-a="retour" data-sem="' + sem.id + '">' + esc(b.retour || '') + '</textarea></div>';
+  if (sem.seances) h += htmlSuggestions(sem, PLAN.seancesType.map(function (t) { return t.n; }), 'Suggestions pour la semaine suivante', true);
+  document.getElementById('vue').innerHTML = h;
+}
+
+/* ---------- Écran PROGRESSION ---------- */
+// Semaines affichées sur l'axe : de S1 à la plus tardive entre la semaine en cours et la dernière saisie (4 au minimum).
+function semainesAxe() {
+  var auj = aujourdhui(), cour = semaineDe(auj), nMax = 4;
+  if (cour) nMax = Math.max(nMax, cour.n);
+  else if (auj > dateISO(PLAN.semaines[PLAN.semaines.length - 1].fin)) nMax = PLAN.semaines.length;
+  Object.keys(D.seances).concat(Object.keys(D.semaines)).forEach(function (k) { var m = k.match(/^S(\d+)/); if (m) nMax = Math.max(nMax, +m[1]); });
+  var r = []; for (var i = 1; i <= Math.min(nMax, PLAN.semaines.length); i++) r.push(i);
+  return r;
+}
+// Meilleures valeurs d'une semaine pour un exercice clé, sur les séries cochées « faite ».
+// Charge = charge totale (× 2 si le plan indique deux haltères). e1RM (Epley) = charge × (1 + reps / 30).
+function valeursExercice(cle) {
+  var res = { charge: {}, e1rm: {}, reps: {}, aCharge: false };
+  PLAN.semaines.forEach(function (sem) {
+    (sem.seances || []).forEach(function (se) {
+      var s = saisieSeance(sem.id, se.n); if (!s) return;
+      se.sections.forEach(function (sec) {
+        sec.exercices.forEach(function (e) {
+          if (e.cle !== cle) return;
+          if (aChargeSaisissable(e)) res.aCharge = true;
+          var x = s.ex[e.id]; if (!x) return;
+          x.series.forEach(function (v) {
+            if (!v || !v.ok) return;
+            if (v.reps != null) res.reps[sem.n] = Math.max(res.reps[sem.n] || 0, v.reps);
+            if (v.kg == null) return;
+            var kg = v.kg * e.charge.mult;
+            res.charge[sem.n] = Math.max(res.charge[sem.n] || 0, kg);
+            if (v.reps != null && v.reps > 0) res.e1rm[sem.n] = Math.max(res.e1rm[sem.n] || 0, Math.round(kg * (1 + v.reps / 30) * 10) / 10);
+          });
+        });
+      });
+    });
+  });
+  return res;
+}
+function compterSeances() {
+  var auj = aujourdhui(), faites = 0, aDate = 0, total = 0;
+  PLAN.semaines.forEach(function (sem) {
+    for (var n = 1; n <= PLAN.seancesType.length; n++) {
+      total++;
+      if (dateSeance(sem, n) <= auj) aDate++;
+      var s = saisieSeance(sem.id, n); if (s && s.faite) faites++;
+    }
+  });
+  return { faites: faites, aDate: aDate, total: PLAN.seancesPrevues || total };
+}
+function pct(a, b) { return b ? Math.round(100 * a / b) + ' %' : '—'; }
+function vueProgression() {
+  COURANT = null; GRAPHES = {};
+  var ns = semainesAxe(), c = compterSeances(), h = bandeaux();
+  entete('Progression', 'S1 à S' + ns[ns.length - 1]);
+  h += '<div class="carte"><h2>Séances faites</h2><div class="chiffres deux">' +
+    '<div class="chiffre"><b>' + c.faites + ' / ' + c.total + '</b><span>du programme<br>' + pct(c.faites, c.total) + '</span></div>' +
+    '<div class="chiffre"><b>' + c.faites + ' / ' + c.aDate + '</b><span>prévues à ce jour<br>' + pct(c.faites, c.aDate) + '</span></div></div>' +
+    '<p class="petit" style="margin:0">' + PLAN.seancesType.length + ' séances par semaine. « À ce jour » : séances dont le jour prévu est passé ou aujourd\'hui. Une séance compte quand tu as appuyé sur « Terminer ».</p></div>';
+  PLAN.exercicesCles.forEach(function (k) {
+    var v = valeursExercice(k.cle), g;
+    if (v.aCharge) {
+      g = graphique('g-' + k.cle, ns, [
+        { nom: 'Charge', cls: 's1', forme: 'rond', pts: v.charge },
+        { nom: 'e1RM', cls: 's2', forme: 'carre', pts: v.e1rm, pointille: true }
+      ], 'kg');
+    } else {
+      g = graphique('g-' + k.cle, ns, [{ nom: 'Reps', cls: 's1', forme: 'rond', pts: v.reps }], 'reps');
+    }
+    h += '<div class="carte"><h2>' + esc(k.nom) + '</h2>' +
+      (v.aCharge ? '' : '<p class="petit" style="margin:0 0 6px">Poids du corps dans le plan : meilleure série en répétitions, pas d\'e1RM.</p>') + g + '</div>';
+  });
+  // Poids de corps et qualité du fractionné (colonnes de l'onglet Plan)
+  var poids = {};
+  ns.forEach(function (n) { var b = bilan('S' + n); if (b.poids != null) poids[n] = b.poids; });
+  h += '<div class="carte"><h2>Poids de corps</h2>' + graphique('g-poids', ns, [{ nom: 'Poids', cls: 's1', forme: 'rond', pts: poids }], 'kg') + '</div>';
+  h += '<div class="carte"><h2>Qualité du fractionné</h2><ul class="fracts">';
+  ns.forEach(function (n) {
+    var f = FRACT.filter(function (x) { return x.v === bilan('S' + n).fractionne; })[0];
+    h += '<li class="' + (f ? f.v : 'vide') + '"><b>S' + n + '</b><span><span aria-hidden="true">' + (f ? f.sym : '–') + '</span> ' + (f ? f.lib : 'non saisi') + '</span></li>';
+  });
+  h += '</ul><p class="petit" style="margin:6px 0 0">Saisie dans Programme › semaine › Bilan.</p></div>';
+  h += '<p class="petit">e1RM : estimation de la charge maximale sur 1 répétition, formule d\'Epley citée dans l\'onglet Règles : charge × (1 + répétitions / 30). Valeur par semaine : meilleure série cochée « faite ».</p>';
+  document.getElementById('vue').innerHTML = h;
+}
+
+/* ---------- Graphique en courbes (SVG écrit à la main) ----------
+   Un seul axe (même unité pour toutes les séries), lignes de 2 px, marqueurs différents par série
+   (rond plein / carré), seconde série en pointillé, étiquette directe au dernier point,
+   légende au-dessus, tableau des valeurs. Un tap sur une semaine affiche ses valeurs. */
+var GRAPHES = {};
+function pasLisible(etendue) {
+  var c = [0.5, 1, 2, 2.5, 5, 10, 20, 25, 50];
+  for (var i = 0; i < c.length; i++) if (etendue / c[i] <= 4) return c[i];
+  return 100;
+}
+function graphique(id, ns, series, unite) {
+  var vals = [];
+  series.forEach(function (s) { ns.forEach(function (n) { if (s.pts[n] != null) vals.push(s.pts[n]); }); });
+  if (!vals.length) return '<p class="vide-g">Pas encore de données. Elles apparaissent quand tu coches des séries « faites »' + (unite === 'kg' && series.length > 1 ? ' avec une charge et des répétitions' : '') + '.</p>';
+  GRAPHES[id] = { ns: ns, series: series, unite: unite };
+  var W = 340, H = 200, L = 34, R = 62, T = 12, B = 26;
+  var mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals);
+  var pas = pasLisible(Math.max(mx - mn, 1));
+  var y0 = Math.floor(mn / pas) * pas, y1 = Math.ceil(mx / pas) * pas;
+  if (y1 - y0 < pas * 2) { y0 -= pas; y1 += pas; }
+  if (y0 < 0) y0 = 0;
+  var X = function (n) { return ns.length < 2 ? L + (W - L - R) / 2 : L + (ns.indexOf(n) / (ns.length - 1)) * (W - L - R); };
+  var Y = function (v) { return T + (1 - (v - y0) / (y1 - y0)) * (H - T - B); };
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="graphe" role="img" aria-label="' + esc(series.map(function (s) { return s.nom; }).join(' et ')) + ' par semaine, en ' + unite + '">';
+  // Grille horizontale et axe des valeurs
+  for (var v = y0; v <= y1 + 1e-9; v += pas) svg += '<line class="grille" x1="' + L + '" x2="' + (W - R + 8) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text class="ax" x="' + (L - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + fmtNb(v) + '</text>';
+  // Axe des semaines (une sur deux au-delà de 8)
+  ns.forEach(function (n, i) { if (ns.length <= 8 || i % 2 === 0 || i === ns.length - 1) svg += '<text class="ax" x="' + X(n) + '" y="' + (H - 8) + '" text-anchor="middle">S' + n + '</text>'; });
+  svg += '<line class="curseur" id="' + id + '-c" x1="0" x2="0" y1="' + T + '" y2="' + (H - B) + '" visibility="hidden"/>';
+  // Séries : segments entre semaines consécutives renseignées, puis marqueurs
+  var etiquettes = [];
+  series.forEach(function (s) {
+    var d = '', prec = null;
+    ns.forEach(function (n) {
+      if (s.pts[n] == null) { prec = null; return; }
+      d += (prec == null ? 'M' : 'L') + X(n).toFixed(1) + ' ' + Y(s.pts[n]).toFixed(1) + ' ';
+      prec = n;
+    });
+    svg += '<path class="trace ' + s.cls + (s.pointille ? ' pointille' : '') + '" d="' + d + '"/>';
+    var dernier = null;
+    ns.forEach(function (n) {
+      if (s.pts[n] == null) return;
+      var x = X(n), y = Y(s.pts[n]); dernier = n;
+      svg += s.forme === 'carre' ? '<rect class="mq ' + s.cls + '" x="' + (x - 4.5) + '" y="' + (y - 4.5) + '" width="9" height="9" rx="1"/>' : '<circle class="mq ' + s.cls + '" cx="' + x + '" cy="' + y + '" r="4.5"/>';
+    });
+    if (dernier != null) etiquettes.push({ x: X(dernier) + 8, y: Y(s.pts[dernier]) + 4, t: (series.length > 1 ? s.nom + ' ' : '') + fmtNb(s.pts[dernier]) });
+  });
+  // Étiquettes directes : on écarte celles qui se chevauchent
+  etiquettes.sort(function (a, b) { return a.y - b.y; });
+  for (var i = 1; i < etiquettes.length; i++) if (etiquettes[i].y - etiquettes[i - 1].y < 14) etiquettes[i].y = etiquettes[i - 1].y + 14;
+  etiquettes.forEach(function (e) { svg += '<text class="lab" x="' + e.x + '" y="' + e.y + '">' + esc(e.t) + '</text>'; });
+  // Zones de tap (une colonne par semaine, plus large que les marqueurs)
+  var larg = ns.length < 2 ? W - L - R : (W - L - R) / (ns.length - 1);
+  ns.forEach(function (n) { svg += '<rect class="zone" data-a="col" data-g="' + id + '" data-n="' + n + '" x="' + (X(n) - larg / 2) + '" y="0" width="' + larg + '" height="' + H + '"/>'; });
+  svg += '</svg>';
+  var leg = series.length > 1 ? '<div class="leg">' + series.map(function (s) {
+    return '<span><svg width="26" height="12" aria-hidden="true"><line class="trace ' + s.cls + (s.pointille ? ' pointille' : '') + '" x1="1" x2="25" y1="6" y2="6"/>' +
+      (s.forme === 'carre' ? '<rect class="mq ' + s.cls + '" x="9" y="2" width="8" height="8" rx="1"/>' : '<circle class="mq ' + s.cls + '" cx="13" cy="6" r="4"/>') + '</svg>' + esc(s.nom) + '</span>';
+  }).join('') + '</div>' : '';
+  var tab = '<details class="rem"><summary>Valeurs</summary><table class="tab"><thead><tr><th scope="col">Semaine</th>' +
+    series.map(function (s) { return '<th scope="col">' + esc(s.nom) + ' (' + unite + ')</th>'; }).join('') + '</tr></thead><tbody>';
+  ns.forEach(function (n) { tab += '<tr><th scope="row">S' + n + '</th>' + series.map(function (s) { return '<td>' + (s.pts[n] == null ? '—' : fmtNb(s.pts[n])) + '</td>'; }).join('') + '</tr>'; });
+  tab += '</tbody></table></details>';
+  return leg + svg + '<p class="pointe" id="' + id + '-p" aria-live="polite">Touche une semaine pour voir ses valeurs.</p>' + tab;
+}
+function montrerPoint(id, n) {
+  var g = GRAPHES[id]; if (!g) return;
+  var z = document.querySelector('[data-g="' + id + '"][data-n="' + n + '"]'), c = document.getElementById(id + '-c');
+  if (z && c) { var x = +z.getAttribute('x') + +z.getAttribute('width') / 2; c.setAttribute('x1', x); c.setAttribute('x2', x); c.setAttribute('visibility', 'visible'); }
+  document.getElementById(id + '-p').textContent = 'S' + n + ' · ' + g.series.map(function (s) { return s.nom + ' : ' + (s.pts[n] == null ? 'pas de donnée' : fmtNb(s.pts[n]) + ' ' + g.unite); }).join(' · ');
+}
+
+/* ---------- Écrans à venir (étape 3) ---------- */
 function vueAVenir(titre, txt) {
   COURANT = null;
   entete(titre, '');
