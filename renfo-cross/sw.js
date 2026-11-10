@@ -4,7 +4,7 @@
 // Incrémenter VERSION à chaque modification d'un fichier de l'app.
 // Le site héberge d'autres apps sur la même origine : on ne supprime QUE les caches « renfo-cross-* ».
 // Aucune saisie n'est mise en cache ici : elles restent dans le stockage local du navigateur.
-var VERSION = 'renfo-cross-v3';
+var VERSION = 'renfo-cross-v4';
 var FICHIERS = ['./', './index.html', './manifest.webmanifest', './data/plan.json',
   './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'];
 
@@ -42,4 +42,9 @@ self.addEventListener('fetch', function (e) {
       return reseau;
     });
   }));
+});
+
+// L'app demande la version installée (affichée dans l'onglet Données).
+self.addEventListener('message', function (e) {
+  if (e.data === 'version' && e.source) e.source.postMessage({ version: VERSION });
 });

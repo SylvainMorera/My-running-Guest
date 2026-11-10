@@ -231,11 +231,28 @@ svg.graphe{display:block;width:100%;height:auto;overflow:visible}
 .fracts li.degrade span{color:var(--alerte);font-weight:600}
 .fracts li.rate span{color:var(--erreur);font-weight:600}
 
+/* ===== Étape 3 : données ===== */
+.btn.danger{background:var(--erreur);border-color:var(--erreur);color:#fff}
+@media (prefers-color-scheme: dark){.btn.danger{color:#081029}}
+.confirm{margin-top:12px;border:2px solid var(--accent);border-radius:10px;padding:10px 12px;background:var(--surface2)}
+.confirm.danger{border-color:var(--erreur)}
+.confirm p{margin:0 0 8px;font-size:15px}
+/* Message d'état : bulle au-dessus de la barre d'onglets, visible quel que soit le défilement */
+.msg{position:fixed;left:12px;right:12px;bottom:calc(var(--tab-h) + env(safe-area-inset-bottom) + 10px);z-index:35;max-width:696px;margin:0 auto;
+  background:#101C48;color:#fff;border:1px solid #3884C8;border-radius:10px;padding:10px 12px;font-size:15px;font-weight:600;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.msg:empty{display:none}
+.msg.err{background:#A3221B;border-color:#A3221B}
+.rappel{margin:0 4px 12px;font-size:15px;color:var(--texte2)}
+.rappel a{display:inline-flex;align-items:center;min-height:44px}
+#maj{max-width:720px;margin:12px auto 0;padding:0 12px}
+#maj .bandeau{margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+#maj .btn{min-height:44px;font-size:15px}
 @media (min-width:700px){ main{padding-top:20px} }
 </style>
 </head>
 <body>
 <header class="haut" id="entete"><h1>Renfo Cross</h1><p id="sous-titre">Chargement…</p></header>
+<div id="maj" hidden></div>
 <main id="vue" tabindex="-1"></main>
 
 <div id="minuteur" role="timer" aria-live="off" hidden>
@@ -276,7 +293,8 @@ function donneesVides() {
     v: 1,
     seances: {},   // « S1-1 » : { debut, fin, faite, ex: { idExercice: { fait, series:[{kg,reps,ok,t}], rpe, note } } }
     semaines: {},  // « S1 » : { poids, fractionne }
-    minuteur: null // { fin (ms), total (s), lib }
+    minuteur: null, // { fin (ms), total (s), lib }
+    meta: {}       // { derniereSauvegarde (ms) }
   };
 }
 function charger() {
@@ -340,6 +358,7 @@ function statutSeance(sem, n) {
 function route() {
   var h = location.hash.replace(/^#\/?/, '').split('/');
   libererEcran();
+  if (h[0] !== 'donnees') { IMPORT_ATTENTE = null; RESET_ETAPE = 0; }
   document.querySelectorAll('nav.onglets a').forEach(function (a) { a.removeAttribute('aria-current'); });
   var onglet = 'aujourdhui';
   if (h[0] === 'seance' && h[1] && h[2]) { vueSeance(h[1], +h[2]); onglet = ''; }
@@ -347,7 +366,7 @@ function route() {
   else if (h[0] === 'programme') { onglet = 'programme'; vueProgramme(); }
   else if (h[0] === 'semaine' && h[1]) { onglet = 'programme'; vueSemaine(h[1]); }
   else if (h[0] === 'progression') { onglet = 'progression'; vueProgression(); }
-  else if (h[0] === 'donnees') { onglet = 'donnees'; vueAVenir('Données', 'Export CSV / JSON, import et réinitialisation arrivent à l\'étape 3. Tes saisies sont déjà enregistrées sur cet appareil, à chaque modification.'); }
+  else if (h[0] === 'donnees') { onglet = 'donnees'; vueDonnees(); }
   else vueAujourdhui();
   var lien = document.querySelector('nav.onglets a[data-onglet="' + onglet + '"]');
   if (lien) lien.setAttribute('aria-current', 'page');
@@ -364,7 +383,7 @@ function bandeaux() {
   var h = '';
   if (!stockageOK) h += '<div class="bandeau err" role="alert"><b>Sauvegarde impossible.</b> Le stockage de ce navigateur refuse l\'écriture (mode privé ou espace plein). Tes saisies seront perdues à la fermeture.</div>';
   if (donneesSontVides()) {
-    h += '<div class="bandeau" role="status"><b>Aucune saisie sur cet appareil.</b> Si tu avais déjà saisi des séances ici, iOS a pu vider le stockage de l\'app : restaure ta dernière sauvegarde JSON (onglet Données, disponible à l\'étape 3).' +
+    h += '<div class="bandeau" role="status"><b>Aucune saisie sur cet appareil.</b> Si tu avais déjà saisi des séances ici, iOS a pu vider le stockage de l\'app : restaure ta dernière sauvegarde JSON : <a href="#/donnees">onglet Données</a>.' +
       (ancienneVersionPresente() ? ' Des données de la première version de Renfo Cross existent dans ce navigateur ; elles ne sont pas reprises automatiquement.' : '') + '</div>';
   }
   return h;
@@ -399,7 +418,7 @@ function regleDuJour(jour) {
   return e ? e.texte : '';
 }
 function vueAujourdhui() {
-  var auj = aujourdhui(), sem = semaineDe(auj), h = bandeaux();
+  var auj = aujourdhui(), sem = semaineDe(auj), h = bandeaux() + htmlRappelSauvegarde(auj);
   var debut = dateISO(PLAN.semaines[0].debut), fin = dateISO(PLAN.semaines[PLAN.semaines.length - 1].fin);
   entete('Aujourd\'hui', fmtJour(auj).replace(/^./, function (c) { return c.toUpperCase(); }) + (sem ? ' · ' + sem.id : ''));
   if (!sem) {
@@ -564,7 +583,7 @@ function propagerCharge(ligne, e) {
 }
 function surAction(ev) {
   var cible = ev.target.closest('[data-a]');
-  if (cible && actionHorsSeance(cible)) return;
+  if (cible && (actionDonnees(cible) || actionHorsSeance(cible))) return;
   if (!cible || !COURANT) { if (cible && cible.getAttribute('data-a') === 'rouvrir') rouvrir(); return; }
   var a = cible.getAttribute('data-a');
   if (a === 'terminer') { terminer(); return; }
@@ -1018,11 +1037,241 @@ function montrerPoint(id, n) {
   document.getElementById(id + '-p').textContent = 'S' + n + ' · ' + g.series.map(function (s) { return s.nom + ' : ' + (s.pts[n] == null ? 'pas de donnée' : fmtNb(s.pts[n]) + ' ' + g.unite); }).join(' · ');
 }
 
-/* ---------- Écrans à venir (étape 3) ---------- */
-function vueAVenir(titre, txt) {
+/* ---------- Écran DONNÉES : export, copie, import, réinitialisation ----------
+   Tout se passe dans le navigateur : aucun envoi réseau. Les fichiers sont proposés via la feuille
+   de partage (iPhone : « Enregistrer dans Fichiers ») quand elle accepte les fichiers, sinon téléchargés. */
+var IMPORT_ATTENTE = null;   // sauvegarde lue, en attente de confirmation
+var RESET_ETAPE = 0;         // 0 = rien, 1 = confirmation demandée
+var VERSION_APP = '';        // nom du cache du service worker (renfo-cross-vN)
+
+function jjmmaaaa(d) { return String(d.getDate()).padStart(2, '0') + '/' + String(d.getMonth() + 1).padStart(2, '0') + '/' + d.getFullYear(); }
+function isoLocal(d) { return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0'); }
+// Date d'une séance : jour de la première saisie si elle existe, sinon jour prévu au plan.
+function dateSaisie(semId, n) {
+  var s = saisieSeance(semId, n), sem = semaineParId(semId);
+  if (s && s.debut) return new Date(s.debut);
+  return sem && PLAN.seancesType[n - 1] ? dateSeance(sem, n) : null;
+}
+var COLONNES = ['Semaine', 'Séance', 'Date', 'Exercice', 'Charge prévue', 'Série', 'Charge réalisée (kg)', 'Reps', 'Faite', 'RPE dernière série', 'Note'];
+// Une ligne par série saisie. RPE et note (propres à l'exercice) sont sur la dernière série saisie.
+// Les saisies dont l'exercice n'existe plus dans le plan (plan régénéré) sont exportées quand même.
+function lignesExport() {
+  var lignes = [];
+  Object.keys(D.seances).sort(function (a, b) {
+    var x = a.match(/^S(\d+)-(\d+)$/) || [0, 0, 0], y = b.match(/^S(\d+)-(\d+)$/) || [0, 0, 0];
+    return (+x[1] - +y[1]) || (+x[2] - +y[2]);
+  }).forEach(function (cle) {
+    var m = cle.match(/^(S\d+)-(\d+)$/); if (!m) return;
+    var semId = m[1], n = +m[2], s = D.seances[cle], sem = semaineParId(semId), detail = seanceDuPlan(sem, n);
+    var nomSeance = PLAN.seancesType[n - 1] ? PLAN.seancesType[n - 1].nom : 'Séance ' + n;
+    var d = dateSaisie(semId, n), date = d ? jjmmaaaa(d) : '';
+    var ordre = [], vus = {};
+    if (detail) detail.sections.forEach(function (sec) { sec.exercices.forEach(function (e) { ordre.push(e); vus[e.id] = true; }); });
+    Object.keys(s.ex || {}).forEach(function (id) { if (!vus[id]) ordre.push({ id: id, nom: id + ' (absent du plan actuel)', chargePrevue: '', saisie: (s.ex[id].series || []).length ? 'series' : 'case' }); });
+    ordre.forEach(function (e) {
+      var x = s.ex && s.ex[e.id]; if (!x) return;
+      var base = [semId, nomSeance, date, e.nom, e.chargePrevue];
+      if (e.saisie === 'case') { lignes.push(base.concat(['', '', '', x.fait ? 'oui' : 'non', '', x.note || ''])); return; }
+      var idx = [];
+      (x.series || []).forEach(function (se, i) { if (se) idx.push(i); });
+      if (!idx.length) { lignes.push(base.concat(['', '', '', '', x.rpe == null ? '' : x.rpe, x.note || ''])); return; }
+      idx.forEach(function (i, k) {
+        var se = x.series[i], der = k === idx.length - 1;
+        lignes.push(base.concat([i + 1, se.kg == null ? '' : se.kg, se.reps == null ? '' : se.reps, se.ok ? 'oui' : 'non',
+          der && x.rpe != null ? x.rpe : '', der ? (x.note || '') : '']));
+      });
+    });
+  });
+  return lignes;
+}
+var COLONNES_BILAN = ['Semaine', 'Poids (kg)', 'Qualité du fractionné', 'Douleur', 'Mauvais sommeil', 'Retour coureur'];
+function lignesBilan() {
+  return PLAN.semaines.filter(function (s) { return D.semaines[s.id]; }).map(function (s) {
+    var b = D.semaines[s.id], f = FRACT.filter(function (x) { return x.v === b.fractionne; })[0];
+    return [s.id, b.poids == null ? '' : b.poids, f ? f.lib : '', b.douleur ? 'oui' : '', b.sommeil ? 'oui' : '', b.retour || ''];
+  });
+}
+// Mise en texte : virgule décimale (Sheet et Excel en français). sep = ';' pour un fichier CSV, '\t' pour coller dans le Sheet.
+function enTexte(entetes, lignes, sep) {
+  function cell(v) {
+    var t = typeof v === 'number' ? String(v).replace('.', ',') : String(v == null ? '' : v);
+    if (sep === '\t') return t.replace(/[\t\r\n]+/g, ' ');
+    return /[";\r\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t;
+  }
+  return [entetes].concat(lignes).map(function (l) { return l.map(cell).join(sep); }).join(sep === '\t' ? '\n' : '\r\n');
+}
+function sauvegardeJSON() {
+  var copie = JSON.parse(JSON.stringify(D)); copie.minuteur = null;
+  return JSON.stringify({ app: 'renfo-cross', format: 1, exporteLe: new Date().toISOString(), planGenereLe: PLAN.genereLe, donnees: copie }, null, 1);
+}
+// Proposer un fichier : feuille de partage si possible (iPhone), sinon téléchargement. Renvoie une promesse « true » si c'est fait.
+function proposerFichier(nom, type, texte) {
+  var blob = new Blob([texte], { type: type });
+  try {
+    var f = new File([blob], nom, { type: type });
+    if (navigator.canShare && navigator.share && navigator.canShare({ files: [f] })) {
+      return navigator.share({ files: [f], title: nom }).then(function () { return true; }, function (e) { return e && e.name === 'AbortError' ? false : telecharger(nom, blob); });
+    }
+  } catch (e) { /* File ou partage indisponible : téléchargement */ }
+  return Promise.resolve(telecharger(nom, blob));
+}
+function telecharger(nom, blob) {
+  var url = URL.createObjectURL(blob), a = document.createElement('a');
+  a.href = url; a.download = nom; document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  return true;
+}
+function copierTexte(texte) {
+  if (navigator.clipboard && navigator.clipboard.writeText) return navigator.clipboard.writeText(texte).then(function () { return true; }, function () { return copierAncien(texte); });
+  return Promise.resolve(copierAncien(texte));
+}
+function copierAncien(texte) {
+  var t = document.createElement('textarea'); t.value = texte; t.setAttribute('readonly', ''); t.style.position = 'fixed'; t.style.opacity = '0';
+  document.body.appendChild(t); t.select(); var ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+  t.remove(); return ok;
+}
+function message(t, erreur) {
+  var el = document.getElementById('msg-donnees');
+  if (el) {
+    el.textContent = t; el.className = 'msg' + (erreur ? ' err' : '');
+    clearTimeout(message.minuterie);
+    message.minuterie = setTimeout(function () { var x = document.getElementById('msg-donnees'); if (x) x.textContent = ''; }, 5000);
+  }
+  annoncer(t);
+}
+// Lecture d'une sauvegarde : accepte le fichier exporté par l'app (enveloppe « renfo-cross ») ou l'objet de données seul.
+function lireSauvegarde(texte) {
+  var o;
+  try { o = JSON.parse(texte); } catch (e) { throw new Error('ce fichier n\'est pas du JSON valide.'); }
+  var d = o && o.app === 'renfo-cross' ? o.donnees : o;
+  if (!d || d.v !== 1 || typeof d.seances !== 'object' || d.seances === null || Array.isArray(d.seances)) throw new Error('ce n\'est pas une sauvegarde Renfo Cross (format 1).');
+  if (d.semaines != null && (typeof d.semaines !== 'object' || Array.isArray(d.semaines))) throw new Error('la partie « semaines » est illisible.');
+  Object.keys(d.seances).forEach(function (k) {
+    if (!/^S\d+-\d+$/.test(k)) throw new Error('clé de séance inattendue « ' + k + ' ».');
+    var s = d.seances[k];
+    if (!s || typeof s.ex !== 'object' || s.ex === null) throw new Error('séance ' + k + ' illisible.');
+    Object.keys(s.ex).forEach(function (id) { var x = s.ex[id]; if (!x || (x.series != null && !Array.isArray(x.series))) throw new Error('exercice « ' + id + ' » de ' + k + ' illisible.'); if (!x.series) x.series = []; });
+  });
+  Object.keys(d.semaines || {}).forEach(function (k) { if (!/^S\d+$/.test(k)) throw new Error('clé de semaine inattendue « ' + k + ' ».'); });
+  return { donnees: { v: 1, seances: d.seances, semaines: d.semaines || {}, minuteur: null, meta: d.meta || {} }, exporteLe: o.exporteLe || null };
+}
+function compteDonnees(d) {
+  var faites = 0; Object.keys(d.seances).forEach(function (k) { if (d.seances[k].faite) faites++; });
+  return Object.keys(d.seances).length + ' séance(s) saisie(s) dont ' + faites + ' terminée(s), ' + Object.keys(d.semaines).length + ' bilan(s) de semaine';
+}
+function vueDonnees() {
   COURANT = null;
-  entete(titre, '');
-  document.getElementById('vue').innerHTML = bandeaux() + '<div class="carte"><h2>' + esc(titre) + '</h2><p class="sec">' + esc(txt) + '</p></div>';
+  if (!D.meta) D.meta = {};
+  var der = D.meta.derniereSauvegarde ? new Date(D.meta.derniereSauvegarde) : null, h = bandeaux();
+  entete('Données', 'Stockées sur cet appareil uniquement');
+  h += '<div class="carte"><h2>Sur cet appareil</h2><p class="sec" style="margin:0">' + esc(compteDonnees(D)) + '.</p>' +
+    '<p class="sec" style="margin:6px 0 0">Dernière sauvegarde JSON : <b>' + (der ? esc(der.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' })) : 'jamais') + '</b>.</p>' +
+    '<p class="petit" id="persist" style="margin:6px 0 0"></p></div>';
+  h += '<div class="carte"><h2>Copier pour le Sheet</h2><p class="sec" style="margin:0 0 10px">Une ligne par série, colonnes séparées par des tabulations : colle directement dans une feuille Google Sheets.</p>' +
+    '<div class="liste-seances"><button type="button" class="btn large" data-a="copier">Copier les séries</button>' +
+    '<button type="button" class="btn second large" data-a="copier-bilan">Copier les bilans de semaine</button></div></div>';
+  h += '<div class="carte"><h2>Exporter</h2><p class="sec" style="margin:0 0 10px">CSV : séparateur « ; », virgule décimale, UTF-8. JSON : sauvegarde complète, à réimporter ici.</p>' +
+    '<div class="liste-seances"><button type="button" class="btn large" data-a="exp-json">Sauvegarde JSON</button>' +
+    '<button type="button" class="btn second large" data-a="exp-csv">Séries en CSV</button>' +
+    '<button type="button" class="btn second large" data-a="exp-bilan">Bilans en CSV</button></div></div>';
+  h += '<div class="carte"><h2>Restaurer une sauvegarde</h2><p class="sec" style="margin:0 0 10px">Remplace toutes les données de cet appareil par celles du fichier JSON.</p>' +
+    '<label class="btn second large" for="fichier-import">Choisir un fichier JSON</label><input class="vh" id="fichier-import" type="file" accept="application/json,.json">';
+  if (IMPORT_ATTENTE) {
+    h += '<div class="confirm" role="group" aria-label="Confirmer la restauration"><p><b>Fichier lu :</b> ' + esc(compteDonnees(IMPORT_ATTENTE.donnees)) +
+      (IMPORT_ATTENTE.exporteLe ? ', exporté le ' + esc(new Date(IMPORT_ATTENTE.exporteLe).toLocaleString('fr-FR')) : '') + '.</p>' +
+      '<p>Les données actuelles de cet appareil (' + esc(compteDonnees(D)) + ') seront remplacées.</p>' +
+      '<div class="liste-seances"><button type="button" class="btn large" data-a="import-ok">Remplacer mes données</button>' +
+      '<button type="button" class="btn second large" data-a="import-annuler">Annuler</button></div></div>';
+  }
+  h += '</div>';
+  h += '<div class="carte"><h2>Réinitialiser</h2>';
+  if (RESET_ETAPE === 0) h += '<p class="sec" style="margin:0 0 10px">Efface toutes les saisies de cet appareil. Le plan n\'est pas touché.</p><button type="button" class="btn danger large" data-a="reset1">Tout effacer…</button>';
+  else h += '<div class="confirm danger" role="alertdialog" aria-label="Confirmer l\'effacement"><p><b>Effacer définitivement</b> ' + esc(compteDonnees(D)) + ' ? Exporte d\'abord une sauvegarde JSON si tu veux pouvoir revenir en arrière.</p>' +
+    '<div class="liste-seances"><button type="button" class="btn danger large" data-a="reset2">Oui, tout effacer</button>' +
+    '<button type="button" class="btn second large" data-a="reset0">Annuler</button></div></div>';
+  h += '</div>';
+  h += '<p class="msg" id="msg-donnees" role="status"></p>';
+  h += '<div class="carte"><h2>À propos</h2><p class="petit" style="margin:0">Plan généré le ' + esc(new Date(PLAN.genereLe).toLocaleString('fr-FR')) + ' depuis ' + esc(PLAN.sources.join(', ')) + '.<br>' +
+    'Version de l\'app : <span id="version-app">' + esc(VERSION_APP || 'inconnue (service worker inactif)') + '</span>. Aucune donnée n\'est envoyée sur internet.</p></div>';
+  document.getElementById('vue').innerHTML = h;
+  document.getElementById('fichier-import').addEventListener('change', surFichierImport);
+  // État du stockage persistant (sans garantie sur iOS, qui peut effacer les données d'une app peu utilisée).
+  try {
+    if (navigator.storage && navigator.storage.persisted) navigator.storage.persisted().then(function (p) {
+      var el = document.getElementById('persist'); if (el) el.textContent = 'Stockage persistant : ' + (p ? 'accordé par le navigateur.' : 'non accordé : exporte une sauvegarde chaque semaine.');
+    });
+  } catch (e) {}
+}
+function surFichierImport(ev) {
+  var f = ev.target.files && ev.target.files[0]; if (!f) return;
+  var r = new FileReader();
+  r.onload = function () {
+    try { IMPORT_ATTENTE = lireSauvegarde(String(r.result)); RESET_ETAPE = 0; vueDonnees(); message('Fichier lu : vérifie puis confirme.'); }
+    catch (e) { IMPORT_ATTENTE = null; vueDonnees(); message('Import impossible : ' + e.message, true); }
+  };
+  r.onerror = function () { message('Lecture du fichier impossible.', true); };
+  r.readAsText(f);
+}
+function actionDonnees(cible) {
+  var a = cible.getAttribute('data-a'), date = isoLocal(new Date());
+  if (a === 'copier' || a === 'copier-bilan') {
+    var lignes = a === 'copier' ? lignesExport() : lignesBilan();
+    if (!lignes.length) { message('Rien à copier pour l\'instant.', true); return true; }
+    copierTexte(enTexte(a === 'copier' ? COLONNES : COLONNES_BILAN, lignes, '\t')).then(function (ok) {
+      message(ok ? lignes.length + ' ligne(s) copiée(s) : colle-les dans le Sheet.' : 'Copie refusée par le navigateur.', !ok);
+    });
+    return true;
+  }
+  if (a === 'exp-csv' || a === 'exp-bilan') {
+    var l = a === 'exp-csv' ? lignesExport() : lignesBilan();
+    // BOM UTF-8 : Excel affiche correctement les accents.
+    proposerFichier('renfo-cross-' + (a === 'exp-csv' ? 'series' : 'bilans') + '-' + date + '.csv', 'text/csv;charset=utf-8', '﻿' + enTexte(a === 'exp-csv' ? COLONNES : COLONNES_BILAN, l, ';'))
+      .then(function (ok) { if (ok) message(l.length + ' ligne(s) exportée(s).'); });
+    return true;
+  }
+  if (a === 'exp-json') {
+    proposerFichier('renfo-cross-sauvegarde-' + date + '.json', 'application/json', sauvegardeJSON()).then(function (ok) {
+      if (!ok) return;
+      if (!D.meta) D.meta = {};
+      D.meta.derniereSauvegarde = Date.now(); sauver(); vueDonnees(); message('Sauvegarde JSON exportée.');
+    });
+    return true;
+  }
+  if (a === 'import-ok' && IMPORT_ATTENTE) {
+    D = IMPORT_ATTENTE.donnees; IMPORT_ATTENTE = null; arreterMinuteur(); sauver(); vueDonnees(); message('Sauvegarde restaurée : ' + compteDonnees(D) + '.');
+    return true;
+  }
+  if (a === 'import-annuler') { IMPORT_ATTENTE = null; vueDonnees(); message('Restauration annulée.'); return true; }
+  if (a === 'reset1') { RESET_ETAPE = 1; IMPORT_ATTENTE = null; vueDonnees(); var b = document.querySelector('[data-a="reset0"]'); if (b) b.focus(); return true; }
+  if (a === 'reset0') { RESET_ETAPE = 0; vueDonnees(); message('Effacement annulé.'); return true; }
+  if (a === 'reset2' && RESET_ETAPE === 1) {
+    RESET_ETAPE = 0; arreterMinuteur(); D = donneesVides(); sauver(); vueDonnees(); message('Toutes les saisies ont été effacées.');
+    return true;
+  }
+  if (a === 'recharger') { location.reload(); return true; }
+  return false;
+}
+// Rappel discret le dimanche si la dernière sauvegarde JSON date de plus de 6 jours (ou n'existe pas).
+function htmlRappelSauvegarde(auj) {
+  if (auj.getDay() !== 0 || donneesSontVides()) return '';
+  var der = D.meta && D.meta.derniereSauvegarde;
+  if (der && auj - jourSeul(new Date(der)) < 6 * 864e5) return '';
+  return '<p class="rappel"><a href="#/donnees">Dimanche : pense à exporter ta sauvegarde JSON</a> (' + (der ? 'dernière le ' + esc(new Date(der).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short' })) : 'aucune pour l\'instant') + ').</p>';
+}
+// Nouvelle version installée par le service worker pendant que l'app est ouverte.
+function surveillerMiseAJour(reg) {
+  var avait = !!navigator.serviceWorker.controller;
+  reg.addEventListener('updatefound', function () {
+    var w = reg.installing; if (!w || !avait) return;
+    w.addEventListener('statechange', function () {
+      if (w.state !== 'activated') return;
+      var el = document.getElementById('maj');
+      el.innerHTML = '<div class="bandeau" role="status"><b>Nouvelle version installée.</b> Tes saisies sont conservées. <button type="button" class="btn second" data-a="recharger">Recharger</button></div>';
+      el.hidden = false;
+    });
+  });
+  if (navigator.serviceWorker.controller) navigator.serviceWorker.controller.postMessage('version');
 }
 
 /* ---------- Minuteur de récupération ----------
@@ -1127,7 +1376,13 @@ function demarrer() {
       entete('Renfo Cross', '');
       v.innerHTML = '<div class="bandeau err" role="alert"><b>Plan introuvable.</b> Le fichier data/plan.json n\'a pas pu être chargé (' + esc(err.message) + '). Ouvre l\'app une fois avec du réseau pour la mettre en cache.</div>';
     });
-  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(function () {});
+  document.getElementById('maj').addEventListener('click', surAction);
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.addEventListener('message', function (ev) {
+      if (ev.data && ev.data.version) { VERSION_APP = ev.data.version; var el = document.getElementById('version-app'); if (el) el.textContent = VERSION_APP; }
+    });
+    navigator.serviceWorker.register('sw.js').then(surveillerMiseAJour).catch(function () {});
+  }
 }
 demarrer();
 </script>
