@@ -1,6 +1,6 @@
 {
  "format": 1,
- "genereLe": "2026-11-11T08:38:58.591Z",
+ "genereLe": "2026-11-11T10:11:31.148Z",
  "sources": [
   "Plan.csv",
   "Règles.csv",
@@ -574,7 +574,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "30\" par groupe",
-         "remarques": "",
+         "remarques": "Tension progressive, sans à-coups ni douleur, respiration lente.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -602,7 +602,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 min",
-         "remarques": "",
+         "remarques": "Inspirer par le nez, expirer plus longtemps qu'on inspire.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -673,7 +673,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "6 respirations",
-         "remarques": "",
+         "remarques": "Sur le dos, hanches et genoux à 90°, pieds au mur ; expirer à fond, côtes basses, lombaires au sol.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -701,7 +701,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 × 6/côté",
-         "remarques": "",
+         "remarques": "Lombaires collées au sol, bras et jambe opposés, mouvement lent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -727,7 +727,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "1 × 10 pas/côté",
-         "remarques": "",
+         "remarques": "Genoux légèrement fléchis, élastique toujours tendu. Éviter : genoux qui rentrent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -951,7 +951,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 30\"/jambe",
-         "remarques": "",
+         "remarques": "Genou légèrement fléchi, bassin horizontal, regard devant.",
          "saisie": "series",
          "p": {
           "series": 2,
@@ -1017,7 +1017,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "5 min",
-         "remarques": "",
+         "remarques": "Mouvements amples et lents, sans forcer en fin d'amplitude.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -1090,7 +1090,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "2 × 10",
-         "remarques": "",
+         "remarques": "Bras tendus, écarter les mains si ça bloque. Éviter : cambrer.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -1116,7 +1116,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 8",
-         "remarques": "",
+         "remarques": "Bras tendus, rapprocher puis écarter les omoplates sans plier les coudes.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -1142,7 +1142,7 @@
          "cle": null,
          "chargePrevue": "Barre seule",
          "prescription": "1 série",
-         "remarques": "",
+         "remarques": "Même placement que les séries : omoplates serrées, pieds au sol.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -1751,7 +1751,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "30\" par groupe",
-         "remarques": "",
+         "remarques": "Tension progressive, sans à-coups ni douleur, respiration lente.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -1779,7 +1779,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 min",
-         "remarques": "",
+         "remarques": "Inspirer par le nez, expirer plus longtemps qu'on inspire.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -1850,7 +1850,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "6 respirations",
-         "remarques": "",
+         "remarques": "Sur le dos, hanches et genoux à 90°, pieds au mur ; expirer à fond, côtes basses, lombaires au sol.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -1878,7 +1878,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 × 6/côté",
-         "remarques": "",
+         "remarques": "Lombaires collées au sol, bras et jambe opposés, mouvement lent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -1904,7 +1904,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "1 × 10 pas/côté",
-         "remarques": "",
+         "remarques": "Genoux légèrement fléchis, élastique toujours tendu. Éviter : genoux qui rentrent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -2128,7 +2128,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 30\"/jambe",
-         "remarques": "",
+         "remarques": "Genou légèrement fléchi, bassin horizontal, regard devant.",
          "saisie": "series",
          "p": {
           "series": 2,
@@ -2194,7 +2194,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "5 min",
-         "remarques": "",
+         "remarques": "Mouvements amples et lents, sans forcer en fin d'amplitude.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -2267,7 +2267,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "2 × 10",
-         "remarques": "",
+         "remarques": "Bras tendus, écarter les mains si ça bloque. Éviter : cambrer.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -2293,7 +2293,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 8",
-         "remarques": "",
+         "remarques": "Bras tendus, rapprocher puis écarter les omoplates sans plier les coudes.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -2319,7 +2319,7 @@
          "cle": null,
          "chargePrevue": "Barre seule",
          "prescription": "1 série",
-         "remarques": "",
+         "remarques": "Même placement que les séries : omoplates serrées, pieds au sol.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -2928,7 +2928,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "30\" par groupe",
-         "remarques": "",
+         "remarques": "Tension progressive, sans à-coups ni douleur, respiration lente.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -2956,7 +2956,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 min",
-         "remarques": "",
+         "remarques": "Inspirer par le nez, expirer plus longtemps qu'on inspire.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -3027,7 +3027,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "6 respirations",
-         "remarques": "",
+         "remarques": "Sur le dos, hanches et genoux à 90°, pieds au mur ; expirer à fond, côtes basses, lombaires au sol.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -3055,7 +3055,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 × 6/côté",
-         "remarques": "",
+         "remarques": "Lombaires collées au sol, bras et jambe opposés, mouvement lent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -3081,7 +3081,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "1 × 10 pas/côté",
-         "remarques": "",
+         "remarques": "Genoux légèrement fléchis, élastique toujours tendu. Éviter : genoux qui rentrent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -3305,7 +3305,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 30\"/jambe",
-         "remarques": "",
+         "remarques": "Genou légèrement fléchi, bassin horizontal, regard devant.",
          "saisie": "series",
          "p": {
           "series": 2,
@@ -3371,7 +3371,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "5 min",
-         "remarques": "",
+         "remarques": "Mouvements amples et lents, sans forcer en fin d'amplitude.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -3444,7 +3444,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "2 × 10",
-         "remarques": "",
+         "remarques": "Bras tendus, écarter les mains si ça bloque. Éviter : cambrer.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -3470,7 +3470,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 8",
-         "remarques": "",
+         "remarques": "Bras tendus, rapprocher puis écarter les omoplates sans plier les coudes.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -3496,7 +3496,7 @@
          "cle": null,
          "chargePrevue": "Barre seule",
          "prescription": "1 série",
-         "remarques": "",
+         "remarques": "Même placement que les séries : omoplates serrées, pieds au sol.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -4105,7 +4105,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "30\" par groupe",
-         "remarques": "",
+         "remarques": "Tension progressive, sans à-coups ni douleur, respiration lente.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -4133,7 +4133,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 min",
-         "remarques": "",
+         "remarques": "Inspirer par le nez, expirer plus longtemps qu'on inspire.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -4204,7 +4204,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "6 respirations",
-         "remarques": "",
+         "remarques": "Sur le dos, hanches et genoux à 90°, pieds au mur ; expirer à fond, côtes basses, lombaires au sol.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -4232,7 +4232,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "1 × 6/côté",
-         "remarques": "",
+         "remarques": "Lombaires collées au sol, bras et jambe opposés, mouvement lent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -4258,7 +4258,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "1 × 10 pas/côté",
-         "remarques": "",
+         "remarques": "Genoux légèrement fléchis, élastique toujours tendu. Éviter : genoux qui rentrent.",
          "saisie": "case",
          "p": {
           "series": 1,
@@ -4482,7 +4482,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "1 × 30\"/jambe",
-         "remarques": "",
+         "remarques": "Genou légèrement fléchi, bassin horizontal, regard devant.",
          "saisie": "series",
          "p": {
           "series": 1,
@@ -4548,7 +4548,7 @@
          "cle": null,
          "chargePrevue": "",
          "prescription": "5 min",
-         "remarques": "",
+         "remarques": "Mouvements amples et lents, sans forcer en fin d'amplitude.",
          "saisie": "case",
          "p": {
           "series": null,
@@ -4621,7 +4621,7 @@
          "cle": null,
          "chargePrevue": "Élastique",
          "prescription": "2 × 10",
-         "remarques": "",
+         "remarques": "Bras tendus, écarter les mains si ça bloque. Éviter : cambrer.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -4647,7 +4647,7 @@
          "cle": null,
          "chargePrevue": "Poids du corps",
          "prescription": "2 × 8",
-         "remarques": "",
+         "remarques": "Bras tendus, rapprocher puis écarter les omoplates sans plier les coudes.",
          "saisie": "case",
          "p": {
           "series": 2,
@@ -4673,7 +4673,7 @@
          "cle": null,
          "chargePrevue": "Barre seule",
          "prescription": "1 série",
-         "remarques": "",
+         "remarques": "Même placement que les séries : omoplates serrées, pieds au sol.",
          "saisie": "case",
          "p": {
           "series": 1,
