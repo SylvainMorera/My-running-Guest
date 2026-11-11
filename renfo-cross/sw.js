@@ -4,7 +4,7 @@
 // Incrémenter VERSION à chaque modification d'un fichier de l'app.
 // Le site héberge d'autres apps sur la même origine : on ne supprime QUE les caches « renfo-cross-* ».
 // Aucune saisie n'est mise en cache ici : elles restent dans le stockage local du navigateur.
-var VERSION = 'renfo-cross-v5';
+var VERSION = 'renfo-cross-v6';
 var FICHIERS = ['./', './index.html', './manifest.webmanifest', './data/plan.json',
   './icons/icon-180.png', './icons/icon-192.png', './icons/icon-512.png'];
 

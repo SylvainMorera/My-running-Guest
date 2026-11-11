@@ -248,65 +248,180 @@ svg.graphe{display:block;width:100%;height:auto;overflow:visible}
 #maj .bandeau{margin:0;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 #maj .btn{min-height:44px;font-size:15px}
 @media (min-width:700px){ main{padding-top:20px} }
-/* ===== Finition « verre » façon iOS =====
-   Fond en halos bleus fixes ; cartes translucides avec reflet ; en-tête, barre d'onglets, minuteur et messages
-   en verre dépoli (flou de ce qui défile derrière). Le flou n'est mis que là où du contenu passe dessous :
-   sur les cartes, le fond est fixe, le flouter ne changerait rien et coûterait de la batterie.
-   Contrastes recalculés dans le pire cas (contenu foncé ou clair sous le verre) : texte ≥ 4,5:1, bords de champs ≥ 3:1. */
+/* ===== Finition « verre » moderne (inspirée du verre d'iOS récent) =====
+   Fond en halos de couleur fixes ; cartes en verre dépoli (flou + saturation) avec bord spéculaire
+   (dégradé clair en biais) et reflet intérieur ; barre d'onglets en capsule flottante ; boutons qui
+   s'enfoncent légèrement au toucher. Contrastes recalculés dans le pire cas (halo le plus foncé en clair,
+   le plus clair en sombre, sous la carte) : texte ≥ 4,5:1, bords de champs ≥ 3:1. */
 :root{
-  --verre-carte:rgba(255,255,255,.74); --verre-rangee:rgba(255,255,255,.6); --verre-bord:rgba(255,255,255,.75);
-  --verre-reflet:rgba(255,255,255,.9); --verre-ombre:rgba(16,28,72,.10);
+  --fond:#E6EDF8;
+  --halo-a:rgba(56,132,200,.30); --halo-b:rgba(110,193,240,.28); --halo-c:rgba(16,28,72,.14);
+  --verre-carte:rgba(255,255,255,.65); --verre-rangee:rgba(255,255,255,.55);
+  --spec-1:rgba(255,255,255,.95); --spec-2:rgba(255,255,255,.25); --spec-3:rgba(255,255,255,.65);
+  --reflet-int:rgba(255,255,255,.85); --bord-rangee:rgba(255,255,255,.7); --verre-ombre:rgba(16,28,72,.12);
   --verre-barre:rgba(255,255,255,.88); --verre-entete:rgba(16,28,72,.82); --verre-sombre:rgba(16,28,72,.86);
-  --halo1:rgba(56,132,200,.22); --halo2:rgba(16,28,72,.10); --fond:#EAF0F8;
+  --onglet-actif:rgba(39,102,163,.12); --bord-champ:#6E7B99;
   --btn-haut:#2C6CAA; --btn-bas:#225C94;
+  --bas-barre:max(10px, env(safe-area-inset-bottom));
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --verre-carte:rgba(17,27,63,.72); --verre-rangee:rgba(23,35,77,.7); --verre-bord:rgba(134,189,240,.18);
-    --verre-reflet:rgba(255,255,255,.10); --verre-ombre:rgba(0,0,0,.35);
+    --fond:#060C22;
+    --halo-a:rgba(56,132,200,.30); --halo-b:rgba(110,193,240,.12); --halo-c:rgba(42,63,143,.45);
+    --verre-carte:rgba(14,22,54,.6); --verre-rangee:rgba(23,35,77,.6);
+    --spec-1:rgba(134,189,240,.45); --spec-2:rgba(134,189,240,.06); --spec-3:rgba(134,189,240,.22);
+    --reflet-int:rgba(255,255,255,.08); --bord-rangee:rgba(134,189,240,.16); --verre-ombre:rgba(0,0,0,.4);
     --verre-barre:rgba(13,21,52,.84); --verre-entete:rgba(11,21,56,.84); --verre-sombre:rgba(11,21,56,.88);
-    --halo1:rgba(56,132,200,.25); --halo2:rgba(56,132,200,.12); --fond:#081029;
+    --onglet-actif:rgba(134,189,240,.16); --bord-champ:#6B7DB5;
     --btn-haut:#9ACAF4; --btn-bas:#79B2E8;
   }
 }
-body{background:var(--fond)}
+body{background:var(--fond);padding-bottom:calc(var(--tab-h) + var(--bas-barre) + 22px)}
+body.avec-minuteur{padding-bottom:calc(var(--tab-h) + var(--bas-barre) + 110px)}
 body::before{content:"";position:fixed;inset:0;z-index:-1;pointer-events:none;
-  background:radial-gradient(120% 55% at 0% 0%,var(--halo1),transparent 62%),radial-gradient(110% 55% at 100% 100%,var(--halo2),transparent 60%),var(--fond)}
-/* Cartes : verre translucide, bord lumineux, reflet en haut, ombre douce */
-.carte,details.section{background:var(--verre-carte);border:1px solid var(--verre-bord);border-radius:16px;
-  box-shadow:inset 0 1px 0 var(--verre-reflet),0 6px 20px var(--verre-ombre)}
-.ligne-seance,a.sem,.chiffre,.confirm,.fracts li{background:var(--verre-rangee);box-shadow:inset 0 1px 0 var(--verre-reflet)}
-.pas,.rpe-btns button,.choix3 button,.fait,.serie input,.note,.champ-f{background:var(--verre-rangee);box-shadow:inset 0 1px 0 var(--verre-reflet)}
-.rpe-btns button[aria-pressed="true"],.choix3 button[aria-pressed="true"]{background:linear-gradient(180deg,var(--btn-haut),var(--btn-bas))}
-.fait[aria-pressed="true"]{background:var(--ok);box-shadow:inset 0 1px 0 rgba(255,255,255,.35)}
-/* Boutons : dégradé brillant + reflet */
-.btn{background:linear-gradient(180deg,var(--btn-haut),var(--btn-bas));border-color:var(--btn-bas);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),0 4px 12px var(--verre-ombre)}
-.btn.second{background:var(--verre-rangee);border-color:var(--accent);box-shadow:inset 0 1px 0 var(--verre-reflet)}
+  background:radial-gradient(60% 45% at 8% 6%,var(--halo-a),transparent 70%),radial-gradient(55% 40% at 95% 45%,var(--halo-b),transparent 70%),
+    radial-gradient(70% 45% at 30% 100%,var(--halo-c),transparent 70%),var(--fond)}
+/* Cartes : verre dépoli + bord spéculaire */
+.carte,details.section{border:1px solid transparent;border-radius:20px;
+  background:linear-gradient(var(--verre-carte),var(--verre-carte)) padding-box,linear-gradient(145deg,var(--spec-1),var(--spec-2) 45%,var(--spec-3)) border-box;
+  box-shadow:inset 0 1px 0 var(--reflet-int),0 10px 30px var(--verre-ombre);
+  -webkit-backdrop-filter:blur(22px) saturate(180%);backdrop-filter:blur(22px) saturate(180%)}
+.ligne-seance,a.sem,.chiffre,.confirm,.fracts li,.stat{background:var(--verre-rangee);border:1px solid var(--bord-rangee);border-radius:14px;box-shadow:inset 0 1px 0 var(--reflet-int)}
+a.sem.cour{border:2px solid var(--accent)}
+.confirm{border:2px solid var(--accent)} .confirm.danger{border-color:var(--erreur)}
+.pas,.rpe-btns button,.choix3 button,.fait,.serie input,.note,.champ-f{background:var(--verre-rangee);border-color:var(--bord-champ);box-shadow:inset 0 1px 0 var(--reflet-int)}
+.rpe-btns button[aria-pressed="true"],.choix3 button[aria-pressed="true"]{background:linear-gradient(180deg,var(--btn-haut),var(--btn-bas));border-color:var(--btn-bas)}
+.fait[aria-pressed="true"]{background:var(--ok);border-color:var(--ok)}
+/* Boutons : dégradé, reflet, enfoncement au toucher */
+.btn{border-radius:14px;background:linear-gradient(180deg,var(--btn-haut),var(--btn-bas));border-color:var(--btn-bas);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 6px 16px var(--verre-ombre)}
+.btn.second{background:var(--verre-rangee);border-color:var(--accent);box-shadow:inset 0 1px 0 var(--reflet-int)}
 .btn.danger{background:var(--erreur);border-color:var(--erreur)}
-/* Verre dépoli là où le contenu défile dessous */
-header.haut{background:var(--verre-entete);border-bottom:1px solid rgba(255,255,255,.12);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
-nav.onglets{background:var(--verre-barre);border-top:1px solid var(--verre-bord);box-shadow:inset 0 1px 0 var(--verre-reflet);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
-#minuteur{left:10px;right:10px;bottom:calc(var(--tab-h) + env(safe-area-inset-bottom) + 8px);border-radius:16px;overflow:hidden;
-  background:var(--verre-sombre);border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 8px 24px rgba(0,0,0,.3);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.btn,.pas,.fait,.rpe-btns button,.choix3 button,.ligne-seance,a.sem,nav.onglets a,#minuteur button{transition:transform .12s ease}
+.btn:active,.pas:active,.fait:active,.rpe-btns button:active,.choix3 button:active,.ligne-seance:active,a.sem:active,nav.onglets a:active,#minuteur button:active{transform:scale(.96)}
+/* En-tête en verre */
+header.haut{background:var(--verre-entete);border-bottom:1px solid rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
+/* Barre d'onglets : capsule flottante */
+nav.onglets{left:12px;right:12px;bottom:var(--bas-barre);max-width:520px;margin:0 auto;padding:4px;border-radius:30px;
+  background:var(--verre-barre);border:1px solid var(--bord-rangee);box-shadow:inset 0 1px 0 var(--reflet-int),0 12px 32px var(--verre-ombre);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
+nav.onglets a{height:calc(var(--tab-h) - 8px);border-radius:24px}
+nav.onglets a[aria-current="page"]{background:var(--onglet-actif);color:var(--texte);font-weight:800}
+nav.onglets a[aria-current="page"] svg{color:var(--accent)}
+nav.onglets a[aria-current="page"]::before{display:none}
+/* Minuteur et messages : pastilles flottantes au-dessus de la capsule */
+#minuteur{left:12px;right:12px;max-width:520px;margin:0 auto;bottom:calc(var(--tab-h) + var(--bas-barre) + 10px);border-radius:20px;overflow:hidden;
+  background:var(--verre-sombre);border:1px solid rgba(255,255,255,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 10px 28px rgba(0,0,0,.3);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
 #minuteur.fini{background:rgba(28,110,64,.92)}
-.msg{background:var(--verre-sombre);border-color:rgba(255,255,255,.18);
-  -webkit-backdrop-filter:blur(20px) saturate(180%);backdrop-filter:blur(20px) saturate(180%)}
+.msg{bottom:calc(var(--tab-h) + var(--bas-barre) + 10px);border-radius:16px;background:var(--verre-sombre);border-color:rgba(255,255,255,.2);
+  -webkit-backdrop-filter:blur(24px) saturate(180%);backdrop-filter:blur(24px) saturate(180%)}
 .msg.err{background:rgba(163,34,27,.94)}
-/* Repli opaque : navigateur sans flou, ou réglage « réduire la transparence » quand il est transmis à la page */
+
+/* ===== Progression : statistiques animées ===== */
+.regul{display:flex;align-items:center;gap:14px}
+.anneau{position:relative;width:118px;height:118px;flex:0 0 118px}
+.anneau svg{width:100%;height:100%;transform:rotate(-90deg)}
+.an-fond{fill:none;stroke:var(--ligne);stroke-width:9}
+.an-arc{fill:none;stroke:var(--s1);stroke-width:9;stroke-linecap:round;transition:stroke-dashoffset 1.1s cubic-bezier(.3,0,.2,1)}
+.an-centre{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.an-centre b{font-size:24px;font-variant-numeric:tabular-nums;line-height:1.1}
+.an-centre>span{font-size:11px;color:var(--texte2);line-height:1.2}
+.regul-txt{flex:1;min-width:0}
+.regul-txt p{margin:0}
+.regul-txt b{font-size:22px;font-variant-numeric:tabular-nums}
+.jauge{height:8px;border-radius:4px;background:var(--ligne);overflow:hidden;margin-top:10px}
+.jauge i{display:block;height:100%;border-radius:4px;background:var(--s1);transform-origin:left;animation:jauge 1.1s cubic-bezier(.3,0,.2,1) both}
+@keyframes jauge{from{transform:scaleX(0)}}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:2px 0 8px}
+.stat{padding:8px 6px;text-align:center}
+.stat b{display:block;font-size:18px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.stat span{font-size:12px;color:var(--texte2);line-height:1.2;display:block}
+.stat.hausse b{color:var(--ok)} .stat.baisse b{color:var(--alerte)}
+.barre{fill:var(--s1);transform-box:fill-box;transform-origin:bottom;animation:barre .7s cubic-bezier(.2,.8,.2,1) both}
+@keyframes barre{from{transform:scaleY(0)}}
+.trace.dessine{stroke-dasharray:1;stroke-dashoffset:0;animation:trace 1s cubic-bezier(.3,0,.2,1) both}
+@keyframes trace{from{stroke-dashoffset:1}}
+.apparait{animation:fondu .6s ease .5s both}
+.mq.pose{transform-box:fill-box;transform-origin:center;animation:pose .35s cubic-bezier(.2,.9,.3,1.3) both}
+@keyframes pose{from{opacity:0;transform:scale(0)}}
+.apparait-tard{animation:fondu .4s ease .9s both}
+@keyframes fondu{from{opacity:0}}
+
+/* ===== Changement d'écran : le contenu glisse en fondu ===== */
+#vue.entree>*{animation:vue-entree .35s cubic-bezier(.2,.8,.2,1) both}
+#vue.entree>*:nth-child(2){animation-delay:.04s} #vue.entree>*:nth-child(3){animation-delay:.08s}
+#vue.entree>*:nth-child(4){animation-delay:.12s} #vue.entree>*:nth-child(n+5){animation-delay:.16s}
+@keyframes vue-entree{from{opacity:0;transform:translateY(10px)}}
+
+/* ===== Écran d'ouverture ===== */
+#ouverture{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  background:radial-gradient(circle at 50% 42%,#1B2B66 0%,#101C48 62%,#081029 100%);color:#fff;
+  animation:ouv-sortie .45s ease-in 2s forwards}
+#ouverture.fini{display:none}
+.ouv-halo{position:absolute;width:260px;height:260px;border-radius:50%;top:calc(50% - 170px);
+  background:radial-gradient(circle,rgba(56,132,200,.55),transparent 65%);animation:ouv-halo 1.6s ease-out .2s both}
+.ouv-logo{position:relative;margin-bottom:14px;filter:drop-shadow(0 14px 28px rgba(0,0,0,.45));animation:ouv-pop .5s cubic-bezier(.2,.9,.3,1.25) both}
+.ouv-logo .o-b,.ouv-logo .o-g,.ouv-logo .o-d{transform-box:fill-box}
+.ouv-logo .o-b{transform-origin:center;animation:ouv-barre .35s cubic-bezier(.3,0,.2,1) .25s both}
+.ouv-logo .o-g{animation:ouv-gauche .45s cubic-bezier(.2,.9,.3,1.3) .45s both}
+.ouv-logo .o-d{animation:ouv-droite .45s cubic-bezier(.2,.9,.3,1.3) .45s both}
+.ouv-logo .o-f{stroke-dasharray:1;animation:ouv-trace .4s ease-out .85s both}
+.ouv-logo .o-r{animation:ouv-reflet .7s ease-in-out 1.15s both}
+.ouv-nom{position:relative;margin:0;font-size:28px;font-weight:800;letter-spacing:-.01em;animation:ouv-monte .45s ease-out .95s both}
+.ouv-nom span{color:#6FA8DC}
+.ouv-sous{position:relative;margin:0;font-size:14px;color:#D4DDF0;animation:ouv-monte .45s ease-out 1.1s both}
+@keyframes ouv-pop{from{transform:scale(.55);opacity:0}}
+@keyframes ouv-halo{0%{transform:scale(.4);opacity:0}50%{opacity:1}100%{transform:scale(1.15);opacity:.6}}
+@keyframes ouv-barre{from{transform:scaleX(0)}}
+@keyframes ouv-gauche{from{transform:translateX(-26px);opacity:0}}
+@keyframes ouv-droite{from{transform:translateX(26px);opacity:0}}
+@keyframes ouv-trace{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes ouv-reflet{from{transform:translateX(-70px) skewX(-20deg)}to{transform:translateX(150px) skewX(-20deg)}}
+@keyframes ouv-monte{from{opacity:0;transform:translateY(10px)}}
+@keyframes ouv-sortie{to{opacity:0;visibility:hidden;transform:scale(1.06)}}
+
+/* Animations coupées si l'iPhone demande « Réduire les animations » */
+@media (prefers-reduced-motion: reduce){
+  #ouverture{animation:ouv-sortie .3s ease .6s forwards}
+  #ouverture *,#vue.entree>*,.barre,.jauge i,.trace.dessine,.apparait,.apparait-tard,.mq.pose{animation:none!important}
+  .an-arc{transition:none}
+  .btn:active,.pas:active,.fait:active,.rpe-btns button:active,.choix3 button:active,.ligne-seance:active,a.sem:active,nav.onglets a:active,#minuteur button:active{transform:none}
+}
+/* Repli opaque : flou non pris en charge, ou transparence réduite quand le réglage est transmis à la page */
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
   header.haut,#minuteur,.msg{background:var(--marine)} nav.onglets{background:var(--surface)}
+  .carte,details.section{background:var(--surface) padding-box,linear-gradient(145deg,var(--spec-1),var(--spec-2) 45%,var(--spec-3)) border-box}
 }
 @media (prefers-reduced-transparency: reduce){
   header.haut,#minuteur,.msg{background:var(--marine)} nav.onglets{background:var(--surface)}
-  .carte,details.section{background:var(--surface)} .ligne-seance,a.sem,.chiffre,.confirm,.fracts li{background:var(--surface2)}
+  .carte,details.section{background:var(--surface);border-color:var(--ligne)} .ligne-seance,a.sem,.chiffre,.confirm,.fracts li,.stat{background:var(--surface2)}
 }
 </style>
 </head>
 <body>
+<!-- Écran d'ouverture : le logo apparaît, la barre se déploie, les disques se posent, la flèche monte,
+     un reflet traverse l'icône, puis le nom. Décoratif : il disparaît seul (CSS) même si le script
+     ne se charge pas, et un toucher le passe. -->
+<div id="ouverture" aria-hidden="true">
+  <div class="ouv-halo"></div>
+  <svg class="ouv-logo" viewBox="0 0 100 100" width="132" height="132">
+    <defs>
+      <linearGradient id="ouv-fond" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22357A"/><stop offset="1" stop-color="#101C48"/></linearGradient>
+      <linearGradient id="ouv-lum" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".45"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+      <clipPath id="ouv-clip"><rect width="100" height="100" rx="22"/></clipPath>
+    </defs>
+    <rect width="100" height="100" rx="22" fill="url(#ouv-fond)" stroke="rgba(255,255,255,.18)" stroke-width="1"/>
+    <rect class="o-b" x="17" y="42.5" width="66" height="5" rx="2" fill="#FFFFFF"/>
+    <g class="o-g" fill="#3884C8"><rect x="25" y="30" width="7.5" height="30" rx="2"/><rect x="18.5" y="35" width="5.5" height="20" rx="2"/></g>
+    <g class="o-d" fill="#3884C8"><rect x="67.5" y="30" width="7.5" height="30" rx="2"/><rect x="76" y="35" width="5.5" height="20" rx="2"/></g>
+    <path class="o-f" d="M36 76 L50 66 L64 76" pathLength="1" fill="none" stroke="#FFFFFF" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <g clip-path="url(#ouv-clip)"><rect class="o-r" x="0" y="-10" width="36" height="120" fill="url(#ouv-lum)"/></g>
+  </svg>
+  <p class="ouv-nom">Renfo <span>Cross</span></p>
+  <p class="ouv-sous">Saison de cross 2026-27</p>
+</div>
 <header class="haut" id="entete"><h1>Renfo Cross</h1><p id="sous-titre">Chargement…</p></header>
 <div id="maj" hidden></div>
 <main id="vue" tabindex="-1"></main>
@@ -427,6 +542,8 @@ function route() {
   var lien = document.querySelector('nav.onglets a[data-onglet="' + onglet + '"]');
   if (lien) lien.setAttribute('aria-current', 'page');
   window.scrollTo(0, 0);
+  var vue = document.getElementById('vue');
+  vue.classList.remove('entree'); void vue.offsetWidth; vue.classList.add('entree');
 }
 function entete(titre, sousTitre, retour) {
   document.getElementById('entete').innerHTML =
@@ -986,28 +1103,105 @@ function compterSeances() {
   return { faites: faites, aDate: aDate, total: PLAN.seancesPrevues || total };
 }
 function pct(a, b) { return b ? Math.round(100 * a / b) + ' %' : '—'; }
+// Animations coupées si l'iPhone demande « Réduire les animations ».
+function mouvementReduit() { try { return window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { return false; } }
+// Compteurs : les nombres défilent de 0 à leur valeur (data-compte, data-dec = décimales, data-avant / data-apres = texte autour).
+function animerCompteurs(racine) {
+  var els = racine.querySelectorAll('[data-compte]');
+  function ecrire(el, v) { var d = +el.getAttribute('data-dec') || 0; el.textContent = (el.getAttribute('data-avant') || '') + fmtNb(Math.round(v * Math.pow(10, d)) / Math.pow(10, d)) + (el.getAttribute('data-apres') || ''); }
+  if (mouvementReduit() || !window.requestAnimationFrame) { els.forEach(function (el) { ecrire(el, +el.getAttribute('data-compte')); }); return; }
+  var t0 = null, duree = 900;
+  els.forEach(function (el) { ecrire(el, 0); });
+  function pas(t) {
+    if (t0 === null) t0 = t;
+    var x = Math.min(1, (t - t0) / duree), e = 1 - Math.pow(1 - x, 3); // décélération
+    els.forEach(function (el) { ecrire(el, e * +el.getAttribute('data-compte')); });
+    if (x < 1) requestAnimationFrame(pas);
+  }
+  requestAnimationFrame(pas);
+}
+function compteur(v, dec, avant, apres) {
+  return '<span data-compte="' + v + '" data-dec="' + (dec || 0) + '" data-avant="' + esc(avant || '') + '" data-apres="' + esc(apres || '') + '">' + esc((avant || '') + fmtNb(v) + (apres || '')) + '</span>';
+}
+// Anneau de progression (SVG) : l'arc se remplit à l'ouverture de l'écran.
+function anneau(frac, centre, legende) {
+  var r = 42, c = 2 * Math.PI * r, f = Math.max(0, Math.min(1, frac));
+  return '<div class="anneau"><svg viewBox="0 0 100 100" aria-hidden="true"><circle class="an-fond" cx="50" cy="50" r="' + r + '"/>' +
+    '<circle class="an-arc" cx="50" cy="50" r="' + r + '" stroke-dasharray="' + c.toFixed(1) + '" stroke-dashoffset="' + (mouvementReduit() ? c * (1 - f) : c).toFixed(1) + '" data-cible="' + (c * (1 - f)).toFixed(1) + '"/></svg>' +
+    '<div class="an-centre"><b>' + centre + '</b><span>' + legende + '</span></div></div>';
+}
+// Volume d'une semaine : somme des volumes des séances (même calcul que le résumé de séance).
+function volumeSemaine(sem) {
+  if (!sem.seances) return null;
+  var v = 0, a = false;
+  sem.seances.forEach(function (se) { if (saisieSeance(sem.id, se.n)) { a = true; v += resumeSeance(sem.id, se.n).volume; } });
+  return a ? Math.round(v) : null;
+}
+// Histogramme vertical : une barre par semaine, ancrée sur la ligne de base, qui monte à l'ouverture.
+function histogramme(id, ns, pts, unite) {
+  var vals = ns.map(function (n) { return pts[n]; }).filter(function (v) { return v != null; });
+  if (!vals.length) return '<p class="vide-g">Pas encore de données. Le volume apparaît quand tu coches des séries avec une charge.</p>';
+  GRAPHES[id] = { ns: ns, series: [{ nom: 'Volume', pts: pts }], unite: unite };
+  var W = 340, H = 180, L = 40, R = 10, T = 14, B = 26, mx = Math.max.apply(null, vals);
+  var pas = pasLisible(mx), y1 = Math.ceil(mx / pas) * pas || pas;
+  var Y = function (v) { return T + (1 - v / y1) * (H - T - B); };
+  var larg = (W - L - R) / ns.length, bw = Math.min(22, larg * 0.6);
+  var svg = '<svg viewBox="0 0 ' + W + ' ' + H + '" class="graphe" role="img" aria-label="Volume par semaine, en ' + unite + '">';
+  for (var v = 0; v <= y1 + 1e-9; v += pas) svg += '<line class="grille" x1="' + L + '" x2="' + (W - R) + '" y1="' + Y(v) + '" y2="' + Y(v) + '"/><text class="ax" x="' + (L - 6) + '" y="' + (Y(v) + 4) + '" text-anchor="end">' + fmtNb(v) + '</text>';
+  ns.forEach(function (n, i) {
+    var cx = L + larg * (i + 0.5);
+    if (ns.length <= 8 || i % 2 === 0 || i === ns.length - 1) svg += '<text class="ax" x="' + cx + '" y="' + (H - 8) + '" text-anchor="middle">S' + n + '</text>';
+    if (pts[n] == null) return;
+    var y = Y(pts[n]), h = H - B - y;
+    // Barre à bout arrondi (4 px) en haut, base droite sur l'axe.
+    var r = Math.min(4, h / 2, bw / 2), x = cx - bw / 2;
+    svg += '<path class="barre s1" style="animation-delay:' + (i * 60) + 'ms" d="M' + x + ' ' + (H - B) + 'V' + (y + r) + 'Q' + x + ' ' + y + ' ' + (x + r) + ' ' + y + 'H' + (x + bw - r) + 'Q' + (x + bw) + ' ' + y + ' ' + (x + bw) + ' ' + (y + r) + 'V' + (H - B) + 'Z"/>';
+  });
+  svg += '<line class="curseur" id="' + id + '-c" x1="0" x2="0" y1="' + T + '" y2="' + (H - B) + '" visibility="hidden"/>';
+  ns.forEach(function (n, i) { svg += '<rect class="zone" data-a="col" data-g="' + id + '" data-n="' + n + '" x="' + (L + larg * i) + '" y="0" width="' + larg + '" height="' + H + '"/>'; });
+  svg += '</svg>';
+  var tab = '<details class="rem"><summary>Valeurs</summary><table class="tab"><thead><tr><th scope="col">Semaine</th><th scope="col">Volume (' + unite + ')</th></tr></thead><tbody>';
+  ns.forEach(function (n) { tab += '<tr><th scope="row">S' + n + '</th><td>' + (pts[n] == null ? '—' : fmtNb(pts[n])) + '</td></tr>'; });
+  return svg + '<p class="pointe" id="' + id + '-p" aria-live="polite">Touche une semaine pour voir son volume.</p>' + tab + '</tbody></table></details>';
+}
+// Chiffres clés d'un exercice : dernière valeur, évolution depuis la première semaine renseignée, record.
+function chiffresCles(v) {
+  var src = v.aCharge ? v.e1rm : v.reps, ks = Object.keys(src).map(Number).sort(function (a, b) { return a - b; });
+  if (!ks.length) return '';
+  var dern = src[ks[ks.length - 1]], prem = src[ks[0]], h = '<div class="stats">';
+  h += '<div class="stat"><b>' + compteur(dern, v.aCharge ? 1 : 0, '', v.aCharge ? ' kg' : '') + '</b><span>' + (v.aCharge ? 'e1RM' : 'reps') + ' en S' + ks[ks.length - 1] + '</span></div>';
+  if (ks.length > 1 && prem > 0) {
+    var ev = Math.round(1000 * (dern - prem) / prem) / 10;
+    h += '<div class="stat ' + (ev > 0 ? 'hausse' : (ev < 0 ? 'baisse' : '')) + '"><b><span aria-hidden="true">' + (ev > 0 ? '▲ ' : (ev < 0 ? '▼ ' : '= ')) + '</span>' + compteur(Math.abs(ev), 1, ev > 0 ? '+' : (ev < 0 ? '−' : ''), ' %') + '</b><span>depuis S' + ks[0] + '</span></div>';
+  } else h += '<div class="stat"><b>—</b><span>évolution : 2 semaines nécessaires</span></div>';
+  var rec = v.aCharge ? Math.max.apply(null, Object.keys(v.charge).map(function (k) { return v.charge[k]; })) : Math.max.apply(null, ks.map(function (k) { return src[k]; }));
+  h += '<div class="stat"><b>' + compteur(rec, v.aCharge ? 1 : 0, '', v.aCharge ? ' kg' : '') + '</b><span>' + (v.aCharge ? 'meilleure charge' : 'record') + '</span></div>';
+  return h + '</div>';
+}
 function vueProgression() {
   COURANT = null; GRAPHES = {};
   var ns = semainesAxe(), c = compterSeances(), h = bandeaux();
   entete('Progression', 'S1 à S' + ns[ns.length - 1]);
-  h += '<div class="carte"><h2>Séances faites</h2><div class="chiffres deux">' +
-    '<div class="chiffre"><b>' + c.faites + ' / ' + c.total + '</b><span>du programme<br>' + pct(c.faites, c.total) + '</span></div>' +
-    '<div class="chiffre"><b>' + c.faites + ' / ' + c.aDate + '</b><span>prévues à ce jour<br>' + pct(c.faites, c.aDate) + '</span></div></div>' +
-    '<p class="petit" style="margin:0">' + PLAN.seancesType.length + ' séances par semaine. « À ce jour » : séances dont le jour prévu est passé ou aujourd\'hui. Une séance compte quand tu as appuyé sur « Terminer ».</p></div>';
+  // Régularité : anneau (séances faites / prévues à ce jour) + barre sur tout le programme
+  var reg = c.aDate ? c.faites / c.aDate : 0;
+  h += '<div class="carte"><h2>Régularité</h2><div class="regul">' +
+    anneau(reg, c.aDate ? compteur(Math.round(100 * reg), 0, '', ' %') : '—', 'régularité') +
+    '<div class="regul-txt"><p><b>' + compteur(c.faites, 0) + '</b> séance(s) terminée(s)</p><p class="sec">sur ' + c.aDate + ' prévue(s) à ce jour</p>' +
+    '<div class="jauge" role="img" aria-label="' + c.faites + ' séances faites sur ' + c.total + ' au programme"><i style="width:' + (100 * c.faites / c.total).toFixed(1) + '%"></i></div>' +
+    '<p class="petit" style="margin:4px 0 0">' + c.faites + ' / ' + c.total + ' du programme (' + pct(c.faites, c.total) + ')</p></div></div>' +
+    '<p class="petit" style="margin:8px 0 0">' + PLAN.seancesType.length + ' séances par semaine. Une séance compte quand tu as appuyé sur « Terminer ».</p></div>';
+  // Volume par semaine
+  var vol = {}; ns.forEach(function (n) { var x = volumeSemaine(PLAN.semaines[n - 1]); if (x != null) vol[n] = x; });
+  h += '<div class="carte"><h2>Volume par semaine</h2>' + histogramme('g-volume', ns, vol, 'kg') +
+    '<p class="petit" style="margin:4px 0 0">Somme charge × répétitions des séries cochées, toutes séances (× 2 quand le plan indique deux haltères).</p></div>';
+  // Exercices clés : chiffres clés + courbe
   PLAN.exercicesCles.forEach(function (k) {
     var v = valeursExercice(k.cle), g;
-    if (v.aCharge) {
-      g = graphique('g-' + k.cle, ns, [
-        { nom: 'Charge', cls: 's1', forme: 'rond', pts: v.charge },
-        { nom: 'e1RM', cls: 's2', forme: 'carre', pts: v.e1rm, pointille: true }
-      ], 'kg');
-    } else {
-      g = graphique('g-' + k.cle, ns, [{ nom: 'Reps', cls: 's1', forme: 'rond', pts: v.reps }], 'reps');
-    }
+    if (v.aCharge) g = graphique('g-' + k.cle, ns, [{ nom: 'Charge', cls: 's1', forme: 'rond', pts: v.charge }, { nom: 'e1RM', cls: 's2', forme: 'carre', pts: v.e1rm, pointille: true }], 'kg');
+    else g = graphique('g-' + k.cle, ns, [{ nom: 'Reps', cls: 's1', forme: 'rond', pts: v.reps }], 'reps');
     h += '<div class="carte"><h2>' + esc(k.nom) + '</h2>' +
-      (v.aCharge ? '' : '<p class="petit" style="margin:0 0 6px">Poids du corps dans le plan : meilleure série en répétitions, pas d\'e1RM.</p>') + g + '</div>';
+      (v.aCharge ? '' : '<p class="petit" style="margin:0 0 6px">Poids du corps dans le plan : meilleure série en répétitions, pas d\'e1RM.</p>') + chiffresCles(v) + g + '</div>';
   });
-  // Poids de corps et qualité du fractionné (colonnes de l'onglet Plan)
   var poids = {};
   ns.forEach(function (n) { var b = bilan('S' + n); if (b.poids != null) poids[n] = b.poids; });
   h += '<div class="carte"><h2>Poids de corps</h2>' + graphique('g-poids', ns, [{ nom: 'Poids', cls: 's1', forme: 'rond', pts: poids }], 'kg') + '</div>';
@@ -1017,8 +1211,14 @@ function vueProgression() {
     h += '<li class="' + (f ? f.v : 'vide') + '"><b>S' + n + '</b><span><span aria-hidden="true">' + (f ? f.sym : '–') + '</span> ' + (f ? f.lib : 'non saisi') + '</span></li>';
   });
   h += '</ul><p class="petit" style="margin:6px 0 0">Saisie dans Programme › semaine › Bilan.</p></div>';
-  h += '<p class="petit">e1RM : estimation de la charge maximale sur 1 répétition, formule d\'Epley citée dans l\'onglet Règles : charge × (1 + répétitions / 30). Valeur par semaine : meilleure série cochée « faite ».</p>';
-  document.getElementById('vue').innerHTML = h;
+  h += '<p class="petit">e1RM : estimation de la charge maximale sur 1 répétition, formule d\'Epley citée dans l\'onglet Règles : charge × (1 + répétitions / 30). Valeur par semaine : meilleure série cochée « faite ». Évolution : écart entre la première et la dernière semaine renseignées.</p>';
+  var vue = document.getElementById('vue');
+  vue.innerHTML = h;
+  animerCompteurs(vue);
+  // L'arc de l'anneau se remplit (transition CSS déclenchée à l'image suivante).
+  if (!mouvementReduit()) requestAnimationFrame(function () { requestAnimationFrame(function () {
+    vue.querySelectorAll('.an-arc').forEach(function (a) { a.style.strokeDashoffset = a.getAttribute('data-cible'); });
+  }); });
 }
 
 /* ---------- Graphique en courbes (SVG écrit à la main) ----------
@@ -1026,10 +1226,11 @@ function vueProgression() {
    (rond plein / carré), seconde série en pointillé, étiquette directe au dernier point,
    légende au-dessus, tableau des valeurs. Un tap sur une semaine affiche ses valeurs. */
 var GRAPHES = {};
+// Pas de graduation « rond » (1, 2, 2,5 ou 5 × une puissance de 10) pour 4 intervalles au plus, 0,5 au minimum.
 function pasLisible(etendue) {
-  var c = [0.5, 1, 2, 2.5, 5, 10, 20, 25, 50];
-  for (var i = 0; i < c.length; i++) if (etendue / c[i] <= 4) return c[i];
-  return 100;
+  var brut = etendue / 4, p = Math.pow(10, Math.floor(Math.log(brut) / Math.LN10)), m = [1, 2, 2.5, 5, 10];
+  for (var i = 0; i < m.length; i++) if (m[i] * p >= brut) return Math.max(0.5, m[i] * p);
+  return Math.max(0.5, 10 * p);
 }
 function graphique(id, ns, series, unite) {
   var vals = [];
@@ -1059,19 +1260,21 @@ function graphique(id, ns, series, unite) {
       d += (prec == null ? 'M' : 'L') + X(n).toFixed(1) + ' ' + Y(s.pts[n]).toFixed(1) + ' ';
       prec = n;
     });
-    svg += '<path class="trace ' + s.cls + (s.pointille ? ' pointille' : '') + '" d="' + d + '"/>';
-    var dernier = null;
+    // Ligne pleine : se dessine de gauche à droite ; ligne pointillée : apparaît en fondu.
+    svg += '<path class="trace ' + s.cls + (s.pointille ? ' pointille apparait' : ' dessine') + '"' + (s.pointille ? '' : ' pathLength="1"') + ' d="' + d + '"/>';
+    var dernier = null, k = 0;
     ns.forEach(function (n) {
       if (s.pts[n] == null) return;
       var x = X(n), y = Y(s.pts[n]); dernier = n;
-      svg += s.forme === 'carre' ? '<rect class="mq ' + s.cls + '" x="' + (x - 4.5) + '" y="' + (y - 4.5) + '" width="9" height="9" rx="1"/>' : '<circle class="mq ' + s.cls + '" cx="' + x + '" cy="' + y + '" r="4.5"/>';
+      var st = ' style="animation-delay:' + (250 + 70 * k++) + 'ms"';
+      svg += s.forme === 'carre' ? '<rect class="mq pose ' + s.cls + '"' + st + ' x="' + (x - 4.5) + '" y="' + (y - 4.5) + '" width="9" height="9" rx="1"/>' : '<circle class="mq pose ' + s.cls + '"' + st + ' cx="' + x + '" cy="' + y + '" r="4.5"/>';
     });
     if (dernier != null) etiquettes.push({ x: X(dernier) + 8, y: Y(s.pts[dernier]) + 4, t: (series.length > 1 ? s.nom + ' ' : '') + fmtNb(s.pts[dernier]) });
   });
   // Étiquettes directes : on écarte celles qui se chevauchent
   etiquettes.sort(function (a, b) { return a.y - b.y; });
   for (var i = 1; i < etiquettes.length; i++) if (etiquettes[i].y - etiquettes[i - 1].y < 14) etiquettes[i].y = etiquettes[i - 1].y + 14;
-  etiquettes.forEach(function (e) { svg += '<text class="lab" x="' + e.x + '" y="' + e.y + '">' + esc(e.t) + '</text>'; });
+  etiquettes.forEach(function (e) { svg += '<text class="lab apparait-tard" x="' + e.x + '" y="' + e.y + '">' + esc(e.t) + '</text>'; });
   // Zones de tap (une colonne par semaine, plus large que les marqueurs)
   var larg = ns.length < 2 ? W - L - R : (W - L - R) / (ns.length - 1);
   ns.forEach(function (n) { svg += '<rect class="zone" data-a="col" data-g="' + id + '" data-n="' + n + '" x="' + (X(n) - larg / 2) + '" y="0" width="' + larg + '" height="' + H + '"/>'; });
@@ -1441,6 +1644,14 @@ function demarrer() {
   }
 }
 demarrer();
+(function () {
+  var o = document.getElementById('ouverture');
+  if (!o) return;
+  function fin() { o.classList.add('fini'); }
+  o.addEventListener('animationend', function (e) { if (e.target === o) fin(); });
+  o.addEventListener('click', fin);
+  setTimeout(fin, 3500);
+})();
 </script>
 </body>
 </html>
