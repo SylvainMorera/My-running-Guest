@@ -147,7 +147,7 @@ function lirePrescription(txt, ou) {
   const morceaux = txt.split('·').map(s => s.trim()).filter(Boolean);
   morceaux.forEach((m, i) => {
     let r;
-    if (i === 0 && (r = m.match(/^(\d+)\s*×\s*(\d+)\s*(.*)$/))) {
+    if (i === 0 && (r = m.match(/^(\d+)\s*[×xX]\s*(\d+)\s*(.*)$/))) { // « 4 × 6 » ou « 4 x 6 »
       p.series = +r[1]; p.reps = +r[2];
       const suite = r[3].trim();
       if (/^"/.test(suite)) { p.unite = 's'; p.repsTexte = suite.replace(/^"/, '').trim(); }   // 3 × 30" (/côté)
@@ -173,35 +173,47 @@ function lirePrescription(txt, ou) {
 function lireCharge(txt) {
   let r;
   if (!txt) return { kg: null, mult: 1, min: null, max: null };
-  if ((r = txt.match(/^(\d+(?:,\d+)?)\s*kg$/))) return { kg: nombreFr(r[1]), mult: 1, min: null, max: null };
-  if ((r = txt.match(/^2\s*×\s*(\d+(?:,\d+)?)\s*kg$/))) return { kg: nombreFr(r[1]), mult: 2, min: null, max: null };       // 2 haltères
-  if ((r = txt.match(/^(\d+(?:,\d+)?)\s*kg\s*\(/))) return { kg: nombreFr(r[1]), mult: 1, min: null, max: null };          // « 40 kg (42,5 kg si …) » : 1re valeur
+  if ((r = txt.match(/^(\d+(?:,\d+)?)\s*kg$/i))) return { kg: nombreFr(r[1]), mult: 1, min: null, max: null };
+  if ((r = txt.match(/^2\s*[×xX]\s*(\d+(?:,\d+)?)\s*kg$/i))) return { kg: nombreFr(r[1]), mult: 2, min: null, max: null };       // 2 haltères
+  if ((r = txt.match(/^(\d+(?:,\d+)?)\s*kg\s*\(/i))) return { kg: nombreFr(r[1]), mult: 1, min: null, max: null };          // « 40 kg (42,5 kg si …) » : 1re valeur
   // Fourchette « 14 à 18 kg » (1 haltère) ou « 10 à 12 kg par main » (2 haltères) : pas de valeur unique, rien n'est pré-rempli.
-  if ((r = txt.match(/^(\d+(?:,\d+)?)\s*à\s*(\d+(?:,\d+)?)\s*kg(.*)$/))) return { kg: null, mult: /par main/.test(r[3]) ? 2 : 1, min: nombreFr(r[1]), max: nombreFr(r[2]) };
+  if ((r = txt.match(/^(\d+(?:,\d+)?)\s*à\s*(\d+(?:,\d+)?)\s*kg(.*)$/i))) return { kg: null, mult: /par main/.test(r[3]) ? 2 : 1, min: nombreFr(r[1]), max: nombreFr(r[2]) };
   return { kg: null, mult: 1, min: null, max: null };
 }
 
 // ---------- Onglet semaine ----------
-function lireSemaine(lignes, n) {
+function lireSemaine(lignes, n, seancesType) {
   const ou = 'Onglet S' + n;
   const res = { titre: lignes[0] ? lignes[0][0] || '' : '', consigne: lignes[1] ? lignes[1][0] || '' : '', seances: [] };
   let seance = null, section = null, enteteVue = false;
   lignes.forEach((l, i) => {
     const a = l[0] || '';
     if (i < 2 || !l.length) return;
-    let m = a.match(/^SÉANCE\s+(\d+)\s*:\s*(.+?)\s*·\s*(\S+)\s*(.*?)\s*·\s*(.+)$/);
+    // « SÉANCE 1 : JAMBES · lundi midi · 60 min » ou, sans le jour, « SÉANCE 1 : JAMBES · 60 min ».
+    let m = a.match(/^SÉANCE\s+(\d+)\s*:\s*([^·]+?)\s*·\s*(.+)$/);
     if (m) {
-      const jour = m[3].toLowerCase();
-      if (JOURS.indexOf(jour) < 0) avertir(ou + ', ligne ' + (i + 1) + ' : jour inconnu « ' + m[3] + ' ».');
-      seance = { n: +m[1], nom: phrase(m[2]), jour, jourIndex: JOURS.indexOf(jour), moment: m[4], duree: m[5], sections: [] };
+      const parts = m[3].split('·').map(x => x.trim());
+      let jour, moment = '', duree = parts[parts.length - 1];
+      if (parts.length >= 2) {
+        const mj = parts[0].match(/^(\S+)\s*(.*)$/); jour = mj[1].toLowerCase(); moment = mj[2];
+        if (JOURS.indexOf(jour) < 0) avertir(ou + ', ligne ' + (i + 1) + ' : jour inconnu « ' + mj[1] + ' ».');
+      } else {
+        const t = seancesType[+m[1] - 1];
+        jour = t ? t.jour : '';
+        avertir(ou + ', ligne ' + (i + 1) + ' : jour absent de « ' + a + ' » ; repris de l\'onglet Plan (' + (jour || 'introuvable') + ').');
+      }
+      seance = { n: +m[1], nom: phrase(m[2]), jour, jourIndex: JOURS.indexOf(jour), moment, duree, sections: [] };
       res.seances.push(seance); section = null; enteteVue = false; return;
     }
     if (/^SÉANCE/i.test(a)) { avertir(ou + ', ligne ' + (i + 1) + ' : en-tête de séance illisible « ' + a + ' ».'); return; }
     if (!seance) { avertir(ou + ', ligne ' + (i + 1) + ' : ligne hors séance ignorée « ' + l.join(' | ') + ' ».'); return; }
     if (a === 'Exercice') { enteteVue = true; return; }
     if (!enteteVue) avertir(ou + ', séance ' + seance.n + ' : ligne d\'en-têtes « Exercice | Charge prévue … » manquante.');
-    // Ligne de section : seule la colonne A est remplie.
-    if (l.length === 1) {
+    // Ligne de section : seule la colonne A est remplie, et le nom est celui d'une section
+    // (« Warm up… », « BLOC… », « Retour au calme… » ou durée « (n min) »). Sinon : exercice sans détail.
+    const estSection = l.length === 1 && (/\(\d+\s*min\)$/.test(a) || /^(warm up|bloc|retour au calme)/i.test(a));
+    if (l.length === 1 && !estSection) avertir(ou + ', ligne ' + (i + 1) + ' : « ' + a + ' » n\'a que la colonne A remplie ; traité comme un exercice sans charge ni séries (pas comme une section).');
+    if (estSection) {
       const ms = a.match(/^(.*?)\s*\((\d+)\s*min\)$/);
       const nom = ms ? ms[1] : a;
       section = { nom, minutes: ms ? +ms[2] : null, type: /^(warm up|retour au calme)/i.test(nom) ? 'liste' : 'travail', exercices: [] };
@@ -261,7 +273,7 @@ const plan = lirePlan(lireCSV(fs.readFileSync(f.plan, 'utf8')));
 const regles = lireRegles(lireCSV(fs.readFileSync(f.regles, 'utf8')));
 for (const s of plan.semaines) {
   if (!f.semaines[s.n]) continue;
-  const d = lireSemaine(lireCSV(fs.readFileSync(f.semaines[s.n], 'utf8')), s.n);
+  const d = lireSemaine(lireCSV(fs.readFileSync(f.semaines[s.n], 'utf8')), s.n, plan.seancesType);
   // Contrôle : le titre de l'onglet doit citer le même type de semaine que l'onglet Plan.
   if (s.type && d.titre.indexOf(s.type) < 0) avertir('Onglet S' + s.n + ' : le titre « ' + d.titre + ' » ne mentionne pas le type « ' + s.type + ' » de l\'onglet Plan.');
   Object.assign(s, d);
@@ -286,6 +298,9 @@ const sortie = {
   semaines: plan.semaines,
   avertissements
 };
+// Sécurité : un onglet semaine présent mais sans ses séances donnerait une app vide pour cette semaine.
+const incompletes = plan.semaines.filter(s => s.seances && s.seances.length !== plan.seancesType.length).map(s => s.id);
+if (incompletes.length) { console.error('Plan NON écrit : séances manquantes dans ' + incompletes.join(', ') + '. Corrige le Sheet ou le script.'); process.exit(1); }
 fs.mkdirSync(path.dirname(SORTIE), { recursive: true });
 fs.writeFileSync(SORTIE, JSON.stringify(sortie, null, 1) + '\n');
 const detaillees = plan.semaines.filter(s => s.seances).map(s => s.id);
