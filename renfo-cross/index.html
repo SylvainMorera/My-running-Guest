@@ -609,7 +609,7 @@ function vueAujourdhui() {
   if (nDuJour) {
     var t = PLAN.seancesType[nDuJour - 1], detail = seanceDuPlan(sem, nDuJour), st = statutSeance(sem, nDuJour);
     h += '<div class="carte"><h2>Séance ' + nDuJour + ' : ' + esc(t.nom) + '</h2>' +
-      '<p class="sec" style="margin:0 0 10px">' + (detail ? esc(detail.jour + ' ' + detail.moment + ' · ' + detail.duree) : 'Pas encore détaillée dans le plan.') + ' · <span class="statut ' + st.cle + '">' + st.txt + '</span></p>' +
+      '<p class="sec" style="margin:0 0 10px">' + (detail ? esc([detail.jour, detail.moment].filter(Boolean).join(' ') + ' · ' + detail.duree) : 'Pas encore détaillée dans le plan.') + ' · <span class="statut ' + st.cle + '">' + st.txt + '</span></p>' +
       '<a class="btn large" href="#/seance/' + sem.id + '/' + nDuJour + '">' + (st.cle === 'faite' ? 'Revoir la séance' : (st.cle === 'encours' ? 'Reprendre la séance' : 'Commencer la séance')) + '</a></div>';
   } else {
     var p = prochaineSeance(auj), regle = regleDuJour(JOURS[auj.getDay()]);

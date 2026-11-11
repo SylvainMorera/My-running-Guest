@@ -1,6 +1,6 @@
 {
  "format": 1,
- "genereLe": "2026-11-10T13:46:28.183Z",
+ "genereLe": "2026-11-11T08:38:58.591Z",
  "sources": [
   "Plan.csv",
   "Règles.csv",
@@ -189,7 +189,7 @@
      "nom": "Jambes",
      "jour": "lundi",
      "jourIndex": 1,
-     "moment": "midi",
+     "moment": "",
      "duree": "60 min",
      "sections": [
       {
@@ -254,23 +254,25 @@
          }
         },
         {
-         "id": "pont-fessier",
-         "nom": "Pont fessier",
+         "id": "cars-standing-hip",
+         "nom": "CARS standing Hip",
          "cle": null,
          "chargePrevue": "",
-         "prescription": "1 × 12",
-         "remarques": "Pause 1 s en haut",
+         "prescription": "3/3",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 12,
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "3/3"
+          ]
          },
          "charge": {
           "kg": null,
@@ -280,23 +282,25 @@
          }
         },
         {
-         "id": "marche-laterale-elastique",
-         "nom": "Marche latérale élastique",
+         "id": "flexion-dorsale-de-cheville-avec-elastique",
+         "nom": "Flexion dorsale de cheville avec élastique",
          "cle": null,
-         "chargePrevue": "Élastique autour des genoux",
-         "prescription": "1 × 10 pas/côté",
+         "chargePrevue": "",
+         "prescription": "1'/1'",
          "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 10,
+          "series": null,
+          "reps": null,
           "unite": "",
-          "repsTexte": "pas/côté",
+          "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "1'/1'"
+          ]
          },
          "charge": {
           "kg": null,
@@ -306,16 +310,44 @@
          }
         },
         {
-         "id": "squat-gobelet",
-         "nom": "Squat gobelet",
+         "id": "kb-hip-flexor",
+         "nom": "KB Hip flexor",
          "cle": null,
-         "chargePrevue": "Léger",
-         "prescription": "1 × 8",
-         "remarques": "Descente contrôlée",
+         "chargePrevue": "",
+         "prescription": "3 x 6/6 + 8/8\nNo rest",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 8,
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 x 6/6 + 8/8\nNo rest"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "hip-extension-activation",
+         "nom": "Hip extension activation",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
@@ -412,6 +444,58 @@
          "charge": {
           "kg": 10,
           "mult": 2,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-curl",
+         "nom": "Leg Curl",
+         "cle": null,
+         "chargePrevue": "35kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-extension",
+         "nom": "Leg Extension",
+         "cle": null,
+         "chargePrevue": "35Kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
           "min": null,
           "max": null
          }
@@ -549,7 +633,7 @@
      "nom": "Tronc et prévention",
      "jour": "mardi",
      "jourIndex": 2,
-     "moment": "midi",
+     "moment": "",
      "duree": "60 min",
      "sections": [
       {
@@ -964,7 +1048,7 @@
      "nom": "Haut du corps",
      "jour": "jeudi",
      "jourIndex": 4,
-     "moment": "midi",
+     "moment": "",
      "duree": "60 min",
      "sections": [
       {
@@ -1347,23 +1431,25 @@
          }
         },
         {
-         "id": "pont-fessier",
-         "nom": "Pont fessier",
+         "id": "cars-standing-hip",
+         "nom": "CARS standing Hip",
          "cle": null,
          "chargePrevue": "",
-         "prescription": "1 × 12",
-         "remarques": "Pause 1 s en haut",
+         "prescription": "3/3",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 12,
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "3/3"
+          ]
          },
          "charge": {
           "kg": null,
@@ -1373,23 +1459,25 @@
          }
         },
         {
-         "id": "marche-laterale-elastique",
-         "nom": "Marche latérale élastique",
+         "id": "flexion-dorsale-de-cheville-avec-elastique",
+         "nom": "Flexion dorsale de cheville avec élastique",
          "cle": null,
-         "chargePrevue": "Élastique autour des genoux",
-         "prescription": "1 × 10 pas/côté",
+         "chargePrevue": "",
+         "prescription": "1'/1'",
          "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 10,
+          "series": null,
+          "reps": null,
           "unite": "",
-          "repsTexte": "pas/côté",
+          "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "1'/1'"
+          ]
          },
          "charge": {
           "kg": null,
@@ -1399,16 +1487,44 @@
          }
         },
         {
-         "id": "squat-gobelet",
-         "nom": "Squat gobelet",
+         "id": "kb-hip-flexor",
+         "nom": "KB Hip flexor",
          "cle": null,
-         "chargePrevue": "Léger",
-         "prescription": "1 × 8",
-         "remarques": "Descente contrôlée",
+         "chargePrevue": "",
+         "prescription": "3 x 6/6 + 8/8\nNo rest",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 8,
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 x 6/6 + 8/8\nNo rest"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "hip-extension-activation",
+         "nom": "Hip extension activation",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
@@ -1505,6 +1621,58 @@
          "charge": {
           "kg": 10,
           "mult": 2,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-curl",
+         "nom": "Leg Curl",
+         "cle": null,
+         "chargePrevue": "35kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-extension",
+         "nom": "Leg Extension",
+         "cle": null,
+         "chargePrevue": "35Kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
           "min": null,
           "max": null
          }
@@ -2440,23 +2608,25 @@
          }
         },
         {
-         "id": "pont-fessier",
-         "nom": "Pont fessier",
+         "id": "cars-standing-hip",
+         "nom": "CARS standing Hip",
          "cle": null,
          "chargePrevue": "",
-         "prescription": "1 × 12",
-         "remarques": "Pause 1 s en haut",
+         "prescription": "3/3",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 12,
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "3/3"
+          ]
          },
          "charge": {
           "kg": null,
@@ -2466,23 +2636,25 @@
          }
         },
         {
-         "id": "marche-laterale-elastique",
-         "nom": "Marche latérale élastique",
+         "id": "flexion-dorsale-de-cheville-avec-elastique",
+         "nom": "Flexion dorsale de cheville avec élastique",
          "cle": null,
-         "chargePrevue": "Élastique autour des genoux",
-         "prescription": "1 × 10 pas/côté",
+         "chargePrevue": "",
+         "prescription": "1'/1'",
          "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 10,
+          "series": null,
+          "reps": null,
           "unite": "",
-          "repsTexte": "pas/côté",
+          "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "1'/1'"
+          ]
          },
          "charge": {
           "kg": null,
@@ -2492,16 +2664,44 @@
          }
         },
         {
-         "id": "squat-gobelet",
-         "nom": "Squat gobelet",
+         "id": "kb-hip-flexor",
+         "nom": "KB Hip flexor",
          "cle": null,
-         "chargePrevue": "Léger",
-         "prescription": "1 × 8",
-         "remarques": "Descente contrôlée",
+         "chargePrevue": "",
+         "prescription": "3 x 6/6 + 8/8\nNo rest",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 8,
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 x 6/6 + 8/8\nNo rest"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "hip-extension-activation",
+         "nom": "Hip extension activation",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
@@ -2598,6 +2798,58 @@
          "charge": {
           "kg": 12,
           "mult": 2,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-curl",
+         "nom": "Leg Curl",
+         "cle": null,
+         "chargePrevue": "35kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-extension",
+         "nom": "Leg Extension",
+         "cle": null,
+         "chargePrevue": "35Kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
           "min": null,
           "max": null
          }
@@ -3533,23 +3785,25 @@
          }
         },
         {
-         "id": "pont-fessier",
-         "nom": "Pont fessier",
+         "id": "cars-standing-hip",
+         "nom": "CARS standing Hip",
          "cle": null,
          "chargePrevue": "",
-         "prescription": "1 × 12",
-         "remarques": "Pause 1 s en haut",
+         "prescription": "3/3",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 12,
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "3/3"
+          ]
          },
          "charge": {
           "kg": null,
@@ -3559,23 +3813,25 @@
          }
         },
         {
-         "id": "marche-laterale-elastique",
-         "nom": "Marche latérale élastique",
+         "id": "flexion-dorsale-de-cheville-avec-elastique",
+         "nom": "Flexion dorsale de cheville avec élastique",
          "cle": null,
-         "chargePrevue": "Élastique autour des genoux",
-         "prescription": "1 × 10 pas/côté",
+         "chargePrevue": "",
+         "prescription": "1'/1'",
          "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 10,
+          "series": null,
+          "reps": null,
           "unite": "",
-          "repsTexte": "pas/côté",
+          "repsTexte": "",
           "rpeCible": "",
           "tempo": "",
           "recupSec": null,
           "recupTexte": "",
-          "autres": []
+          "autres": [
+           "1'/1'"
+          ]
          },
          "charge": {
           "kg": null,
@@ -3585,16 +3841,44 @@
          }
         },
         {
-         "id": "squat-gobelet",
-         "nom": "Squat gobelet",
+         "id": "kb-hip-flexor",
+         "nom": "KB Hip flexor",
          "cle": null,
-         "chargePrevue": "Léger",
-         "prescription": "1 × 8",
-         "remarques": "Descente contrôlée",
+         "chargePrevue": "",
+         "prescription": "3 x 6/6 + 8/8\nNo rest",
+         "remarques": "",
          "saisie": "case",
          "p": {
-          "series": 1,
-          "reps": 8,
+          "series": null,
+          "reps": null,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "",
+          "recupSec": null,
+          "recupTexte": "",
+          "autres": [
+           "3 x 6/6 + 8/8\nNo rest"
+          ]
+         },
+         "charge": {
+          "kg": null,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "hip-extension-activation",
+         "nom": "Hip extension activation",
+         "cle": null,
+         "chargePrevue": "",
+         "prescription": "",
+         "remarques": "",
+         "saisie": "case",
+         "p": {
+          "series": null,
+          "reps": null,
           "unite": "",
           "repsTexte": "",
           "rpeCible": "",
@@ -3691,6 +3975,58 @@
          "charge": {
           "kg": 8,
           "mult": 2,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-curl",
+         "nom": "Leg Curl",
+         "cle": null,
+         "chargePrevue": "35kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
+          "min": null,
+          "max": null
+         }
+        },
+        {
+         "id": "leg-extension",
+         "nom": "Leg Extension",
+         "cle": null,
+         "chargePrevue": "35Kg",
+         "prescription": "4 x 6 · Tempo 2-2-2 · R 90\"",
+         "remarques": "",
+         "saisie": "series",
+         "p": {
+          "series": 4,
+          "reps": 6,
+          "unite": "",
+          "repsTexte": "",
+          "rpeCible": "",
+          "tempo": "2-2-2",
+          "recupSec": 90,
+          "recupTexte": "90\"",
+          "autres": []
+         },
+         "charge": {
+          "kg": 35,
+          "mult": 1,
           "min": null,
           "max": null
          }
@@ -4824,5 +5160,13 @@
    "seances": null
   }
  ],
- "avertissements": []
+ "avertissements": [
+  "Onglet S1, ligne 4 : jour absent de « SÉANCE 1 : JAMBES · 60 min » ; repris de l'onglet Plan (lundi).",
+  "Onglet S1, ligne 12 : « Hip extension activation » n'a que la colonne A remplie ; traité comme un exercice sans charge ni séries (pas comme une section).",
+  "Onglet S1, ligne 26 : jour absent de « SÉANCE 2 : TRONC ET PRÉVENTION · 60 min » ; repris de l'onglet Plan (mardi).",
+  "Onglet S1, ligne 48 : jour absent de « SÉANCE 3 : HAUT DU CORPS · 60 min » ; repris de l'onglet Plan (jeudi).",
+  "Onglet S2, ligne 12 : « Hip extension activation » n'a que la colonne A remplie ; traité comme un exercice sans charge ni séries (pas comme une section).",
+  "Onglet S3, ligne 12 : « Hip extension activation » n'a que la colonne A remplie ; traité comme un exercice sans charge ni séries (pas comme une section).",
+  "Onglet S4, ligne 12 : « Hip extension activation » n'a que la colonne A remplie ; traité comme un exercice sans charge ni séries (pas comme une section)."
+ ]
 }
